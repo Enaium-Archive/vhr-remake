@@ -1,4 +1,4 @@
-/*
+/*!
  * Copyright 2023 Enaium
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import { createApp } from "vue"
-import App from "@/App.vue"
-import ElementPlus from "element-plus"
-import "element-plus/dist/index.css"
-import "@/style.scss"
-import router from "@/router"
-import { createPinia } from "pinia"
+@import "bootstrap/scss/bootstrap";
 
-import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+:root {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
-
-
-createApp(App).use(ElementPlus).use(router).use(pinia).mount("#app")
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
