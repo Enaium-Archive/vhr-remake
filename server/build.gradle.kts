@@ -17,16 +17,18 @@ repositories {
     mavenCentral()
 }
 
-val jimmer : String by project
-val mapstruct : String by project
+val jimmer: String by project
+val mapstruct: String by project
+val hutool: String by project
 
 dependencies {
-    implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:${jimmer}")
+    implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:$jimmer")
     ksp("org.babyfish.jimmer:jimmer-ksp:$jimmer")
-    implementation("org.mapstruct:mapstruct:${mapstruct}")
-    kapt("org.mapstruct:mapstruct-processor:${mapstruct}")
-    kapt("org.babyfish.jimmer:jimmer-mapstruct-apt:${jimmer}")
+    implementation("org.mapstruct:mapstruct:$mapstruct")
+    kapt("org.mapstruct:mapstruct-processor:$mapstruct")
+    kapt("org.babyfish.jimmer:jimmer-mapstruct-apt:$jimmer")
 
+    implementation("cn.hutool:hutool-captcha:$hutool")
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
