@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mariadb://192.168.56.101
