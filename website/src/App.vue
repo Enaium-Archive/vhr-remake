@@ -14,7 +14,11 @@
   - limitations under the License.
   -->
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from "vue-router"
+
+window.$router = useRouter()
+</script>
 
 <template>
   <RouterView />

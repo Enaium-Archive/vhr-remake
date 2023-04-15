@@ -1,9 +1,15 @@
+host: 192.168.56.101
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mariadb://192.168.56.101/vhr
+    url: jdbc:mariadb://${host}/vhr
+  data:
+    redis:
+      host: ${host}
 server:
   servlet:
     context-path: /api
+jimmer:
+  language: kotlin
