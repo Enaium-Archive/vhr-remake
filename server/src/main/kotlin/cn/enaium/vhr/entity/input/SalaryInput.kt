@@ -75,8 +75,7 @@ data class SalaryInput(
      */
     val accumulationfundper: Any?,
     val name: String?,
-
-    ) : Input<Salary> {
+) : Input<Salary> {
 
     override fun toEntity(): Salary {
         return CONVERTER.toSalary(this)

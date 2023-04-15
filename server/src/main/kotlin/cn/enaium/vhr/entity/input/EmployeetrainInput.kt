@@ -42,7 +42,7 @@ data class EmployeetrainInput(
      * 备注
      */
     val remark: String?,
-    ) : Input<Employeetrain> {
+) : Input<Employeetrain> {
 
     override fun toEntity(): Employeetrain {
         return CONVERTER.toEmployeetrain(this)

@@ -38,7 +38,7 @@ data class OplogInput(
      * 操作员ID
      */
     val hrid: Int?,
-    ) : Input<Oplog> {
+) : Input<Oplog> {
 
     override fun toEntity(): Oplog {
         return CONVERTER.toOplog(this)
