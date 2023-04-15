@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Politicsstatus
+import cn.enaium.vhr.model.entity.Politicsstatus
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**

@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Msgcontent
+import cn.enaium.vhr.model.entity.Msgcontent
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**

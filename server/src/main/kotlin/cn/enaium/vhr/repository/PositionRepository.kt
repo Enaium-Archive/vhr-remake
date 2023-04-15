@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Position
+import cn.enaium.vhr.model.entity.Position
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**

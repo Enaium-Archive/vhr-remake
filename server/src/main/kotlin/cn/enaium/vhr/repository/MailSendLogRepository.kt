@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.MailSendLog
+import cn.enaium.vhr.model.entity.MailSendLog
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**

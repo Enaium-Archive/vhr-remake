@@ -1,6 +1,6 @@
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Hr
+import cn.enaium.vhr.model.entity.Hr
 import org.babyfish.jimmer.spring.repository.KRepository
 import org.springframework.stereotype.Repository
 

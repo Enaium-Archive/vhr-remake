@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Salary
+import cn.enaium.vhr.model.entity.Salary
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**

@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Oplog
+import cn.enaium.vhr.model.entity.Oplog
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**

@@ -1,6 +1,6 @@
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Adjustsalary
+import cn.enaium.vhr.model.entity.Adjustsalary
 import org.babyfish.jimmer.spring.repository.KRepository
 import org.springframework.stereotype.Repository
 

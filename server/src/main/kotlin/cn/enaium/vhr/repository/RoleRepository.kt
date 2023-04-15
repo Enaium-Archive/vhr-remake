@@ -15,7 +15,7 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.entity.Role
+import cn.enaium.vhr.model.entity.Role
 import org.babyfish.jimmer.spring.repository.KRepository
 
 /**
