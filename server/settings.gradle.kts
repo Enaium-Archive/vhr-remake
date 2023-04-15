@@ -2,11 +2,13 @@ rootProject.name = "vhr-remake"
 
 pluginManagement {
     val kotlin: String by settings
+    val springboot: String by settings
     repositories {
         gradlePluginPortal()
     }
 
     plugins {
+        id("org.springframework.boot") version springboot
         kotlin("jvm") version kotlin
         kotlin("plugin.spring") version kotlin
         kotlin("kapt") version kotlin
