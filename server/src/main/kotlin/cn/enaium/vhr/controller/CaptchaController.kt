@@ -34,7 +34,7 @@ class CaptchaController {
         val captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 4)
         response.contentType = "image/jpeg"
         captcha.write(response.outputStream)
-        request.session.setAttribute("code", captcha.code)
+        request.getSession(true).setAttribute("code", captcha.code)
         response.outputStream.close()
     }
 }
