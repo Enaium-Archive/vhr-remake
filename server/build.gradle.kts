@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.0.5"
+    id("org.springframework.boot")
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm")
     kotlin("plugin.spring")
@@ -20,6 +20,7 @@ repositories {
 val jimmer: String by project
 val mapstruct: String by project
 val hutool: String by project
+val satoken: String by project
 
 dependencies {
     implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:$jimmer")
@@ -27,6 +28,10 @@ dependencies {
     implementation("org.mapstruct:mapstruct:$mapstruct")
     kapt("org.mapstruct:mapstruct-processor:$mapstruct")
     kapt("org.babyfish.jimmer:jimmer-mapstruct-apt:$jimmer")
+
+    implementation("cn.dev33:sa-token-spring-boot-starter:$satoken")
+    implementation("cn.dev33:sa-token-dao-redis-jackson:$satoken")
+    implementation("org.apache.commons:commons-pool2")
 
     implementation("cn.hutool:hutool-captcha:$hutool")
     implementation("org.springframework.boot:spring-boot-starter-amqp")

@@ -16,25 +16,26 @@
 
 package cn.enaium.vhr.controller
 
+import cn.enaium.vhr.model.response.CaptchaResponse
+import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.service.CaptchaService
 import cn.hutool.captcha.CaptchaUtil
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 /**
  * @author Enaium
  */
 @RestController
 @RequestMapping("/captcha")
-class CaptchaController {
+class CaptchaController(val captchaService: CaptchaService) {
     @GetMapping
-    fun get(request: HttpServletRequest, response: HttpServletResponse) {
-        val captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 4)
-        response.contentType = "image/jpeg"
-        captcha.write(response.outputStream)
-        request.getSession(true).setAttribute("code", captcha.code)
-        response.outputStream.close()
+    fun get(): Result<Any?> {
+        val captcha = CaptchaUtil.createShearCaptcha(120, 50, 4, 4)
+        val uuid = UUID.randomUUID()
+        captchaService.saveCaptcha(uuid, captcha.code)
+        return Result.Builder.success(metadata = CaptchaResponse(uuid, captcha.imageBase64Data))
     }
 }

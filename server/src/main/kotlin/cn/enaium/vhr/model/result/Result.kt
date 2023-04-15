@@ -29,6 +29,9 @@ data class Result<T>(val code: Int, val message: String, val metadata: T) {
     enum class Status(val code: Int, val message: String) {
         SUCCESS(200, "成功"),
         FAIL(999, "失败"),
+        USERNAME_DOESNT_EXIST(2001, "用户名不存"),
+        PASSWORD_INCORRECT(2002, "密码不正确"),
+        CAPTCHA_INCORRECT(2003, "验证码过期或不正确")
     }
 
     object Builder {
