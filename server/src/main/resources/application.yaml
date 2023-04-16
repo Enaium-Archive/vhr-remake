@@ -13,3 +13,6 @@ server:
     context-path: /api
 jimmer:
   language: kotlin
+  show-sql: true
+sa-token:
+  token-name: token
