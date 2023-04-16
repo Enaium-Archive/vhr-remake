@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-internal interface MsgcontentRepository : KRepository<Msgcontent, Long>
+interface MsgcontentRepository : KRepository<Msgcontent, Long>

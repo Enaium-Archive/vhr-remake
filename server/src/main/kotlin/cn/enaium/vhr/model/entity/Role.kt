@@ -25,4 +25,10 @@ interface Role {
     /**
      *  角色名称 */
     val nameZh: String?
+
+    @ManyToMany(mappedBy = "roles")
+    val menus: List<Menu>
+
+    @ManyToMany(mappedBy = "roles")
+    val hrs: List<Hr>
 }

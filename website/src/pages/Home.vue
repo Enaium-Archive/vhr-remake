@@ -15,13 +15,70 @@
   -->
 
 <script setup lang="ts">
+import { ElMessage, ElMessageBox } from "element-plus"
+import { useUserStore } from "@/store"
+import { useRoute } from "vue-router"
 
+const route = useRoute()
+
+const userStore = useUserStore()
+
+const handleCommand = (command: string | number | object) => {
+  if (command == "logout") {
+    ElMessageBox.confirm("此操作将注销登录, 是否继续?", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning",
+    })
+      .then(() => {
+        userStore.token = null
+        userStore.id = null
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消注销",
+        })
+      })
+  } else if (command == "hrinfo") {
+    window.$router.push({ path: "/hr-info" })
+  }
+}
 </script>
 
 <template>
+  <ElContainer class="">
+    <ElHeader class="d-flex justify-content-between align-items-center" style="background-color: #409eff">
+      <div style="font-size: 30px; color: white">微人事重制版</div>
+      <ElDropdown style="cursor: pointer" @command="handleCommand">
+        <span class="d-flex align-items-center">123</span>
+        <template #dropdown>
+          <ElDropdownMenu>
+            <ElDropdownItem command="hrinfo">个人中心</ElDropdownItem>
+            <ElDropdownItem command="setting">设置</ElDropdownItem>
+            <ElDropdownItem command="logout">注销登录</ElDropdownItem>
+          </ElDropdownMenu>
+        </template>
+      </ElDropdown>
+    </ElHeader>
+    <ElContainer>
+      <ElAside width="200px">
+        <ElMenu router unique-opened>
+          <ElSubMenu>
 
+          </ElSubMenu>
+        </ElMenu>
+      </ElAside>
+      <ElMain>
+        <ElBreadcrumb separator="/" v-if="route.path != '/home'">
+          <ElBreadcrumbItem :to="{ path: '/home' }">首页</ElBreadcrumbItem>
+          <ElBreadcrumbItem>{{ route.name }}</ElBreadcrumbItem>
+        </ElBreadcrumb>
+        <div v-if="route.path == '/home'">欢迎来到微人事！</div>
+        <RouterView class="mt-1" />
+      </ElMain>
+    </ElContainer>
+  </ElContainer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -16,7 +16,39 @@
 
 export interface IResult<T> {
   code: number
-  message: string,
+  message: string
   metadata: T
 }
 
+export interface IHr {
+  id?: number
+  name?: string
+  phone?: string
+  telephone?: string
+  address?: string
+  enable?: boolean
+  username?: string
+  password?: string
+  oldPassword?: string
+  userface?: string
+  remark?: string
+  roles?: IRole[]
+}
+
+export interface IRole {
+  id?: number
+  name?: string
+}
+
+export interface IMenu {
+  id?: number
+  url?: string
+  path?: string
+  component?: string
+  name?: string
+  iconCls?: string
+  keepAlive?: boolean
+  requireAuth?: boolean
+  parentId?: number
+  enable?: boolean
+}

@@ -20,18 +20,7 @@ export const useUserStore = defineStore("user-store", {
   state: () => ({
     token: null as string | null,
     id: null as number | null,
+    routes: [],
   }),
-  getters: {
-    getToken: (state): string | null => state.token,
-    getId: (state): number | null => state.id,
-  },
-  actions: {
-    setToken(token: string | null) {
-      this.token = token
-    },
-    setId(id: number | null) {
-      this.id = id
-    },
-  },
   persist: true,
 })

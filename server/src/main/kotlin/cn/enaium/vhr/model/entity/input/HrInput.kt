@@ -44,7 +44,7 @@ data class HrInput(
      * 联系地址
      */
     val address: String?,
-    val enabled: Int?,
+    val enabled: Boolean?,
     /**
      * 用户名
      */
@@ -52,7 +52,8 @@ data class HrInput(
     /**
      * 密码
      */
-    val password: String?,
+    var password: String?,
+    var oldPassword: String?,
     val userface: String?,
     val remark: String?,
 ) : Input<Hr> {

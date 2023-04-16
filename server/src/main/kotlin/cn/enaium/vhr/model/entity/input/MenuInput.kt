@@ -33,7 +33,7 @@ data class MenuInput(
     val keepalive: Int?,
     val requireauth: Int?,
     val parentid: Int?,
-    val enabled: Int?,
+    val enabled: Boolean?,
 ) : Input<Menu> {
 
     override fun toEntity(): Menu {

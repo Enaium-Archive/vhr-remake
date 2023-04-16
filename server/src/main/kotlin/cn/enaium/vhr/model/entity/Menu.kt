@@ -57,8 +57,22 @@ interface Menu {
      */
     val parentId: Int?
 
+    @OneToOne
+    val parent: Menu?
+
     /**
      *  enabled
      */
-    val enabled: Int?
+    val enabled: Boolean?
+
+    /**
+     * Menu多对多Role
+     */
+    @ManyToMany
+    @JoinTable(
+        name = "menu_role",//中间表名
+        joinColumnName = "mid",//Menu的ID
+        inverseJoinColumnName = "rid"//Role的ID
+    )
+    val roles: List<Role>
 }

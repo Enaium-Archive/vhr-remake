@@ -50,10 +50,11 @@ const login = (formEl: FormInstance | undefined) => {
       loading.value = true
 
       put<{ id: number; token: string }>("/state", { ...loginForm, captcha: captcha.id }).then((r) => {
-        userStore.setId(r.metadata.id)
-        userStore.setToken(r.metadata.token)
-        ElMessage({ type: "success", message: "登录成功" })
         loading.value = false
+        userStore.id = r.metadata.id
+        userStore.token = r.metadata.token
+        ElMessage({ type: "success", message: "登录成功" })
+        window.$router.push({ path: "/home" })
       })
     } else {
       console.log("error submit!", fields)

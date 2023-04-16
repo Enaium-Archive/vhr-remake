@@ -35,7 +35,7 @@ interface Hr {
     /**
      *  enabled
      */
-    val enabled: Int?
+    val enabled: Boolean?
 
     /**
      *  用户名 */
@@ -54,4 +54,15 @@ interface Hr {
      *  remark
      */
     val remark: String?
+
+    /**
+     * HR多对多Role
+     */
+    @ManyToMany
+    @JoinTable(
+        name = "hr_role",//中间表名
+        joinColumnName = "hrid",//HR的ID
+        inverseJoinColumnName = "rid"//Role的ID
+    )
+    val roles: List<Role>
 }

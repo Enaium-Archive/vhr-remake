@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.model.entity.MenuRole
-import org.babyfish.jimmer.spring.repository.KRepository
+import { get } from "@/util/reuqest"
+import { IMenu } from "@/util/model"
+import { useUserStore } from "@/store"
 
-/**
- * 数据交互类
- *
- * @author Enaium
- */
-internal interface MenuRoleRepository : KRepository<MenuRole, Long>
+const userStore = useUserStore()
+
+export const initMenu = () => {
+  if (userStore.routes.length > 0) {
+    return
+  }
+  get<IMenu[]>("/system/menu").then((r) => {
+    if (r.metadata) {
+
+    }
+  })
+}

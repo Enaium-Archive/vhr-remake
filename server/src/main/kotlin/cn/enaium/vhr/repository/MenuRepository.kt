@@ -15,12 +15,23 @@
  */
 package cn.enaium.vhr.repository
 
-import cn.enaium.vhr.model.entity.Menu
+import cn.enaium.vhr.model.entity.*
 import org.babyfish.jimmer.spring.repository.KRepository
+import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.springframework.stereotype.Repository
 
 /**
  * 数据交互类
  *
  * @author Enaium
  */
-internal interface MenuRepository : KRepository<Menu, Long>
+@Repository
+interface MenuRepository : KRepository<Menu, Int> {
+    fun findAllByHrId(hrId: Int): List<Menu> {
+        return sql.createQuery(Menu::class) {
+            where(table.asTableEx().roles.hrs.id eq hrId, table.enabled eq true)
+            orderBy(table.id)
+            select(table)
+        }.execute()
+    }
+}
