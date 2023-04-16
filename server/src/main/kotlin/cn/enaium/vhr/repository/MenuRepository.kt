@@ -18,6 +18,8 @@ package cn.enaium.vhr.repository
 import cn.enaium.vhr.model.entity.*
 import org.babyfish.jimmer.spring.repository.KRepository
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.ast.expression.or
+import org.babyfish.jimmer.sql.kt.ast.table.isNull
 import org.springframework.stereotype.Repository
 
 /**
@@ -29,9 +31,27 @@ import org.springframework.stereotype.Repository
 interface MenuRepository : KRepository<Menu, Int> {
     fun findAllByHrId(hrId: Int): List<Menu> {
         return sql.createQuery(Menu::class) {
-            where(table.asTableEx().roles.hrs.id eq hrId, table.enabled eq true)
-            orderBy(table.id)
-            select(table)
+            where(table.parent.isNull())
+            select(table.fetchBy {
+                allScalarFields()
+                children({
+                    recursive()
+                    filter {
+                        where(
+                            table.enabled eq true,
+                            or(
+                                table.asTableEx().`roles?`.isNull(),
+                                table.asTableEx().`roles?`.`hrs?`.id eq hrId
+                            )
+                        )
+                    }
+                }) {
+                    allScalarFields()
+                    roles {
+                        allScalarFields()
+                    }
+                }
+            })
         }.execute()
     }
 }

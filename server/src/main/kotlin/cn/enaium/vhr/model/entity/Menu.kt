@@ -52,13 +52,15 @@ interface Menu {
      */
     val requireAuth: Int?
 
-    /**
-     *  parentId
-     */
-    val parentId: Int?
-
-    @OneToOne
+    @Key
+    @ManyToOne
     val parent: Menu?
+
+    /**
+     * 自关联
+     */
+    @OneToMany(mappedBy = "parent", orderedProps = [OrderedProp("name")])
+    val children: List<Menu>
 
     /**
      *  enabled
