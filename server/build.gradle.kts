@@ -29,7 +29,7 @@ dependencies {
     kapt("org.mapstruct:mapstruct-processor:$mapstruct")
     kapt("org.babyfish.jimmer:jimmer-mapstruct-apt:$jimmer")
 
-    implementation("cn.dev33:sa-token-spring-boot-starter:$satoken")
+    implementation("cn.dev33:sa-token-spring-boot3-starter:$satoken")
     implementation("cn.dev33:sa-token-dao-redis-jackson:$satoken")
     implementation("org.apache.commons:commons-pool2")
 
