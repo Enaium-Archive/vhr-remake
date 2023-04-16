@@ -51,4 +51,5 @@ export interface IMenu {
   requireAuth?: boolean
   parentId?: number
   enable?: boolean
+  children?: IMenu[]
 }

@@ -3,7 +3,7 @@ import Login from "@/pages/Login.vue"
 import Home from "@/pages/Home.vue"
 import FriendChat from "@/pages/chat/FriendChat.vue"
 import HRInfo from "@/pages/HRInfo.vue"
-import { useUserStore } from "@/store"
+import { initMenu } from "@/util/menu"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -41,12 +41,8 @@ router.beforeEach((to, from, next) => {
   if (to.path == "/") {
     next()
   } else {
-    if (useUserStore().token) {
-      next()
-    } else {
-      // next('/?redirect=' + to.path);
-      next()
-    }
+    initMenu()
+    next()
   }
 })
 

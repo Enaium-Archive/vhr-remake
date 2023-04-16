@@ -16,17 +16,43 @@
 
 import { get } from "@/util/reuqest"
 import { IMenu } from "@/util/model"
-import { useUserStore } from "@/store"
-
-const userStore = useUserStore()
+import { RouteRecordRaw } from "vue-router"
+import router from "@/router"
 
 export const initMenu = () => {
-  if (userStore.routes.length > 0) {
-    return
-  }
   get<IMenu[]>("/system/menu").then((r) => {
-    if (r.metadata) {
-
-    }
+    formatMenus(r.metadata)
   })
+}
+
+const formatMenus = (menus: IMenu[]) => {
+  let fmMenus: RouteRecordRaw[] = []
+  menus.forEach((menu) => {
+    let children: RouteRecordRaw[] = []
+    if (menu.children) {
+      children = formatMenus(menu.children)
+    }
+
+    router.addRoute({
+      path: menu.path!,
+      name: menu.name!,
+      component() {
+        if (menu.component!.startsWith("Home")) {
+          require("../views/" + menu.component! + ".vue")
+        } else if (menu.component!.startsWith("Emp")) {
+          require("../views/emp/" + menu.component! + ".vue")
+        } else if (menu.component!.startsWith("Per")) {
+          require("../views/per/" + menu.component! + ".vue")
+        } else if (menu.component!.startsWith("Sal")) {
+          require("../views/sal/" + menu.component! + ".vue")
+        } else if (menu.component!.startsWith("Sta")) {
+          require("../views/sta/" + menu.component! + ".vue")
+        } else if (menu.component!.startsWith("Sys")) {
+          require("../views/sys/" + menu.component! + ".vue")
+        }
+      },
+      children: children,
+    })
+  })
+  return fmMenus
 }
