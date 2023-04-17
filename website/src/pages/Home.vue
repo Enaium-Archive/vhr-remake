@@ -44,6 +44,10 @@ const handleCommand = (command: string | number | object) => {
     window.$router.push({ path: "/hr-info" })
   }
 }
+
+const handleSelect = (key: string, keyPath: string[]) => {
+  window.$router.push({ path: key })
+}
 </script>
 
 <template>
@@ -63,9 +67,18 @@ const handleCommand = (command: string | number | object) => {
     </ElHeader>
     <ElContainer>
       <ElAside width="200px">
-        <ElMenu router unique-opened>
-          <ElSubMenu>
-
+        <ElMenu @select="handleSelect" unique-opened>
+          <ElSubMenu
+            :index="menuIndex"
+            v-for="(menu, menuIndex) in userStore.menus[0].children"
+            :key="menuIndex"
+          >
+            <template #title>
+              {{ menu.name }}
+            </template>
+            <ElMenuItem :index="child.path" v-for="(child, childIndex) in menu.children" :key="childIndex">
+              {{ child.name }}
+            </ElMenuItem>
           </ElSubMenu>
         </ElMenu>
       </ElAside>
