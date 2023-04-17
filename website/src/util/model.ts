@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
+import { Degree, Wedlock } from "@/util/type"
+
 export interface IResult<T> {
   code: number
   message: string
   metadata: T
 }
+
+export interface IPage<T> {
+  content: T[]
+  totalPages: number
+  totalElements: number
+  size: number
+  number: number
+}
+
 
 export interface IHr {
   id?: number
@@ -52,4 +63,35 @@ export interface IMenu {
   parentId?: number
   enable?: boolean
   children?: IMenu[]
+}
+
+export interface IEmployee {
+  id?: number
+  name?: string
+  gender?: string
+  birthday?: string
+  idCard?: string
+  wedlock?: Wedlock
+  nationId?: number
+  nativePlace?: string
+  politicId?: number
+  email?: string
+  phone?: string
+  address?: string
+  departmentId?: number
+  jobLeveId?: number
+  postId?: number
+  engageForm?: string
+  tiptopDegree: Degree
+  specialty?: string
+  school?: string
+  beginDate?: string
+  workState?: string
+  workId?: string
+  contractTerm?: string
+  conversionTime?: string
+  notWorkDate?: string
+  beginWontract?: string
+  endContract?: string
+  workAge?: number
 }
