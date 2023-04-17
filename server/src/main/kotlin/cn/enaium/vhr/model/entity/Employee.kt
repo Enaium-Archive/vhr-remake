@@ -1,5 +1,6 @@
 package cn.enaium.vhr.model.entity
 
+import cn.enaium.vhr.model.type.Employee
 import org.babyfish.jimmer.sql.*
 import java.time.LocalDate
 
@@ -35,7 +36,7 @@ interface Employee {
 
     /**
      *  婚姻状况 */
-    val wedlock: String?
+    val wedlock: Employee.Wedlock?
 
     /**
      *  民族 */
@@ -79,7 +80,7 @@ interface Employee {
 
     /**
      *  最高学历 */
-    val tiptopDegree: String?
+    val tiptopDegree: Employee.Degree?
 
     /**
      *  所属专业 */
@@ -95,7 +96,7 @@ interface Employee {
 
     /**
      *  在职状态 */
-    val workState: String?
+    val workState: Employee.State?
 
     /**
      *  工号 */
