@@ -9,7 +9,7 @@ import java.time.LocalDateTime
  */
 @Entity
 @Table(name = "joblevel")
-interface Joblevel {
+interface JobLevel {
 
     /**
      *  id
@@ -35,5 +35,8 @@ interface Joblevel {
     /**
      *  enabled
      */
-    val enabled: Int?
+    val enabled: Boolean?
+
+    @OneToMany(mappedBy = "department")
+    val employees: List<Employee>
 }

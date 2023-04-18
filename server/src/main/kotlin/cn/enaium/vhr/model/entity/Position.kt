@@ -31,5 +31,8 @@ interface Position {
     /**
      *  enabled
      */
-    val enabled: Int?
+    val enabled: Boolean?
+
+    @OneToMany(mappedBy = "pos")
+    val employees: List<Employee>
 }

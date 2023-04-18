@@ -18,7 +18,7 @@
 import { reactive, ref } from "vue"
 import { ElMessage, FormInstance, FormRules } from "element-plus"
 import { get, put } from "@/util/reuqest"
-import { IHr } from "@/util/model"
+import { IHr } from "@/model"
 import { useUserStore } from "@/store"
 
 const userStore = useUserStore()

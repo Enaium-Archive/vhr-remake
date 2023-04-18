@@ -16,7 +16,7 @@
 
 import { defineStore } from "pinia"
 import { RouteRecordRaw } from "vue-router"
-import { IMenu } from "@/util/model";
+import { IMenu } from "@/model";
 
 export const useUserStore = defineStore("user-store", {
   state: () => ({

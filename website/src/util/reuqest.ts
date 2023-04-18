@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { IResult } from "@/util/model"
+import { IResult } from "@/model"
 import http from "@/util/http"
 
 export const get = async <T>(url: string): Promise<IResult<T>> => {

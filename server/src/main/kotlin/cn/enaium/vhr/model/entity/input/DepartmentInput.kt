@@ -31,7 +31,7 @@ data class DepartmentInput(
     val name: String?,
     val parentid: Int?,
     val deppath: String?,
-    val enabled: Int?,
+    val enabled: Boolean?,
     val isparent: Int?,
 ) : Input<Department> {
 

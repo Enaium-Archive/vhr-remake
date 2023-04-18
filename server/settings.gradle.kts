@@ -2,6 +2,7 @@ rootProject.name = "vhr-remake"
 
 pluginManagement {
     val kotlin: String by settings
+    val ksp: String by settings
     val springboot: String by settings
     repositories {
         gradlePluginPortal()
@@ -12,6 +13,6 @@ pluginManagement {
         kotlin("jvm") version kotlin
         kotlin("plugin.spring") version kotlin
         kotlin("kapt") version kotlin
-        id("com.google.devtools.ksp") version "${kotlin}-1.0.9"
+        id("com.google.devtools.ksp") version "${kotlin}-${ksp}"
     }
 }

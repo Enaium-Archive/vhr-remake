@@ -13,25 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package cn.enaium.vhr.repository
 
-export enum Wedlock {
-  MARRIED = "已婚",
-  SINGLE = "未婚",
-  DIVORCED = "离异",
-}
+import cn.enaium.vhr.model.entity.Politic
+import org.babyfish.jimmer.spring.repository.KRepository
 
-export enum Degree {
-  DOCTOR = "博士",
-  MASTER = "硕士",
-  BEN = "本科",
-  ZHUAN = "专科",
-  HEIGHT = "高中",
-  MIDDLE = "初中",
-  LOW = "小学",
-  OTHER = "替他",
-}
-
-export enum State {
-  STAY = "在职",
-  LEAVING = "离职",
-}
+/**
+ * 数据交互类
+ *
+ * @author Enaium
+ */
+interface PoliticRepository : KRepository<Politic, Long>

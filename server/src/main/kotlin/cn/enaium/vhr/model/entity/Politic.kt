@@ -8,7 +8,7 @@ import org.babyfish.jimmer.sql.*
  */
 @Entity
 @Table(name = "politicsstatus")
-interface Politicsstatus {
+interface Politic {
 
     /**
      *  id
@@ -21,4 +21,7 @@ interface Politicsstatus {
      *  name
      */
     val name: String?
+
+    @OneToMany(mappedBy = "politic")
+    val employees: List<Employee>
 }

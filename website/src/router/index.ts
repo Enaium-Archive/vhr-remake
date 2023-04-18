@@ -5,7 +5,7 @@ import FriendChat from "@/pages/chat/FriendChat.vue"
 import HRInfo from "@/pages/HRInfo.vue"
 import { useUserStore } from "@/store"
 import { get } from "@/util/reuqest"
-import { IMenu } from "@/util/model"
+import { IMenu } from "@/model"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -87,7 +87,6 @@ const formatMenus = (menus: IMenu[]) => {
         route.component = modules["../pages/sys/" + menu.component + ".vue"]
       }
     }
-    console.log(route);
     router.addRoute(route)
     fmMenus.push(route)
   })

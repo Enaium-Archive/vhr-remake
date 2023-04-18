@@ -16,7 +16,7 @@
 
 package cn.enaium.vhr.model.entity.input
 
-import cn.enaium.vhr.model.entity.Joblevel
+import cn.enaium.vhr.model.entity.JobLevel
 import org.babyfish.jimmer.Input
 import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper
@@ -24,7 +24,7 @@ import org.mapstruct.ReportingPolicy
 import org.mapstruct.factory.Mappers
 import java.util.*
 
-data class JoblevelInput(
+data class JobLevelInput(
     val id: Int?,
     /**
      * 职称名称
@@ -32,17 +32,17 @@ data class JoblevelInput(
     val name: String?,
     val titlelevel: Any?,
     val createdate: Date?,
-    val enabled: Int?,
-) : Input<Joblevel> {
+    val enabled: Boolean?,
+) : Input<JobLevel> {
 
-    override fun toEntity(): Joblevel {
+    override fun toEntity(): JobLevel {
         return CONVERTER.toJoblevel(this)
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toJoblevel(input: JoblevelInput): Joblevel
+        fun toJoblevel(input: JobLevelInput): JobLevel
     }
 
     companion object {

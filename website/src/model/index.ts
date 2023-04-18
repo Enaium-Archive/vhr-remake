@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import { Degree, Wedlock } from "@/util/type"
+import { Employee } from "@/model/type/employee"
+import Wedlock = Employee.Wedlock
+import Degree = Employee.Degree
 
 export interface IResult<T> {
   code: number
@@ -29,7 +31,6 @@ export interface IPage<T> {
   size: number
   number: number
 }
-
 
 export interface IHr {
   id?: number
@@ -79,7 +80,10 @@ export interface IEmployee {
   phone?: string
   address?: string
   departmentId?: number
-  jobLeveId?: number
+  department: IDepartment
+  jobLevelId?: number
+  jobLevel?: IJobLevel
+  posId?: number
   postId?: number
   engageForm?: string
   tiptopDegree: Degree
@@ -91,7 +95,40 @@ export interface IEmployee {
   contractTerm?: string
   conversionTime?: string
   notWorkDate?: string
-  beginWontract?: string
+  beginContract?: string
   endContract?: string
   workAge?: number
+}
+
+export interface IDepartment {
+  id?: number
+  name?: string
+  parentId?: string
+  depPath?: boolean
+  isParent: boolean
+}
+
+export interface IJobLevel {
+  id?: number
+  name?: string
+  titleLevel?: string
+  createDate?: string
+  enabled?: boolean
+}
+
+export interface INation {
+  id?: number
+  name?: string
+}
+
+export interface IPolitic {
+  id?: number
+  name?: string
+}
+
+export interface IPosition {
+  id?: number
+  name?: string
+  createData?: string
+  enable?: boolean
 }

@@ -16,7 +16,7 @@
 
 package cn.enaium.vhr.model.entity.input
 
-import cn.enaium.vhr.model.entity.Politicsstatus
+import cn.enaium.vhr.model.entity.Politic
 import org.babyfish.jimmer.Input
 import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper
@@ -26,16 +26,16 @@ import org.mapstruct.factory.Mappers
 data class PoliticsstatusInput(
     val id: Int?,
     val name: String?,
-) : Input<Politicsstatus> {
+) : Input<Politic> {
 
-    override fun toEntity(): Politicsstatus {
+    override fun toEntity(): Politic {
         return CONVERTER.toPoliticsstatus(this)
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toPoliticsstatus(input: PoliticsstatusInput): Politicsstatus
+        fun toPoliticsstatus(input: PoliticsstatusInput): Politic
     }
 
     companion object {

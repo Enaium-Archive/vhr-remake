@@ -31,7 +31,7 @@ data class PositionInput(
      */
     val name: String?,
     val createdate: Date?,
-    val enabled: Int?,
+    val enabled: Boolean?,
 ) : Input<Position> {
 
     override fun toEntity(): Position {

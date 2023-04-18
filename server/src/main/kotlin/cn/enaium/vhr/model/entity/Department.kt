@@ -34,10 +34,13 @@ interface Department {
     /**
      *  enabled
      */
-    val enabled: Int?
+    val enabled: Boolean?
 
     /**
      *  isParent
      */
-    val isParent: Int?
+    val isParent: Boolean?
+
+    @OneToMany(mappedBy = "jobLevel")
+    val employees: List<Employee>
 }
