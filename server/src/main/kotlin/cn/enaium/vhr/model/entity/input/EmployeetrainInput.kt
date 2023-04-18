@@ -14,46 +14,53 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
+import java.util.Date;
 
-import cn.enaium.vhr.model.entity.Employeetrain
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
-import java.util.*
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Employeetrain;
 
 data class EmployeetrainInput(
-    val id: Int?,
+        val id: Int?,
+    
     /**
      * 员工编号
      */
     val eid: Int?,
+    
     /**
      * 培训日期
      */
-    val traindate: Date?,
+    val trainDate: Date?,
+    
     /**
      * 培训内容
      */
-    val traincontent: String?,
+    val trainContent: String?,
+    
     /**
      * 备注
      */
     val remark: String?,
+    
 ) : Input<Employeetrain> {
 
     override fun toEntity(): Employeetrain {
-        return CONVERTER.toEmployeetrain(this)
+        return CONVERTER.toEmployeetrain(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toEmployeetrain(input: EmployeetrainInput): Employeetrain
+        fun toEmployeetrain(input: EmployeetrainInput): Employeetrain;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

@@ -14,33 +14,40 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
-import cn.enaium.vhr.model.entity.Sysmsg
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Sysmsg;
 
 data class SysmsgInput(
-    val id: Int?,
+        val id: Int?,
+    
     /**
      * 消息id
      */
     val mid: Int?,
+    
     /**
      * 0表示群发消息
      */
     val type: Int?,
+    
     /**
      * 这条消息是给谁的
      */
     val hrid: Int?,
+    
     /**
      * 0 未读 1 已读
      */
     val state: Int?,
+    
 ) : Input<Sysmsg> {
 
     override fun toEntity(): Sysmsg {
@@ -52,7 +59,7 @@ data class SysmsgInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toSysmsg(input: SysmsgInput): Sysmsg;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

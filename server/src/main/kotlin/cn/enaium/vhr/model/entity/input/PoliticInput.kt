@@ -14,30 +14,33 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
 import cn.enaium.vhr.model.entity.Politic
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
+import org.babyfish.jimmer.Input;
 
-data class PoliticsstatusInput(
-    val id: Int?,
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+data class PoliticInput(
+        val id: Int?,
+    
     val name: String?,
+    
 ) : Input<Politic> {
 
     override fun toEntity(): Politic {
-        return CONVERTER.toPoliticsstatus(this)
+        return CONVERTER.toPolitic(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toPoliticsstatus(input: PoliticsstatusInput): Politic
+        fun toPolitic(input: PoliticInput): Politic;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

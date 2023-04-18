@@ -1,5 +1,6 @@
 package cn.enaium.vhr.model.entity
 
+import cn.enaium.vhr.model.type.Level
 import org.babyfish.jimmer.sql.*
 import java.time.LocalDateTime
 
@@ -25,7 +26,7 @@ interface JobLevel {
     /**
      *  titleLevel
      */
-    val titleLevel: String?
+    val titleLevel: Level?
 
     /**
      *  createDate

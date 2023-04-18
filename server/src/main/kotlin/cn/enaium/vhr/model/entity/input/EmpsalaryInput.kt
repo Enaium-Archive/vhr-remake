@@ -14,31 +14,36 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
-import cn.enaium.vhr.model.entity.Empsalary
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Empsalary;
 
 data class EmpsalaryInput(
-    val id: Int?,
+        val id: Int?,
+    
     val eid: Int?,
+    
     val sid: Int?,
+    
 ) : Input<Empsalary> {
 
     override fun toEntity(): Empsalary {
-        return CONVERTER.toEmpsalary(this)
+        return CONVERTER.toEmpsalary(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toEmpsalary(input: EmpsalaryInput): Empsalary
+        fun toEmpsalary(input: EmpsalaryInput): Empsalary;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

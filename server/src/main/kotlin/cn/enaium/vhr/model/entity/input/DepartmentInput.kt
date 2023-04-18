@@ -14,37 +14,45 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
-import cn.enaium.vhr.model.entity.Department
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Department;
 
 data class DepartmentInput(
-    val id: Int?,
+        val id: Int?,
+    
     /**
      * 部门名称
      */
     val name: String?,
-    val parentid: Int?,
-    val deppath: String?,
+    
+    val parentId: Int?,
+    
+    val depPath: String?,
+    
     val enabled: Boolean?,
-    val isparent: Int?,
+    
+    val isParent: Int?,
+    
 ) : Input<Department> {
 
     override fun toEntity(): Department {
-        return CONVERTER.toDepartment(this)
+        return CONVERTER.toDepartment(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toDepartment(input: DepartmentInput): Department
+        fun toDepartment(input: DepartmentInput): Department;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

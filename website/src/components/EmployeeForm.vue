@@ -17,8 +17,9 @@
 <script setup lang="ts">
 import { IDepartment, IEmployee, IJobLevel, INation, IPolitic, IPosition } from "@/model"
 import { Employee } from "@/model/type/employee"
-import { ref } from "vue"
-import { get } from "@/util/reuqest"
+import { reactive, ref } from "vue"
+import { get, put } from "@/util/reuqest"
+import { ElMessage, FormInstance, FormRules } from "element-plus"
 
 const degreeParse = Employee.degreeParse
 
@@ -53,10 +54,70 @@ get<IPolitic[]>("/employee/politic").then((r) => {
 get<IDepartment[]>("/employee/department").then((r) => {
   departments.value = r.metadata
 })
+
+const employeeRule = reactive<FormRules>({
+  name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  gender: [{ required: true, message: "请输入性别", trigger: "blur" }],
+  birthday: [{ required: true, message: "请输入出生日期", trigger: "blur" }],
+  idCard: [
+    { required: true, message: "请输入身份证号码", trigger: "blur" },
+    {
+      pattern:
+        /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/,
+      message: "身份证号码格式不正确",
+      trigger: "blur",
+    },
+  ],
+  wedlock: [{ required: true, message: "请输入婚姻状况", trigger: "blur" }],
+  nationId: [{ required: true, message: "请输入您组", trigger: "blur" }],
+  nativePlace: [{ required: true, message: "请输入籍贯", trigger: "blur" }],
+  politicId: [{ required: true, message: "请输入政治面貌", trigger: "blur" }],
+  email: [
+    { required: true, message: "请输入邮箱地址", trigger: "blur" },
+    {
+      type: "email",
+      message: "邮箱格式不正确",
+      trigger: "blur",
+    },
+  ],
+  phone: [{ required: true, message: "请输入电话号码", trigger: "blur" }],
+  address: [{ required: true, message: "请输入员工地址", trigger: "blur" }],
+  departmentId: [{ required: true, message: "请输入部门名称", trigger: "blur" }],
+  jobLevelId: [{ required: true, message: "请输入职称", trigger: "blur" }],
+  posId: [{ required: true, message: "请输入职位", trigger: "blur" }],
+  engageForm: [{ required: true, message: "请输入聘用形式", trigger: "blur" }],
+  tiptopDegree: [{ required: true, message: "请输入学历", trigger: "blur" }],
+  specialty: [{ required: true, message: "请输入专业", trigger: "blur" }],
+  school: [{ required: true, message: "请输入毕业院校", trigger: "blur" }],
+  beginDate: [{ required: true, message: "请输入入职日期", trigger: "blur" }],
+  workState: [{ required: true, message: "请输入工作状态", trigger: "blur" }],
+  workID: [{ required: true, message: "请输入工号", trigger: "blur" }],
+  contractTerm: [{ required: true, message: "请输入合同期限", trigger: "blur" }],
+  conversionTime: [{ required: true, message: "请输入转正日期", trigger: "blur" }],
+  notworkDate: [{ required: true, message: "请输入离职日期", trigger: "blur" }],
+  beginContract: [{ required: true, message: "请输入合同起始日期", trigger: "blur" }],
+  endContract: [{ required: true, message: "请输入合同结束日期", trigger: "blur" }],
+  workAge: [{ required: true, message: "请输入工龄", trigger: "blur" }],
+})
+
+const formRef = ref<FormInstance>()
+
+const submit = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.validate((valid, fields) => {
+    if (valid) {
+      put("/employee", props.employee).then((r) => {
+        if (r.code == 200) {
+          ElMessage({ type: "success", message: "更新成功" })
+        }
+      })
+    }
+  })
+}
 </script>
 
 <template>
-  <ElForm>
+  <ElForm :model="props.employee" :rules="employeeRule" ref="formRef">
     <ElRow>
       <ElCol :span="6">
         <ElFormItem label="姓名:" prop="name">
@@ -294,13 +355,16 @@ get<IDepartment[]>("/employee/department").then((r) => {
       <ElCol :span="8">
         <ElFormItem label="婚姻状况:" prop="wedlock">
           <ElRadioGroup v-model="props.employee.wedlock">
-            <ElRadio label="已婚">已婚</ElRadio>
-            <ElRadio label="未婚">未婚</ElRadio>
-            <ElRadio label="离异">离异</ElRadio>
+            <ElRadio label="MARRIED">已婚</ElRadio>
+            <ElRadio label="SINGLE">未婚</ElRadio>
+            <ElRadio label="DIVORCED">离异</ElRadio>
           </ElRadioGroup>
         </ElFormItem>
       </ElCol>
     </ElRow>
+    <el-form-item>
+      <el-button type="primary" @click="submit(formRef)">提交</el-button>
+    </el-form-item>
   </ElForm>
 </template>
 

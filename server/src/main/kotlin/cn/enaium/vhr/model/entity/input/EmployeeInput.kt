@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
 import cn.enaium.vhr.model.entity.Employee
+import cn.enaium.vhr.model.type.Degree
+import cn.enaium.vhr.model.type.State
+import cn.enaium.vhr.model.type.Wedlock
 import org.babyfish.jimmer.Input
 import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper
@@ -29,124 +32,152 @@ data class EmployeeInput(
      * 员工编号
      */
     val id: Int?,
+
     /**
      * 员工姓名
      */
     val name: String?,
+
     /**
      * 性别
      */
     val gender: String?,
+
     /**
      * 出生日期
      */
     val birthday: Date?,
+
     /**
      * 身份证号
      */
-    val idcard: String?,
+    val idCard: String?,
+
     /**
      * 婚姻状况
      */
-    val wedlock: String?,
+    val wedlock: Wedlock?,
+
     /**
      * 民族
      */
-    val nationid: Int?,
+    val nationId: Int?,
+
     /**
      * 籍贯
      */
-    val nativeplace: String?,
+    val nativePlace: String?,
+
     /**
      * 政治面貌
      */
-    val politicid: Int?,
+    val politicId: Int?,
+
     /**
      * 邮箱
      */
     val email: String?,
+
     /**
      * 电话号码
      */
     val phone: String?,
+
     /**
      * 联系地址
      */
     val address: String?,
+
     /**
      * 所属部门
      */
-    val departmentid: Int?,
+    val departmentId: Int?,
+
     /**
      * 职称ID
      */
-    val joblevelid: Int?,
+    val jobLevelId: Int?,
+
     /**
      * 职位ID
      */
-    val posid: Int?,
+    val posId: Int?,
+
     /**
      * 聘用形式
      */
-    val engageform: String?,
+    val engageForm: String?,
+
     /**
      * 最高学历
      */
-    val tiptopdegree: String?,
+    val tiptopDegree: Degree?,
+
     /**
      * 所属专业
      */
     val specialty: String?,
+
     /**
      * 毕业院校
      */
     val school: String?,
+
     /**
      * 入职日期
      */
-    val begindate: Date?,
+    val beginDate: Date?,
+
     /**
      * 在职状态
      */
-    val workstate: String?,
+    val workState: State?,
+
     /**
      * 工号
      */
-    val workid: String?,
+    val workId: String?,
+
     /**
      * 合同期限
      */
-    val contractterm: String?,
+    val contractTerm: String?,
+
     /**
      * 转正日期
      */
-    val conversiontime: Date?,
+    val conversionTime: Date?,
+
     /**
      * 离职日期
      */
-    val notworkdate: Date?,
+    val notWorkDate: Date?,
+
     /**
      * 合同起始日期
      */
-    val begincontract: Date?,
+    val beginContract: Date?,
+
     /**
      * 合同终止日期
      */
-    val endcontract: Date?,
+    val endContract: Date?,
+
     /**
      * 工龄
      */
-    val workage: Int?,
-) : Input<Employee> {
+    val workAge: Int?,
+
+    ) : Input<Employee> {
 
     override fun toEntity(): Employee {
-        return CONVERTER.toEmployee(this)
+        return CONVERTER.toEmployee(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toEmployee(input: EmployeeInput): Employee
+        fun toEmployee(input: EmployeeInput): Employee;
     }
 
     companion object {

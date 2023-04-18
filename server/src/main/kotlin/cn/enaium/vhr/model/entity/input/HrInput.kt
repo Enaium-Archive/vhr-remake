@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
 import cn.enaium.vhr.model.entity.Hr
 import org.babyfish.jimmer.Input
@@ -28,44 +28,54 @@ data class HrInput(
      * hrID
      */
     val id: Int?,
+
     /**
      * 姓名
      */
     val name: String?,
+
     /**
      * 手机号码
      */
     val phone: String?,
+
     /**
      * 住宅电话
      */
     val telephone: String?,
+
     /**
      * 联系地址
      */
     val address: String?,
+
     val enabled: Boolean?,
+
     /**
      * 用户名
      */
     val username: String?,
+
     /**
      * 密码
      */
     var password: String?,
-    var oldPassword: String?,
+    val oldPassword: String?,
+
     val userface: String?,
+
     val remark: String?,
-) : Input<Hr> {
+
+    ) : Input<Hr> {
 
     override fun toEntity(): Hr {
-        return CONVERTER.toHr(this)
+        return CONVERTER.toHr(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toHr(input: HrInput): Hr
+        fun toHr(input: HrInput): Hr;
     }
 
     companion object {

@@ -14,37 +14,45 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
+import java.util.Date;
 
-import cn.enaium.vhr.model.entity.JobLevel
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
-import java.util.*
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.JobLevel;
+import cn.enaium.vhr.model.type.Level
 
 data class JobLevelInput(
     val id: Int?,
+
     /**
      * 职称名称
      */
     val name: String?,
-    val titlelevel: Any?,
-    val createdate: Date?,
+
+    val titleLevel: Level?,
+
+    val createDate: Date?,
+
     val enabled: Boolean?,
-) : Input<JobLevel> {
+
+    ) : Input<JobLevel> {
 
     override fun toEntity(): JobLevel {
-        return CONVERTER.toJoblevel(this)
+        return CONVERTER.toJobLevel(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toJoblevel(input: JobLevelInput): JobLevel
+        fun toJobLevel(input: JobLevelInput): JobLevel;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

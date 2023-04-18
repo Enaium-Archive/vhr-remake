@@ -17,14 +17,13 @@
 package cn.enaium.vhr.controller
 
 import cn.enaium.vhr.model.entity.*
+import cn.enaium.vhr.model.entity.input.EmployeeInput
 import cn.enaium.vhr.model.result.Result
 import cn.enaium.vhr.repository.*
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 /**
@@ -77,7 +76,21 @@ class EmployeeController(
     }
 
     @GetMapping("/department")
-    fun department() : Result<List<Department>?> {
+    fun department(): Result<List<Department>?> {
         return Result.Builder.success(metadata = departmentRepository.findAll())
+    }
+
+    @PutMapping
+    fun put(@RequestBody employeeInput: EmployeeInput): Result<Nothing?> {
+        employeeRepository.save(employeeInput) {
+            setMode(SaveMode.UPDATE_ONLY)
+        }
+        return Result.Builder.success()
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Int): Result<Nothing?> {
+        employeeRepository.deleteById(id)
+        return Result.Builder.success()
     }
 }

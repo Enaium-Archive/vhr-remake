@@ -14,48 +14,57 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
+import java.util.Date;
 
-import cn.enaium.vhr.model.entity.Employeeremove
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
-import java.util.*
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Employeeremove;
 
 data class EmployeeremoveInput(
-    val id: Int?,
+        val id: Int?,
+    
     val eid: Int?,
+    
     /**
      * 调动后部门
      */
-    val afterdepid: Int?,
+    val afterDepid: Int?,
+    
     /**
      * 调动后职位
      */
-    val afterjobid: Int?,
+    val afterJobid: Int?,
+    
     /**
      * 调动日期
      */
-    val removedate: Date?,
+    val removeDate: Date?,
+    
     /**
      * 调动原因
      */
     val reason: String?,
+    
     val remark: String?,
+    
 ) : Input<Employeeremove> {
 
     override fun toEntity(): Employeeremove {
-        return CONVERTER.toEmployeeremove(this)
+        return CONVERTER.toEmployeeremove(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toEmployeeremove(input: EmployeeremoveInput): Employeeremove
+        fun toEmployeeremove(input: EmployeeremoveInput): Employeeremove;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

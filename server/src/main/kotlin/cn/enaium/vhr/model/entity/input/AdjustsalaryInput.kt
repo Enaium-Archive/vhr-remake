@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
 
 import cn.enaium.vhr.model.entity.Adjustsalary
 import org.babyfish.jimmer.Input
@@ -26,37 +26,44 @@ import java.util.*
 
 data class AdjustsalaryInput(
     val id: Int?,
+
     val eid: Int?,
+
     /**
      * 调薪日期
      */
     val asdate: Date?,
+
     /**
      * 调前薪资
      */
     val beforesalary: Int?,
+
     /**
      * 调后薪资
      */
     val aftersalary: Int?,
+
     /**
      * 调薪原因
      */
     val reason: String?,
+
     /**
      * 备注
      */
     val remark: String?,
+
     ) : Input<Adjustsalary> {
 
     override fun toEntity(): Adjustsalary {
-        return CONVERTER.toAdjustsalary(this)
+        return CONVERTER.toAdjustsalary(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toAdjustsalary(input: AdjustsalaryInput): Adjustsalary
+        fun toAdjustsalary(input: AdjustsalaryInput): Adjustsalary;
     }
 
     companion object {

@@ -21,47 +21,17 @@ import org.babyfish.jimmer.sql.EnumItem
 /**
  * @author Enaium
  */
-enum class Wedlock {
-    @EnumItem(name = "已婚")
-    MARRIED,
-
-    @EnumItem(name = "未婚")
-    SINGLE,
-
-    @EnumItem(name = "离异")
-    DIVORCED
-}
-
-enum class Degree {
-    @EnumItem(name = "博士")
-    DOCTOR,
-
-    @EnumItem(name = "硕士")
-    MASTER,
-
-    @EnumItem(name = "本科")
-    BEN,
-
-    @EnumItem(name = "大专")
-    ZHUAN,
-
-    @EnumItem(name = "高中")
+enum class Level {
+    @EnumItem(name = "正高级")
     HEIGHT,
 
-    @EnumItem(name = "初中")
+    @EnumItem(name = "副高级")
+    PRE_HEIGHT,
+
+    @EnumItem(name = "中级")
     MIDDLE,
-
-    @EnumItem(name = "小学")
+    @EnumItem(name = "初级")
     LOW,
-
-    @EnumItem(name = "其他")
-    OTHER
-}
-
-enum class State {
-    @EnumItem(name = "在职")
-    STAY,
-
-    @EnumItem(name = "离职")
-    LEAVING
+    @EnumItem(name = "员级")
+    NOOB
 }

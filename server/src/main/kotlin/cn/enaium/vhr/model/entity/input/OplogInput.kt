@@ -14,42 +14,48 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
+import java.util.Date;
 
-import cn.enaium.vhr.model.entity.Oplog
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
-import java.util.*
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Oplog;
 
 data class OplogInput(
-    val id: Int?,
+        val id: Int?,
+    
     /**
      * 添加日期
      */
-    val adddate: Date?,
+    val addDate: Date?,
+    
     /**
      * 操作内容
      */
     val operate: String?,
+    
     /**
      * 操作员ID
      */
     val hrid: Int?,
+    
 ) : Input<Oplog> {
 
     override fun toEntity(): Oplog {
-        return CONVERTER.toOplog(this)
+        return CONVERTER.toOplog(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toOplog(input: OplogInput): Oplog
+        fun toOplog(input: OplogInput): Oplog;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

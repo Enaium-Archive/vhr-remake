@@ -14,54 +14,63 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.model.entity.input
+package cn.enaium.vhr.model.entity.input;
+import java.util.Date;
 
-import cn.enaium.vhr.model.entity.Employeeec
-import org.babyfish.jimmer.Input
-import org.mapstruct.BeanMapping
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
-import org.mapstruct.factory.Mappers
-import java.util.*
+import org.babyfish.jimmer.Input;
+
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
+
+import cn.enaium.vhr.model.entity.Employeeec;
 
 data class EmployeeecInput(
-    val id: Int?,
+        val id: Int?,
+    
     /**
      * 员工编号
      */
     val eid: Int?,
+    
     /**
      * 奖罚日期
      */
-    val ecdate: Date?,
+    val ecDate: Date?,
+    
     /**
      * 奖罚原因
      */
-    val ecreason: String?,
+    val ecReason: String?,
+    
     /**
      * 奖罚分
      */
-    val ecpoint: Int?,
+    val ecPoint: Int?,
+    
     /**
      * 奖罚类别，0：奖，1：罚
      */
-    val ectype: Int?,
+    val ecType: Int?,
+    
     /**
      * 备注
      */
     val remark: String?,
+    
 ) : Input<Employeeec> {
 
     override fun toEntity(): Employeeec {
-        return CONVERTER.toEmployeeec(this)
+        return CONVERTER.toEmployeeec(this);
     }
 
     @Mapper
     interface Converter {
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-        fun toEmployeeec(input: EmployeeecInput): Employeeec
+        fun toEmployeeec(input: EmployeeecInput): Employeeec;
     }
-
+    
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)
