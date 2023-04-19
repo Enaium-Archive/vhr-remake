@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
  * @author Enaium
  */
 @Repository
-interface JoblevelRepository : KRepository<JobLevel, Int> {
+interface JobLevelRepository : KRepository<JobLevel, Int> {
 
 }
 

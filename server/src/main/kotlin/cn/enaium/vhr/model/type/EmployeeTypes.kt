@@ -21,47 +21,47 @@ import org.babyfish.jimmer.sql.EnumItem
 /**
  * @author Enaium
  */
-enum class Wedlock {
+enum class Wedlock(val origin: String) {
     @EnumItem(name = "已婚")
-    MARRIED,
+    MARRIED("已婚"),
 
     @EnumItem(name = "未婚")
-    SINGLE,
+    UNMARRIED("未婚"),
 
     @EnumItem(name = "离异")
-    DIVORCED
+    DIVORCED("离异")
 }
 
-enum class Degree {
+enum class Degree(val origin: String) {
     @EnumItem(name = "博士")
-    DOCTOR,
+    DOCTOR("博士"),
 
     @EnumItem(name = "硕士")
-    MASTER,
+    MASTER("硕士"),
 
     @EnumItem(name = "本科")
-    BEN,
+    BEN("本科"),
 
     @EnumItem(name = "大专")
-    ZHUAN,
+    ZHUAN("大专"),
 
     @EnumItem(name = "高中")
-    HEIGHT,
+    HEIGHT("高中"),
 
     @EnumItem(name = "初中")
-    MIDDLE,
+    MIDDLE("初中"),
 
     @EnumItem(name = "小学")
-    LOW,
+    LOW("小学"),
 
     @EnumItem(name = "其他")
-    OTHER
+    OTHER("其他")
 }
 
-enum class State {
+enum class State(val origin: String) {
     @EnumItem(name = "在职")
-    STAY,
+    STAY("在职"),
 
     @EnumItem(name = "离职")
-    LEAVING
+    LEAVING("离职")
 }

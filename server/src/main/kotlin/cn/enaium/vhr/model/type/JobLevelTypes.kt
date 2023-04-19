@@ -21,17 +21,19 @@ import org.babyfish.jimmer.sql.EnumItem
 /**
  * @author Enaium
  */
-enum class Level {
+enum class Level(val origin: String) {
     @EnumItem(name = "正高级")
-    HEIGHT,
+    HEIGHT("正高级"),
 
     @EnumItem(name = "副高级")
-    PRE_HEIGHT,
+    PRE_HEIGHT("副高级"),
 
     @EnumItem(name = "中级")
-    MIDDLE,
+    MIDDLE("中级"),
+
     @EnumItem(name = "初级")
-    LOW,
+    LOW("初级"),
+
     @EnumItem(name = "员级")
-    NOOB
+    NOOB("员级")
 }

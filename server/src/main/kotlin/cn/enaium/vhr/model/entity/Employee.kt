@@ -117,7 +117,7 @@ interface Employee {
 
     /**
      *  工号 */
-    val workID: String?
+    val workId: String?
 
     /**
      *  合同期限 */

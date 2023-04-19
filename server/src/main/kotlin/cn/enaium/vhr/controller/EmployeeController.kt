@@ -20,10 +20,14 @@ import cn.enaium.vhr.model.entity.*
 import cn.enaium.vhr.model.entity.input.EmployeeInput
 import cn.enaium.vhr.model.result.Result
 import cn.enaium.vhr.repository.*
-import org.babyfish.jimmer.sql.ast.mutation.SaveMode
+import cn.enaium.vhr.string2Excel
+import jakarta.servlet.http.HttpServletResponse
+import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 import java.util.*
 
 /**
@@ -35,7 +39,7 @@ class EmployeeController(
     val employeeRepository: EmployeeRepository,
     val nationRepository: NationRepository,
     val politicRepository: PoliticRepository,
-    val joblevelRepository: JoblevelRepository,
+    val jobLevelRepository: JobLevelRepository,
     val positionRepository: PositionRepository,
     val departmentRepository: DepartmentRepository
 ) {
@@ -43,14 +47,16 @@ class EmployeeController(
     fun get(
         @RequestParam(defaultValue = "1") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-        @RequestParam employee: Employee?,
-        @RequestParam beginDateScope: Array<Long>?
+        employee: Employee?,
+        beginDateScope: Array<String>?
     ): Result<Page<Employee>?> {
         return Result.Builder.success(
             metadata = employeeRepository.findAllByEmployee(
                 PageRequest.of(page, size),
                 employee,
-                beginDateScope
+                beginDateScope?.map {
+                    LocalDate.parse(it)
+                }?.toTypedArray()
             )
         )
     }
@@ -67,7 +73,7 @@ class EmployeeController(
 
     @GetMapping("/jobLevel")
     fun joblevel(): Result<List<JobLevel>?> {
-        return Result.Builder.success(metadata = joblevelRepository.findAll())
+        return Result.Builder.success(metadata = jobLevelRepository.findAll())
     }
 
     @GetMapping("/position")
@@ -82,9 +88,7 @@ class EmployeeController(
 
     @PutMapping
     fun put(@RequestBody employeeInput: EmployeeInput): Result<Nothing?> {
-        employeeRepository.save(employeeInput) {
-            setMode(SaveMode.UPDATE_ONLY)
-        }
+        employeeRepository.save(employeeInput)
         return Result.Builder.success()
     }
 
@@ -92,5 +96,84 @@ class EmployeeController(
     fun delete(@PathVariable id: Int): Result<Nothing?> {
         employeeRepository.deleteById(id)
         return Result.Builder.success()
+    }
+
+    @GetMapping("/export")
+    fun export(httpServletResponse: HttpServletResponse) {
+        val titles = arrayOf(
+            "编号",
+            "姓名",
+            "工号",
+            "性别",
+            "出生日期",
+            "身份证号码",
+            "婚姻状况",
+            "民族",
+            "籍贯",
+            "政治面貌",
+            "电话号码",
+            "联系地址",
+            "所属部门",
+            "职称",
+            "职位",
+            "聘用形式",
+            "最高学历",
+            "专业",
+            "毕业院校",
+            "入职日期",
+            "在职状态",
+            "邮箱",
+            "合同期限(年)",
+            "合同起始日期",
+            "合同终止日期"
+        )
+
+        val values = employeeRepository.findAll(newFetcher(Employee::class).by {
+            allScalarFields()
+            nation { name() }
+            politic { name() }
+            department { name() }
+            jobLevel {
+                name()
+                titleLevel()
+            }
+        }).map {
+            arrayOf(
+                "${it.id}",
+                "${it.name}",
+                "${it.workId}",
+                "${it.gender}",
+                "${it.birthday}",
+                "${it.idCard}",
+                "${it.wedlock?.origin}",
+                "${it.nation.name}",
+                "${it.nativePlace}",
+                "${it.politic.name}",
+                "${it.phone}",
+                "${it.address}",
+                "${it.department.name}",
+                "${it.jobLevel.name}",
+                "${it.jobLevel.titleLevel?.origin}",
+                "${it.engageForm}",
+                "${it.tiptopDegree?.origin}",
+                "${it.specialty}",
+                "${it.school}",
+                "${it.beginDate}",
+                "${it.workState?.origin}",
+                "${it.email}",
+                "${it.contractTerm}",
+                "${it.beginContract}",
+                "${it.endContract}",
+            )
+        }.toTypedArray()
+
+        val sheetName = "${System.currentTimeMillis()}.xls"
+        val string2Excel = string2Excel(sheetName, titles, values)
+        httpServletResponse.contentType = "application/vnd.ms-excel;charset=utf-8"
+        httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=$sheetName")
+        val outputStream = httpServletResponse.outputStream
+        string2Excel.write(outputStream)
+        outputStream.flush()
+        outputStream.close()
     }
 }

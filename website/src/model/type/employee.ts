@@ -17,7 +17,7 @@
 export namespace Employee {
   export enum Wedlock {
     MARRIED = "MARRIED",
-    SINGLE = "SINGLE",
+    UNMARRIED = "UNMARRIED",
     DIVORCED = "DIVORCED",
   }
 
@@ -41,7 +41,7 @@ export namespace Employee {
     switch (wedlock) {
       case Wedlock.MARRIED:
         return "已婚"
-      case Wedlock.SINGLE:
+      case Wedlock.UNMARRIED:
         return "未婚"
       case Wedlock.DIVORCED:
         return "离异"

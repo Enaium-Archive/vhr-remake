@@ -80,16 +80,17 @@ export interface IEmployee {
   phone?: string
   address?: string
   departmentId?: number
-  department: IDepartment
+  department?: IDepartment
   jobLevelId?: number
   jobLevel?: IJobLevel
   posId?: number
   postId?: number
   engageForm?: string
-  tiptopDegree: Degree
+  tiptopDegree?: Degree
   specialty?: string
   school?: string
   beginDate?: string
+  beginDateScope?: [number, number]
   workState?: string
   workId?: string
   contractTerm?: string

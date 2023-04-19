@@ -4,6 +4,7 @@ import cn.enaium.vhr.model.entity.*
 import org.babyfish.jimmer.spring.repository.KRepository
 import org.babyfish.jimmer.sql.kt.ast.expression.between
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
+import org.babyfish.jimmer.sql.kt.ast.expression.like
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
@@ -14,7 +15,7 @@ import java.time.LocalDate
  */
 @Repository
 interface EmployeeRepository : KRepository<Employee, Int> {
-    fun findAllByEmployee(pageable: Pageable, employee: Employee?, beginDateScope: Array<Long>?): Page<Employee> {
+    fun findAllByEmployee(pageable: Pageable, employee: Employee?, beginDateScope: Array<LocalDate>?): Page<Employee> {
         return pager(pageable).execute(sql.createQuery(Employee::class) {
             employee?.let { employee ->
                 employee.politicId.takeIf { it != null }?.let { where(table.politicId eq it) }
@@ -23,15 +24,12 @@ interface EmployeeRepository : KRepository<Employee, Int> {
                 employee.posId.takeIf { it != null }?.let { where(table.posId eq it) }
                 employee.engageForm.takeIf { it != null }?.let { where(table.engageForm eq it) }
                 employee.departmentId.takeIf { it != null }?.let { where(table.departmentId eq it) }
-                employee.name.takeIf { it != null }?.let { where(table.name eq it) }
+                employee.name.takeIf { it != null }?.let { where(table.name like it) }
             }
             beginDateScope?.let { beginDateScope ->
                 beginDateScope.takeIf { it.size == 2 }?.let {
                     where(
-                        table.beginDate.between(
-                            LocalDate.ofEpochDay(it[0]),
-                            LocalDate.ofEpochDay(it[1])
-                        )
+                        table.beginDate.between(it[0], it[1])
                     )
                 }
             }

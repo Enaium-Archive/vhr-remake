@@ -19,7 +19,7 @@ import { ElMessage } from "element-plus"
 import { useUserStore } from "@/store"
 
 const http = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_URL
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
 })
 
 http.interceptors.request.use(
@@ -40,7 +40,7 @@ http.interceptors.response.use(
       window.$router.push({ path: "/login" })
     }
 
-    if (response.data.code != 200) {
+    if (response.headers["content-type"] == "application/json" && response.data.code != 200) {
       ElMessage({ message: response.data.message, type: "error" })
     }
 

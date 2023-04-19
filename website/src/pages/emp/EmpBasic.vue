@@ -15,61 +15,57 @@
   -->
 
 <script setup lang="ts">
-import { reactive, ref } from "vue"
+import { ref } from "vue"
 import { IEmployee, IPage } from "@/model"
 import { del, get } from "@/util/reuqest"
 import { Employee } from "@/model/type/employee"
-import EmployeeForm from "@/components/EmployeeForm.vue"
+import EmployeeEdit from "@/components/EmployeeEdit.vue"
 import { ElMessage, ElMessageBox } from "element-plus"
+import EmployeeIO from "@/components/EmployeeIO.vue"
+import { Search } from "@element-plus/icons-vue"
+import EmployeeSearch from "@/components/EmployeeSearch.vue"
 
 const wedlockParse = Employee.wedlockParse
 const degreeParse = Employee.degreeParse
 
 const loading = ref(false)
 
-const searchForm = reactive<{
-  politicId?: undefined
-  nationId?: undefined
-  jobLevelId?: undefined
-  posId?: undefined
-  engageForm?: undefined
-  departmentId?: undefined
-  beginDateScope?: undefined
-}>({})
-
 const employees = ref<IPage<IEmployee>>()
 const keyword = ref<string>()
-const currentEmployee = ref<IEmployee>()
+const currentEditEmployee = ref<IEmployee>({})
+const currentSearchEmployee = ref<IEmployee>({})
 const showEditEmployee = ref(false)
+const showAdvanceSearchView = ref(false)
 const page = ref(1)
 const size = ref(10)
 
 const initEmployee = (type?: string) => {
   loading.value = true
   let url = `/employee?page=${page.value - 1}&size=${size.value}`
-  if (type && type == "advanced") {
-    if (searchForm.politicId) {
-      url += "&politicId=" + searchForm.politicId
-    }
-    if (searchForm.nationId) {
-      url += "&nationId=" + searchForm.nationId
-    }
-    if (searchForm.jobLevelId) {
-      url += "&jobLevelId=" + searchForm.jobLevelId
-    }
-    if (searchForm.posId) {
-      url += "&posId=" + searchForm.posId
-    }
-    if (searchForm.engageForm) {
-      url += "&engageForm=" + searchForm.engageForm
-    }
-    if (searchForm.departmentId) {
-      url += "&departmentId=" + searchForm.departmentId
-    }
-    if (searchForm.beginDateScope) {
-      url += "&beginDateScope=" + searchForm.beginDateScope
-    }
-  } else if (keyword.value) {
+
+  if (currentSearchEmployee.value.politicId) {
+    url += "&politicId=" + currentSearchEmployee.value.politicId
+  }
+  if (currentSearchEmployee.value.nationId) {
+    url += "&nationId=" + currentSearchEmployee.value.nationId
+  }
+  if (currentSearchEmployee.value.jobLevelId) {
+    url += "&jobLevelId=" + currentSearchEmployee.value.jobLevelId
+  }
+  if (currentSearchEmployee.value.posId) {
+    url += "&posId=" + currentSearchEmployee.value.posId
+  }
+  if (currentSearchEmployee.value.engageForm) {
+    url += "&engageForm=" + currentSearchEmployee.value.engageForm
+  }
+  if (currentSearchEmployee.value.departmentId) {
+    url += "&departmentId=" + currentSearchEmployee.value.departmentId
+  }
+  if (currentSearchEmployee.value.beginDateScope) {
+    url += "&beginDateScope=" + currentSearchEmployee.value.beginDateScope
+  }
+
+  if (keyword.value) {
     url += "&name=" + keyword.value
   }
   get<IPage<IEmployee>>(url).then((r) => {
@@ -81,7 +77,7 @@ const initEmployee = (type?: string) => {
 initEmployee()
 
 const editEmployee = (employee: IEmployee) => {
-  currentEmployee.value = employee
+  currentEditEmployee.value = employee
   showEditEmployee.value = true
 }
 
@@ -117,14 +113,47 @@ const handleCurrentChange = (val: number) => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-1">
     <div class="d-flex justify-content-between">
-
+      <div>
+        <ElInput
+          placeholder="请输入员工名进行搜索，可以直接回车搜索..."
+          :prefix-ico="Search"
+          clearable
+          @clear="initEmployee"
+          style="width: 350px; margin-right: 10px"
+          v-model="keyword"
+          @keydown.enter="initEmployee"
+          :disabled="showAdvanceSearchView"
+        />
+        <ElButton type="primary" @click="initEmployee" :disabled="showAdvanceSearchView">
+          <template #icon>
+            <Search />
+          </template>
+          搜索
+        </ElButton>
+        <ElButton
+          type="primary"
+          @click="
+            () => {
+              showAdvanceSearchView = true
+              currentSearchEmployee = {}
+            }
+          "
+        >
+          <i
+            :class="showAdvanceSearchView ? 'fa fa-angle-double-up' : 'fa fa-angle-double-down'"
+            aria-hidden="true"
+          ></i>
+          高级搜索
+        </ElButton>
+      </div>
+      <div>
+        <EmployeeIO />
+      </div>
     </div>
     <div>
-      <transition>
-
-      </transition>
+      <transition></transition>
     </div>
   </div>
 
@@ -133,7 +162,6 @@ const handleCurrentChange = (val: number) => {
       :data="employees.content"
       stripe
       border
-      v-loading="loading"
       element-loading-text="正在加载..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -142,7 +170,7 @@ const handleCurrentChange = (val: number) => {
     >
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="name" fixed align="left" label="姓名" width="90" />
-      <ElTableColumn prop="workID" label="工号" align="left" width="85" />
+      <ElTableColumn prop="workId" label="工号" align="left" width="85" />
       <ElTableColumn prop="gender" label="性别" align="left" width="85" />
       <ElTableColumn prop="birthday" width="95" align="left" label="出生日期" />
       <ElTableColumn prop="idCard" width="150" align="left" label="身份证号码" />
@@ -197,7 +225,18 @@ const handleCurrentChange = (val: number) => {
     </div>
   </div>
   <ElDialog v-model="showEditEmployee">
-    <EmployeeForm :employee="currentEmployee" v-if="currentEmployee" />
+    <EmployeeEdit :employee="currentEditEmployee" @done="showEditEmployee = false" />
+  </ElDialog>
+  <ElDialog v-model="showAdvanceSearchView">
+    <EmployeeSearch
+      :employee="currentSearchEmployee"
+      @done="
+        () => {
+          initEmployee()
+          showAdvanceSearchView = false
+        }
+      "
+    />
   </ElDialog>
 </template>
 

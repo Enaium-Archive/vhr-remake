@@ -134,11 +134,6 @@ data class EmployeeInput(
     val workState: State?,
 
     /**
-     * 工号
-     */
-    val workId: String?,
-
-    /**
      * 合同期限
      */
     val contractTerm: String?,

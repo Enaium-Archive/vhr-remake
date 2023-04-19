@@ -20,6 +20,7 @@ import { Employee } from "@/model/type/employee"
 import { reactive, ref } from "vue"
 import { get, put } from "@/util/reuqest"
 import { ElMessage, FormInstance, FormRules } from "element-plus"
+import { Edit } from "@element-plus/icons-vue";
 
 const degreeParse = Employee.degreeParse
 
@@ -28,6 +29,8 @@ const Degree = Employee.Degree
 const props = defineProps<{
   employee: IEmployee
 }>()
+
+const emit = defineEmits(["done"])
 
 const positions = ref<IPosition[]>()
 const nations = ref<INation[]>()
@@ -91,7 +94,6 @@ const employeeRule = reactive<FormRules>({
   school: [{ required: true, message: "请输入毕业院校", trigger: "blur" }],
   beginDate: [{ required: true, message: "请输入入职日期", trigger: "blur" }],
   workState: [{ required: true, message: "请输入工作状态", trigger: "blur" }],
-  workID: [{ required: true, message: "请输入工号", trigger: "blur" }],
   contractTerm: [{ required: true, message: "请输入合同期限", trigger: "blur" }],
   conversionTime: [{ required: true, message: "请输入转正日期", trigger: "blur" }],
   notworkDate: [{ required: true, message: "请输入离职日期", trigger: "blur" }],
@@ -108,6 +110,7 @@ const submit = (formEl: FormInstance | undefined) => {
     if (valid) {
       put("/employee", props.employee).then((r) => {
         if (r.code == 200) {
+          emit("done")
           ElMessage({ type: "success", message: "更新成功" })
         }
       })
@@ -124,7 +127,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 150px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.name"
             placeholder="请输入员工姓名"
           ></ElInput>
@@ -144,7 +147,6 @@ const submit = (formEl: FormInstance | undefined) => {
             v-model="props.employee.birthday"
             size="small"
             type="date"
-            value-format="yyyy-MM-dd"
             style="width: 150px"
             placeholder="出生日期"
           >
@@ -285,7 +287,7 @@ const submit = (formEl: FormInstance | undefined) => {
             v-model="props.employee.beginDate"
             size="small"
             type="date"
-            value-format="yyyy-MM-dd"
+            value-format="YYYY-MM-DD"
             style="width: 130px"
             placeholder="入职日期"
           >
@@ -298,7 +300,7 @@ const submit = (formEl: FormInstance | undefined) => {
             v-model="props.employee.conversionTime"
             size="small"
             type="date"
-            value-format="yyyy-MM-dd"
+            value-format="YYYY-MM-DD"
             style="width: 130px"
             placeholder="转正日期"
           >
@@ -311,7 +313,7 @@ const submit = (formEl: FormInstance | undefined) => {
             v-model="props.employee.beginContract"
             size="small"
             type="date"
-            value-format="yyyy-MM-dd"
+            value-format="YYYY-MM-DD"
             style="width: 130px"
             placeholder="合同起始日期"
           >
@@ -324,7 +326,7 @@ const submit = (formEl: FormInstance | undefined) => {
             v-model="props.employee.endContract"
             size="small"
             type="date"
-            value-format="yyyy-MM-dd"
+            value-format="YYYY-MM-DD"
             style="width: 150px"
             placeholder="合同终止日期"
           >
