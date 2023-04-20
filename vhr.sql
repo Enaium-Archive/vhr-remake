@@ -893,15 +893,13 @@ DROP TABLE IF EXISTS `empsalary`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `empsalary` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `eid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
   UNIQUE KEY `eid` (`eid`),
   KEY `empsalary_ibfk_2` (`sid`),
   CONSTRAINT `empsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
   CONSTRAINT `empsalary_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `salary` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -911,28 +909,28 @@ CREATE TABLE `empsalary` (
 LOCK TABLES `empsalary` WRITE;
 /*!40000 ALTER TABLE `empsalary` DISABLE KEYS */;
 INSERT INTO `empsalary` VALUES
-(6,4,10),
-(10,5,9),
-(11,6,13),
-(12,7,13),
-(14,8,10),
-(15,9,10),
-(20,10,13),
-(21,11,9),
-(22,3,13),
-(24,2,9),
-(25,1,13),
-(26,33,10),
-(28,34,9),
-(29,44,10),
-(30,45,10),
-(31,43,10),
-(32,47,10),
-(33,52,13),
-(34,53,10),
-(35,54,10),
-(36,56,10),
-(38,21,9);
+(2,9),
+(5,9),
+(11,9),
+(21,9),
+(34,9),
+(4,10),
+(8,10),
+(9,10),
+(33,10),
+(43,10),
+(44,10),
+(45,10),
+(47,10),
+(53,10),
+(54,10),
+(56,10),
+(1,13),
+(3,13),
+(6,13),
+(7,13),
+(10,13),
+(52,13);
 /*!40000 ALTER TABLE `empsalary` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -981,15 +979,13 @@ DROP TABLE IF EXISTS `hr_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hr_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `hrid` int(11) NOT NULL,
   `rid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
   KEY `rid` (`rid`),
   KEY `hr_role_ibfk_1` (`hrid`),
   CONSTRAINT `hr_role_ibfk_1` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`) ON DELETE CASCADE,
   CONSTRAINT `hr_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -999,19 +995,19 @@ CREATE TABLE `hr_role` (
 LOCK TABLES `hr_role` WRITE;
 /*!40000 ALTER TABLE `hr_role` DISABLE KEYS */;
 INSERT INTO `hr_role` VALUES
-(1,3,6),
-(35,12,4),
-(36,12,3),
-(37,12,2),
-(43,11,3),
-(44,11,2),
-(45,11,4),
-(46,11,5),
-(48,10,3),
-(49,10,4),
-(72,5,1),
-(73,5,2),
-(74,5,3);
+(3,6),
+(12,4),
+(12,3),
+(12,2),
+(11,3),
+(11,2),
+(11,4),
+(11,5),
+(10,3),
+(10,4),
+(5,1),
+(5,2),
+(5,3);
 /*!40000 ALTER TABLE `hr_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1149,15 +1145,13 @@ DROP TABLE IF EXISTS `menu_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menu_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `mid` int(11) NOT NULL,
   `rid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
   KEY `mid` (`mid`),
   KEY `rid` (`rid`),
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1167,62 +1161,62 @@ CREATE TABLE `menu_role` (
 LOCK TABLES `menu_role` WRITE;
 /*!40000 ALTER TABLE `menu_role` DISABLE KEYS */;
 INSERT INTO `menu_role` VALUES
-(161,7,3),
-(162,7,6),
-(163,9,6),
-(164,10,6),
-(165,11,6),
-(166,12,6),
-(167,13,6),
-(168,14,6),
-(169,15,6),
-(170,16,6),
-(171,17,6),
-(172,18,6),
-(173,19,6),
-(174,20,6),
-(175,21,6),
-(176,22,6),
-(177,23,6),
-(178,25,6),
-(179,26,6),
-(180,27,6),
-(181,28,6),
-(182,24,6),
-(247,7,4),
-(248,8,4),
-(249,11,4),
-(250,7,2),
-(251,8,2),
-(252,9,2),
-(253,10,2),
-(254,12,2),
-(255,13,2),
-(256,7,1),
-(257,8,1),
-(258,9,1),
-(259,10,1),
-(260,11,1),
-(261,12,1),
-(262,13,1),
-(263,14,1),
-(264,15,1),
-(265,16,1),
-(266,17,1),
-(267,18,1),
-(268,19,1),
-(269,20,1),
-(270,21,1),
-(271,22,1),
-(272,23,1),
-(273,24,1),
-(274,25,1),
-(275,26,1),
-(276,27,1),
-(277,28,1),
-(280,7,14),
-(281,8,14),
-(282,9,14);
+(7,3),
+(7,6),
+(9,6),
+(10,6),
+(11,6),
+(12,6),
+(13,6),
+(14,6),
+(15,6),
+(16,6),
+(17,6),
+(18,6),
+(19,6),
+(20,6),
+(21,6),
+(22,6),
+(23,6),
+(25,6),
+(26,6),
+(27,6),
+(28,6),
+(24,6),
+(7,4),
+(8,4),
+(11,4),
+(7,2),
+(8,2),
+(9,2),
+(10,2),
+(12,2),
+(13,2),
+(7,1),
+(8,1),
+(9,1),
+(10,1),
+(11,1),
+(12,1),
+(13,1),
+(14,1),
+(15,1),
+(16,1),
+(17,1),
+(18,1),
+(19,1),
+(20,1),
+(21,1),
+(22,1),
+(23,1),
+(24,1),
+(25,1),
+(26,1),
+(27,1),
+(28,1),
+(7,14),
+(8,14),
+(9,14);
 /*!40000 ALTER TABLE `menu_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1495,7 +1489,7 @@ CREATE TABLE `salary` (
   `accumulation_fund_per` float DEFAULT NULL COMMENT '公积金比率',
   `name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1576,4 +1570,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-20  9:12:33
+-- Dump completed on 2023-04-20 13:49:23
