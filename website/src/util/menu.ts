@@ -47,7 +47,12 @@ export const formatMenus = (router: Router, menus: IMenu[]) => {
         route.component = modules["../pages/sys/" + menu.component + ".vue"]
       }
     }
-    router.addRoute(route)
+
+    if (menu.path) {
+      router.addRoute(route)
+    }
+
+
     fmMenus.push(route)
   })
   return fmMenus

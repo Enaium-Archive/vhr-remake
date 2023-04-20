@@ -15,13 +15,19 @@
   -->
 
 <script setup lang="ts">
-
+import DepartmentManager from "@/components/DepartmentManager.vue"
+import PositionManager from "@/components/PositionManager.vue"
 </script>
 
 <template>
-
+  <ElTabs type="card">
+    <ElTabPane label="部门管理">
+      <DepartmentManager />
+    </ElTabPane>
+    <ElTabPane label="职称管理">
+      <PositionManager />
+    </ElTabPane>
+  </ElTabs>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -52,7 +52,6 @@ interface Menu {
      */
     val requireAuth: Int?
 
-    @Key
     @ManyToOne
     val parent: Menu?
 

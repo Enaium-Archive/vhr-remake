@@ -104,9 +104,10 @@ export interface IEmployee {
 export interface IDepartment {
   id?: number
   name?: string
-  parentId?: string
+  parent?: IDepartment
   depPath?: boolean
-  isParent: boolean
+  hasParent?: boolean
+  children?: IDepartment[]
 }
 
 export interface IJobLevel {

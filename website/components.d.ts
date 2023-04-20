@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    DepartmentManager: typeof import('./src/components/DepartmentManager.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -46,6 +47,8 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
@@ -54,6 +57,8 @@ declare module '@vue/runtime-core' {
     EmployeeIO: typeof import('./src/components/employee/EmployeeIO.vue')['default']
     EmployeeSearch: typeof import('./src/components/employee/EmployeeSearch.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Position: typeof import('./src/components/Position.vue')['default']
+    PositionManager: typeof import('./src/components/PositionManager.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SalaryForm: typeof import('./src/components/salary/SalaryForm.vue')['default']

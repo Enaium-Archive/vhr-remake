@@ -20,7 +20,7 @@ import { Employee } from "@/model/type/employee"
 import { reactive, ref } from "vue"
 import { get, put } from "@/util/reuqest"
 import { ElMessage, FormInstance, FormRules } from "element-plus"
-import { Edit } from "@element-plus/icons-vue";
+import { Edit, Message, Phone } from "@element-plus/icons-vue";
 
 const degreeParse = Employee.degreeParse
 
@@ -174,7 +174,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 120px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.nativePlace"
             placeholder="请输入籍贯"
           ></ElInput>
@@ -185,7 +185,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 150px"
-            prefix-icon="el-icon-message"
+            :prefix-icon="Message"
             v-model="props.employee.email"
             placeholder="请输入电子邮箱"
           ></ElInput>
@@ -196,7 +196,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 200px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.address"
             placeholder="请输入联系地址"
           ></ElInput>
@@ -230,7 +230,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 200px"
-            prefix-icon="el-icon-phone"
+            :prefix-icon="Phone"
             v-model="props.employee.phone"
             placeholder="电话号码"
           ></ElInput>
@@ -243,7 +243,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 150px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.workId"
             placeholder="工号"
             disabled
@@ -262,7 +262,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 150px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.school"
             placeholder="毕业院校名称"
           ></ElInput>
@@ -273,7 +273,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 200px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.specialty"
             placeholder="请输入专业名称"
           ></ElInput>
@@ -340,7 +340,7 @@ const submit = (formEl: FormInstance | undefined) => {
           <ElInput
             size="small"
             style="width: 180px"
-            prefix-icon="el-icon-edit"
+            :prefix-icon="Edit"
             v-model="props.employee.idCard"
             placeholder="请输入身份证号码"
           ></ElInput>

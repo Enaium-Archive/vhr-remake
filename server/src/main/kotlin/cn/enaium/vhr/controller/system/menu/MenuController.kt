@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.controller.system
+package cn.enaium.vhr.controller.system.menu
 
 import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.entity.Menu
 import cn.enaium.vhr.model.result.Result
 import cn.enaium.vhr.repository.MenuRepository
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -28,7 +27,11 @@ import org.springframework.web.bind.annotation.RestController
  * @author Enaium
  */
 @RestController
-@RequestMapping("/system")
-class SystemController(val menuRepository: MenuRepository) {
-
+@RequestMapping("/system/menu")
+class MenuController(
+    val menuRepository: MenuRepository
+) {
+    fun get(): Result<List<Menu>?> {
+        return Result.Builder.success(metadata = menuRepository.findAllByHrId(StpUtil.getLoginIdAsInt()))
+    }
 }
