@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `adjustsalary`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `adjustsalary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eid` int(11) DEFAULT NULL,
+  `eid` int(11) NOT NULL,
   `as_date` date DEFAULT NULL COMMENT '调薪日期',
   `before_salary` int(11) DEFAULT NULL COMMENT '调前薪资',
   `after_salary` int(11) DEFAULT NULL COMMENT '调后薪资',
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `appraise`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `appraise` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eid` int(11) DEFAULT NULL,
+  `eid` int(11) NOT NULL,
   `app_date` date DEFAULT NULL COMMENT '考评日期',
   `app_result` varchar(32) DEFAULT NULL COMMENT '考评结果',
   `app_content` varchar(255) DEFAULT NULL COMMENT '考评内容',
@@ -806,7 +806,7 @@ DROP TABLE IF EXISTS `employeeec`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employeeec` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eid` int(11) DEFAULT NULL COMMENT '员工编号',
+  `eid` int(11) NOT NULL COMMENT '员工编号',
   `ec_date` date DEFAULT NULL COMMENT '奖罚日期',
   `ec_reason` varchar(255) DEFAULT NULL COMMENT '奖罚原因',
   `ec_point` int(11) DEFAULT NULL COMMENT '奖罚分',
@@ -836,7 +836,7 @@ DROP TABLE IF EXISTS `employeeremove`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employeeremove` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eid` int(11) DEFAULT NULL,
+  `eid` int(11) NOT NULL,
   `after_dep_id` int(11) DEFAULT NULL COMMENT '调动后部门',
   `after_job_id` int(11) DEFAULT NULL COMMENT '调动后职位',
   `remove_date` date DEFAULT NULL COMMENT '调动日期',
@@ -866,7 +866,7 @@ DROP TABLE IF EXISTS `employeetrain`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employeetrain` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eid` int(11) DEFAULT NULL COMMENT '员工编号',
+  `eid` int(11) NOT NULL COMMENT '员工编号',
   `train_date` date DEFAULT NULL COMMENT '培训日期',
   `train_content` varchar(255) DEFAULT NULL COMMENT '培训内容',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
@@ -894,8 +894,8 @@ DROP TABLE IF EXISTS `empsalary`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `empsalary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `eid` int(11) DEFAULT NULL,
-  `sid` int(11) DEFAULT NULL,
+  `eid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `eid` (`eid`),
   KEY `empsalary_ibfk_2` (`sid`),
@@ -982,8 +982,8 @@ DROP TABLE IF EXISTS `hr_role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hr_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `hrid` int(11) DEFAULT NULL,
-  `rid` int(11) DEFAULT NULL,
+  `hrid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `rid` (`rid`),
   KEY `hr_role_ibfk_1` (`hrid`),
@@ -1150,8 +1150,8 @@ DROP TABLE IF EXISTS `menu_role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menu_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mid` int(11) DEFAULT NULL,
-  `rid` int(11) DEFAULT NULL,
+  `mid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `mid` (`mid`),
   KEY `rid` (`rid`),
@@ -1348,7 +1348,7 @@ CREATE TABLE `oplog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `add_date` date DEFAULT NULL COMMENT '添加日期',
   `operate` varchar(255) DEFAULT NULL COMMENT '操作内容',
-  `hrid` int(11) DEFAULT NULL COMMENT '操作员ID',
+  `hrid` int(11) NOT NULL COMMENT '操作员ID',
   PRIMARY KEY (`id`),
   KEY `hrid` (`hrid`),
   CONSTRAINT `oplog_ibfk_1` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`)
@@ -1520,9 +1520,9 @@ DROP TABLE IF EXISTS `sysmsg`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sysmsg` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mid` int(11) DEFAULT NULL COMMENT '消息id',
+  `mid` int(11) NOT NULL COMMENT '消息id',
   `type` int(11) DEFAULT 0 COMMENT '0表示群发消息',
-  `hrid` int(11) DEFAULT NULL COMMENT '这条消息是给谁的',
+  `hrid` int(11) NOT NULL COMMENT '这条消息是给谁的',
   `state` int(11) DEFAULT 0 COMMENT '0 未读 1 已读',
   PRIMARY KEY (`id`),
   KEY `hrid` (`hrid`),
@@ -1576,4 +1576,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-20  9:06:07
+-- Dump completed on 2023-04-20  9:12:33
