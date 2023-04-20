@@ -20,7 +20,7 @@ interface Politic {
     /**
      *  name
      */
-    val name: String?
+    val name: String
 
     @OneToMany(mappedBy = "politic")
     val employees: List<Employee>

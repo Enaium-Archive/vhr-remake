@@ -19,7 +19,7 @@ interface Department {
 
     /**
      *  部门名称 */
-    val name: String?
+    val name: String
 
     /**
      *  parentId
@@ -41,6 +41,6 @@ interface Department {
      */
     val isParent: Boolean?
 
-    @OneToMany(mappedBy = "jobLevel")
+    @OneToMany(mappedBy = "department")
     val employees: List<Employee>
 }

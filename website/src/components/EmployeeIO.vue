@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import { UploadFile, UploadFiles } from "element-plus"
+import { ElMessage, UploadFile, UploadFiles, UploadRequestOptions } from "element-plus"
 import EmployeeEdit from "@/components/EmployeeEdit.vue"
 import { IEmployee } from "@/model"
 import http from "@/util/http"
@@ -50,40 +50,49 @@ const exportData = () => {
     })
 }
 
-const onSuccess = (response: any, uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  importDataBtnText.value = "导入数据"
-  importDataBtnIcon.value = Upload
-  importDataDisabled.value = false
-}
-
-const onError = (error: Error, uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  importDataBtnText.value = "导入数据"
-  importDataBtnIcon.value = Upload
-  importDataDisabled.value = false
-}
-
 const beforeUpload = () => {
   importDataBtnText.value = "正在导入"
   importDataBtnIcon.value = Loading
   importDataDisabled.value = true
 }
+
+const upload = (options: UploadRequestOptions) => {
+  const formData = new FormData()
+  formData.append("file", options.file)
+  http
+    .put("/employee/import", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((r: any) => {
+      if (r.data.code == 200) {
+        ElMessage({ type: "success", message: "导入成功" })
+        importDataBtnText.value = "导入数据"
+        importDataBtnIcon.value = Upload
+        importDataDisabled.value = false
+      } else {
+        importDataBtnText.value = "导入数据"
+        importDataBtnIcon.value = Upload
+        importDataDisabled.value = false
+      }
+    })
+}
 </script>
 
 <template>
   <div class="d-flex align-items-center">
-    <el-upload
+    <ElUpload
       :show-file-list="false"
       :before-upload="beforeUpload"
-      :on-success="onSuccess"
-      :on-error="onError"
       :disabled="importDataDisabled"
       style="display: inline-flex; margin-right: 8px"
-      action="/employee/import"
+      :http-request="upload"
     >
       <el-button :disabled="importDataDisabled" type="success" :icon="importDataBtnIcon">
         {{ importDataBtnText }}
       </el-button>
-    </el-upload>
+    </ElUpload>
     <el-button type="success" @click="exportData">
       <template #icon>
         <Download />

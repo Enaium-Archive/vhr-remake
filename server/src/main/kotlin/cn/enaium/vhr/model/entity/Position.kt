@@ -20,7 +20,6 @@ interface Position {
 
     /**
      *  职位 */
-    @Key
     val name: String?
 
     /**

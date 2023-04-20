@@ -42,7 +42,7 @@ interface Employee {
 
     /**
      *  民族 */
-    val nationId: Int?
+    val nationId: Int
 
     @ManyToOne
     val nation: Nation
@@ -53,7 +53,7 @@ interface Employee {
 
     /**
      *  政治面貌 */
-    val politicId: Int?
+    val politicId: Int
 
     @ManyToOne
     val politic: Politic
@@ -72,28 +72,28 @@ interface Employee {
 
     /**
      *  所属部门 */
-    val departmentId: Int?
+    val departmentId: Int
 
     @ManyToOne
     val department: Department
 
     /**
      *  职称ID */
-    val jobLevelId: Int?
+    val jobLevelId: Int
 
     @ManyToOne
     val jobLevel: JobLevel
 
     /**
      *  职位ID */
-    val posId: Int?
+    val posId: Int
 
     @ManyToOne
     val pos: Position
 
     /**
      *  聘用形式 */
-    val engageForm: String?
+    val engageFrom: String?
 
     /**
      *  最高学历 */
@@ -121,7 +121,7 @@ interface Employee {
 
     /**
      *  合同期限 */
-    val contractTerm: String?
+    val contractTerm: Double?
 
     /**
      *  转正日期 */

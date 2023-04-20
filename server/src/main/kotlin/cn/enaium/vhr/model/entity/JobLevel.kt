@@ -38,6 +38,6 @@ interface JobLevel {
      */
     val enabled: Boolean?
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "jobLevel")
     val employees: List<Employee>
 }

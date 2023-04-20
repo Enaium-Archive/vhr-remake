@@ -29,8 +29,9 @@ enum class Wedlock(val origin: String) {
     UNMARRIED("未婚"),
 
     @EnumItem(name = "离异")
-    DIVORCED("离异")
+    DIVORCED("离异");
 }
+
 
 enum class Degree(val origin: String) {
     @EnumItem(name = "博士")

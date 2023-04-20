@@ -16,17 +16,26 @@
 
 package cn.enaium.vhr.controller
 
+import cn.enaium.vhr.excel2Cell
+import cn.enaium.vhr.getEnumByOrigin
 import cn.enaium.vhr.model.entity.*
 import cn.enaium.vhr.model.entity.input.EmployeeInput
 import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.type.Degree
+import cn.enaium.vhr.model.type.State
+import cn.enaium.vhr.model.type.Wedlock
 import cn.enaium.vhr.repository.*
 import cn.enaium.vhr.string2Excel
 import jakarta.servlet.http.HttpServletResponse
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.babyfish.jimmer.kt.new
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpHeaders
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.time.LocalDate
 import java.util.*
 
@@ -47,7 +56,7 @@ class EmployeeController(
     fun get(
         @RequestParam(defaultValue = "1") page: Int,
         @RequestParam(defaultValue = "10") size: Int,
-        employee: Employee?,
+        employee: EmployeeInput?,
         beginDateScope: Array<String>?
     ): Result<Page<Employee>?> {
         return Result.Builder.success(
@@ -135,7 +144,9 @@ class EmployeeController(
             department { name() }
             jobLevel {
                 name()
-                titleLevel()
+            }
+            pos {
+                name()
             }
         }).map {
             arrayOf(
@@ -146,15 +157,15 @@ class EmployeeController(
                 "${it.birthday}",
                 "${it.idCard}",
                 "${it.wedlock?.origin}",
-                "${it.nation.name}",
+                it.nation.name,
                 "${it.nativePlace}",
-                "${it.politic.name}",
+                it.politic.name,
                 "${it.phone}",
                 "${it.address}",
-                "${it.department.name}",
+                it.department.name,
                 "${it.jobLevel.name}",
-                "${it.jobLevel.titleLevel?.origin}",
-                "${it.engageForm}",
+                "${it.pos.name}",
+                "${it.engageFrom}",
                 "${it.tiptopDegree?.origin}",
                 "${it.specialty}",
                 "${it.school}",
@@ -175,5 +186,49 @@ class EmployeeController(
         string2Excel.write(outputStream)
         outputStream.flush()
         outputStream.close()
+    }
+
+    @Transactional
+    @PutMapping("/import")
+    fun import(file: MultipartFile): Result<Nothing?> {
+        val nations = nationRepository.findAll().associate { it.name to it.id }
+        val politics = politicRepository.findAll().associate { it.name to it.id }
+        val departments = departmentRepository.findAll().associate { it.name to it.id }
+        val jobLevels = jobLevelRepository.findAll().associate { it.name to it.id }
+        val positions = positionRepository.findAll().associate { it.name to it.id }
+        println(positions)
+        excel2Cell(HSSFWorkbook(file.inputStream), 1, 1).forEach { sheet ->
+            sheet?.forEach { row ->
+                var index = 0
+                employeeRepository.insert(new(Employee::class).by {
+                    name = row?.get(index++)?.stringCellValue
+                    workId = row?.get(index++)?.stringCellValue
+                    gender = row?.get(index++)?.stringCellValue
+                    birthday = LocalDate.parse(row?.get(index++)?.stringCellValue)
+                    idCard = row?.get(index++)?.stringCellValue
+                    wedlock = getEnumByOrigin<Wedlock>(row?.get(index++)?.stringCellValue)
+                    nationId = nations[row?.get(index++)?.stringCellValue]!!
+                    nativePlace = row?.get(index++)?.stringCellValue
+                    politicId = politics[row?.get(index++)?.stringCellValue]!!
+                    phone = row?.get(index++)?.stringCellValue
+                    address = row?.get(index++)?.stringCellValue
+                    departmentId = departments[row?.get(index++)?.stringCellValue]!!
+                    jobLevelId = jobLevels[row?.get(index++)?.stringCellValue]!!
+                    posId = positions[row?.get(index++)?.stringCellValue]!!
+                    engageFrom = row?.get(index++)?.stringCellValue
+                    tiptopDegree = getEnumByOrigin<Degree>(row?.get(index++)?.stringCellValue)
+                    specialty = row?.get(index++)?.stringCellValue
+                    school = row?.get(index++)?.stringCellValue
+                    beginDate = LocalDate.parse(row?.get(index++)?.stringCellValue)
+                    workState = getEnumByOrigin<State>(row?.get(index++)?.stringCellValue)
+                    email = row?.get(index++)?.stringCellValue
+                    contractTerm = row?.get(index++)?.stringCellValue?.toDouble()
+                    beginContract = LocalDate.parse(row?.get(index++)?.stringCellValue)
+                    endContract = LocalDate.parse(row?.get(index++)?.stringCellValue)
+                })
+
+            }
+        }
+        return Result.Builder.success()
     }
 }

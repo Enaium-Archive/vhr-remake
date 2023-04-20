@@ -39,7 +39,7 @@ const showAdvanceSearchView = ref(false)
 const page = ref(1)
 const size = ref(10)
 
-const initEmployee = (type?: string) => {
+const initEmployee = () => {
   loading.value = true
   let url = `/employee?page=${page.value - 1}&size=${size.value}`
 
@@ -151,9 +151,6 @@ const handleCurrentChange = (val: number) => {
       <div>
         <EmployeeIO />
       </div>
-    </div>
-    <div>
-      <transition></transition>
     </div>
   </div>
 

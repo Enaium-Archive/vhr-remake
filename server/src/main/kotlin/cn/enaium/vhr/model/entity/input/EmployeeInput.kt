@@ -106,7 +106,7 @@ data class EmployeeInput(
     /**
      * 聘用形式
      */
-    val engageForm: String?,
+    val engageFrom: String?,
 
     /**
      * 最高学历
@@ -136,7 +136,7 @@ data class EmployeeInput(
     /**
      * 合同期限
      */
-    val contractTerm: String?,
+    val contractTerm: Double?,
 
     /**
      * 转正日期

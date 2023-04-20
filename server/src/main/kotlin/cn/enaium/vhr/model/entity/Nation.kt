@@ -20,7 +20,7 @@ interface Nation {
     /**
      *  name
      */
-    val name: String?
+    val name: String
 
     @OneToMany(mappedBy = "nation")
     val employees: List<Employee>
