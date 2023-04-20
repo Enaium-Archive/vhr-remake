@@ -99,7 +99,7 @@ CREATE TABLE `department` (
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
 INSERT INTO `department` VALUES
-(1,'股东会',-1,'.1',1,1),
+(1,'股东会',NULL,'.1',1,1),
 (4,'董事会',1,'.1.4',1,1),
 (5,'总办',4,'.1.4.5',1,1),
 (8,'财务部',5,'.1.4.5.8',1,0),
@@ -1570,4 +1570,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-20 13:49:23
+-- Dump completed on 2023-04-20 13:54:07
