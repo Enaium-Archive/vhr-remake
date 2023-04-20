@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `adjustsalary`;
 CREATE TABLE `adjustsalary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `eid` int(11) DEFAULT NULL,
-  `asDate` date DEFAULT NULL COMMENT '调薪日期',
-  `beforeSalary` int(11) DEFAULT NULL COMMENT '调前薪资',
-  `afterSalary` int(11) DEFAULT NULL COMMENT '调后薪资',
+  `as_date` date DEFAULT NULL COMMENT '调薪日期',
+  `before_salary` int(11) DEFAULT NULL COMMENT '调前薪资',
+  `after_salary` int(11) DEFAULT NULL COMMENT '调后薪资',
   `reason` varchar(255) DEFAULT NULL COMMENT '调薪原因',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
@@ -55,9 +55,9 @@ DROP TABLE IF EXISTS `appraise`;
 CREATE TABLE `appraise` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `eid` int(11) DEFAULT NULL,
-  `appDate` date DEFAULT NULL COMMENT '考评日期',
-  `appResult` varchar(32) DEFAULT NULL COMMENT '考评结果',
-  `appContent` varchar(255) DEFAULT NULL COMMENT '考评内容',
+  `app_date` date DEFAULT NULL COMMENT '考评日期',
+  `app_result` varchar(32) DEFAULT NULL COMMENT '考评结果',
+  `app_content` varchar(255) DEFAULT NULL COMMENT '考评内容',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`),
   KEY `pid` (`eid`),
@@ -84,10 +84,10 @@ DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) DEFAULT NULL COMMENT '部门名称',
-  `parentId` int(11) DEFAULT NULL,
-  `depPath` varchar(255) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `dep_path` varchar(255) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT 1,
-  `isParent` tinyint(1) DEFAULT 0,
+  `is_parent` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -131,42 +131,42 @@ CREATE TABLE `employee` (
   `name` varchar(10) DEFAULT NULL COMMENT '员工姓名',
   `gender` char(4) DEFAULT NULL COMMENT '性别',
   `birthday` date DEFAULT NULL COMMENT '出生日期',
-  `idCard` char(18) DEFAULT NULL COMMENT '身份证号',
+  `id_card` char(18) DEFAULT NULL COMMENT '身份证号',
   `wedlock` enum('已婚','未婚','离异') DEFAULT NULL COMMENT '婚姻状况',
-  `nationId` int(8) DEFAULT NULL COMMENT '民族',
-  `nativePlace` varchar(20) DEFAULT NULL COMMENT '籍贯',
-  `politicId` int(8) DEFAULT NULL COMMENT '政治面貌',
+  `nation_id` int(8) NOT NULL COMMENT '民族',
+  `native_place` varchar(20) DEFAULT NULL COMMENT '籍贯',
+  `politic_id` int(8) NOT NULL COMMENT '政治面貌',
   `email` varchar(20) DEFAULT NULL COMMENT '邮箱',
   `phone` varchar(11) DEFAULT NULL COMMENT '电话号码',
   `address` varchar(64) DEFAULT NULL COMMENT '联系地址',
-  `departmentId` int(11) DEFAULT NULL COMMENT '所属部门',
-  `jobLevelId` int(11) DEFAULT NULL COMMENT '职称ID',
-  `posId` int(11) DEFAULT NULL COMMENT '职位ID',
-  `engageForm` varchar(8) DEFAULT NULL COMMENT '聘用形式',
-  `tiptopDegree` enum('博士','硕士','本科','大专','高中','初中','小学','其他') DEFAULT NULL COMMENT '最高学历',
+  `department_id` int(11) NOT NULL COMMENT '所属部门',
+  `job_level_id` int(11) NOT NULL COMMENT '职称ID',
+  `pos_id` int(11) NOT NULL COMMENT '职位ID',
+  `engage_from` varchar(8) DEFAULT NULL COMMENT '聘用形式',
+  `tiptop_degree` enum('博士','硕士','本科','大专','高中','初中','小学','其他') DEFAULT NULL COMMENT '最高学历',
   `specialty` varchar(32) DEFAULT NULL COMMENT '所属专业',
   `school` varchar(32) DEFAULT NULL COMMENT '毕业院校',
-  `beginDate` date DEFAULT NULL COMMENT '入职日期',
-  `workState` enum('在职','离职') DEFAULT '在职' COMMENT '在职状态',
-  `workID` char(8) DEFAULT NULL COMMENT '工号',
-  `contractTerm` double DEFAULT NULL COMMENT '合同期限',
-  `conversionTime` date DEFAULT NULL COMMENT '转正日期',
-  `notWorkDate` date DEFAULT NULL COMMENT '离职日期',
-  `beginContract` date DEFAULT NULL COMMENT '合同起始日期',
-  `endContract` date DEFAULT NULL COMMENT '合同终止日期',
-  `workAge` int(11) DEFAULT NULL COMMENT '工龄',
+  `begin_date` date DEFAULT NULL COMMENT '入职日期',
+  `work_state` enum('在职','离职') DEFAULT '在职' COMMENT '在职状态',
+  `work_id` char(8) DEFAULT NULL COMMENT '工号',
+  `contract_term` double DEFAULT NULL COMMENT '合同期限',
+  `conversion_time` date DEFAULT NULL COMMENT '转正日期',
+  `not_work_date` date DEFAULT NULL COMMENT '离职日期',
+  `begin_contract` date DEFAULT NULL COMMENT '合同起始日期',
+  `end_contract` date DEFAULT NULL COMMENT '合同终止日期',
+  `work_age` int(11) DEFAULT NULL COMMENT '工龄',
   PRIMARY KEY (`id`),
-  KEY `departmentId` (`departmentId`),
-  KEY `jobId` (`jobLevelId`),
-  KEY `dutyId` (`posId`),
-  KEY `nationId` (`nationId`),
-  KEY `politicId` (`politicId`),
-  KEY `workID_key` (`workID`),
-  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`id`),
-  CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`jobLevelId`) REFERENCES `joblevel` (`id`),
-  CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`posId`) REFERENCES `position` (`id`),
-  CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`nationId`) REFERENCES `nation` (`id`),
-  CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`politicId`) REFERENCES `politicsstatus` (`id`)
+  KEY `departmentId` (`department_id`),
+  KEY `jobId` (`job_level_id`),
+  KEY `dutyId` (`pos_id`),
+  KEY `nationId` (`nation_id`),
+  KEY `politicId` (`politic_id`),
+  KEY `workID_key` (`work_id`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
+  CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`job_level_id`) REFERENCES `joblevel` (`id`),
+  CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`pos_id`) REFERENCES `position` (`id`),
+  CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`nation_id`) REFERENCES `nation` (`id`),
+  CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`politic_id`) REFERENCES `politicsstatus` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1942 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -837,8 +837,8 @@ DROP TABLE IF EXISTS `employeeremove`;
 CREATE TABLE `employeeremove` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `eid` int(11) DEFAULT NULL,
-  `after_depId` int(11) DEFAULT NULL COMMENT '调动后部门',
-  `after_jobId` int(11) DEFAULT NULL COMMENT '调动后职位',
+  `after_dep_id` int(11) DEFAULT NULL COMMENT '调动后部门',
+  `after_job_id` int(11) DEFAULT NULL COMMENT '调动后职位',
   `remove_date` date DEFAULT NULL COMMENT '调动日期',
   `reason` varchar(255) DEFAULT NULL COMMENT '调动原因',
   `remark` varchar(255) DEFAULT NULL,
@@ -955,7 +955,7 @@ CREATE TABLE `hr` (
   `userface` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -965,7 +965,7 @@ CREATE TABLE `hr` (
 LOCK TABLES `hr` WRITE;
 /*!40000 ALTER TABLE `hr` DISABLE KEYS */;
 INSERT INTO `hr` VALUES
-(3,'系统管理员','18568887789','029-82881234','深圳南山',1,'admin','$2a$10$Xvjo2EIhvNWbJTynerN5o.dnhpaG3N5Um/.0lv5xf5aY8HEb6D3Uu','http://bpic.588ku.com/element_pic/01/40/00/64573ce2edc0728.jpg',NULL),
+(3,'系统管理员','18568887789','029-82881234','深圳南山',1,'admin','$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm','http://bpic.588ku.com/element_pic/01/40/00/64573ce2edc0728.jpg',NULL),
 (5,'李白','18568123489','029-82123434','海口美兰',1,'libai','$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514093920321&di=913e88c23f382933ef430024afd9128a&imgtype=0&src=http%3A%2F%2Fp.3761.com%2Fpic%2F9771429316733.jpg',NULL),
 (10,'韩愈','18568123666','029-82111555','广州番禺',1,'hanyu','$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517070040185&di=be0375e0c3db6c311b837b28c208f318&imgtype=0&src=http%3A%2F%2Fimg2.soyoung.com%2Fpost%2F20150213%2F6%2F20150213141918532.jpg',NULL),
 (11,'柳宗元','18568123377','029-82111333','广州天河',1,'liuzongyuan','$2a$10$oE39aG10kB/rFu2vQeCJTu/V/v4n6DRR0f8WyXRiAYvBpmadoOBE.','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515233756&di=0856d923a0a37a87fd26604a2c871370&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2014-09-27%2F041716704.jpg',NULL),
@@ -981,13 +981,15 @@ DROP TABLE IF EXISTS `hr_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hr_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `hrid` int(11) DEFAULT NULL,
   `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `rid` (`rid`),
   KEY `hr_role_ibfk_1` (`hrid`),
   CONSTRAINT `hr_role_ibfk_1` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`) ON DELETE CASCADE,
   CONSTRAINT `hr_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -997,19 +999,19 @@ CREATE TABLE `hr_role` (
 LOCK TABLES `hr_role` WRITE;
 /*!40000 ALTER TABLE `hr_role` DISABLE KEYS */;
 INSERT INTO `hr_role` VALUES
-(3,6),
-(12,4),
-(12,3),
-(12,2),
-(11,3),
-(11,2),
-(11,4),
-(11,5),
-(10,3),
-(10,4),
-(5,1),
-(5,2),
-(5,3);
+(1,3,6),
+(35,12,4),
+(36,12,3),
+(37,12,2),
+(43,11,3),
+(44,11,2),
+(45,11,4),
+(46,11,5),
+(48,10,3),
+(49,10,4),
+(72,5,1),
+(73,5,2),
+(74,5,3);
 /*!40000 ALTER TABLE `hr_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1056,8 +1058,8 @@ DROP TABLE IF EXISTS `mail_send_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mail_send_log` (
-  `msg_Id` varchar(255) DEFAULT NULL,
-  `emp_Id` int(11) DEFAULT NULL,
+  `msg_id` varchar(255) DEFAULT NULL,
+  `empId` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT 0 COMMENT '0发送中，1发送成功，2发送失败',
   `route_key` varchar(255) DEFAULT NULL,
   `exchange` varchar(255) DEFAULT NULL,
@@ -1147,13 +1149,15 @@ DROP TABLE IF EXISTS `menu_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menu_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `mid` int(11) DEFAULT NULL,
   `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   KEY `mid` (`mid`),
   KEY `rid` (`rid`),
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1163,62 +1167,62 @@ CREATE TABLE `menu_role` (
 LOCK TABLES `menu_role` WRITE;
 /*!40000 ALTER TABLE `menu_role` DISABLE KEYS */;
 INSERT INTO `menu_role` VALUES
-(7,3),
-(7,6),
-(9,6),
-(10,6),
-(11,6),
-(12,6),
-(13,6),
-(14,6),
-(15,6),
-(16,6),
-(17,6),
-(18,6),
-(19,6),
-(20,6),
-(21,6),
-(22,6),
-(23,6),
-(25,6),
-(26,6),
-(27,6),
-(28,6),
-(24,6),
-(7,4),
-(8,4),
-(11,4),
-(7,2),
-(8,2),
-(9,2),
-(10,2),
-(12,2),
-(13,2),
-(7,1),
-(8,1),
-(9,1),
-(10,1),
-(11,1),
-(12,1),
-(13,1),
-(14,1),
-(15,1),
-(16,1),
-(17,1),
-(18,1),
-(19,1),
-(20,1),
-(21,1),
-(22,1),
-(23,1),
-(24,1),
-(25,1),
-(26,1),
-(27,1),
-(28,1),
-(7,14),
-(8,14),
-(9,14);
+(161,7,3),
+(162,7,6),
+(163,9,6),
+(164,10,6),
+(165,11,6),
+(166,12,6),
+(167,13,6),
+(168,14,6),
+(169,15,6),
+(170,16,6),
+(171,17,6),
+(172,18,6),
+(173,19,6),
+(174,20,6),
+(175,21,6),
+(176,22,6),
+(177,23,6),
+(178,25,6),
+(179,26,6),
+(180,27,6),
+(181,28,6),
+(182,24,6),
+(247,7,4),
+(248,8,4),
+(249,11,4),
+(250,7,2),
+(251,8,2),
+(252,9,2),
+(253,10,2),
+(254,12,2),
+(255,13,2),
+(256,7,1),
+(257,8,1),
+(258,9,1),
+(259,10,1),
+(260,11,1),
+(261,12,1),
+(262,13,1),
+(263,14,1),
+(264,15,1),
+(265,16,1),
+(266,17,1),
+(267,18,1),
+(268,19,1),
+(269,20,1),
+(270,21,1),
+(271,22,1),
+(272,23,1),
+(273,24,1),
+(274,25,1),
+(275,26,1),
+(276,27,1),
+(277,28,1),
+(280,7,14),
+(281,8,14),
+(282,9,14);
 /*!40000 ALTER TABLE `menu_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1572,4 +1576,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-16 16:14:09
+-- Dump completed on 2023-04-20  9:06:07
