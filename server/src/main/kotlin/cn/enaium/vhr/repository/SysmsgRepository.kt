@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface SysmsgRepository : KRepository<Sysmsg, Long>
+interface SysmsgRepository : KRepository<Sysmsg, Int>

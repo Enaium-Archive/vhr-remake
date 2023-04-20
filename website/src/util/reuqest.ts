@@ -30,5 +30,5 @@ export const patch = async <T>(url: string, data: any): Promise<IResult<T>> => {
 }
 
 export const del = async <T>(url: string): Promise<IResult<T>> => {
-  return (await http.get(url)).data
+  return (await http.delete(url)).data
 }

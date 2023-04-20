@@ -16,7 +16,11 @@ import java.time.LocalDate
  */
 @Repository
 interface EmployeeRepository : KRepository<Employee, Int> {
-    fun findAllByEmployee(pageable: Pageable, employee: EmployeeInput?, beginDateScope: Array<LocalDate>?): Page<Employee> {
+    fun findAllByEmployee(
+        pageable: Pageable,
+        employee: EmployeeInput?,
+        beginDateScope: Array<LocalDate>?
+    ): Page<Employee> {
         return pager(pageable).execute(sql.createQuery(Employee::class) {
             employee?.let { employee ->
                 employee.politicId.takeIf { it != null }?.let { where(table.politicId eq it) }

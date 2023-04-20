@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface RoleRepository : KRepository<Role, Long>
+interface RoleRepository : KRepository<Role, Int>

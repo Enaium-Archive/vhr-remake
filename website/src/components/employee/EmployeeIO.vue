@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { ElMessage, UploadFile, UploadFiles, UploadRequestOptions } from "element-plus"
-import EmployeeEdit from "@/components/EmployeeEdit.vue"
+import EmployeeEdit from "@/components/employee/EmployeeEdit.vue"
 import { IEmployee } from "@/model"
 import http from "@/util/http"
 import { Download, Loading, Plus, Upload } from "@element-plus/icons-vue"
@@ -78,6 +78,11 @@ const upload = (options: UploadRequestOptions) => {
       }
     })
 }
+
+const addEmployee = () => {
+  employee.value = {}
+  showEditEmployee.value = true
+}
 </script>
 
 <template>
@@ -99,11 +104,11 @@ const upload = (options: UploadRequestOptions) => {
       </template>
       导出数据
     </el-button>
-    <el-button type="primary" @click="showEditEmployee = true">
+    <el-button type="primary" @click="addEmployee">
       <template #icon>
         <Plus />
       </template>
-      添加用户
+      添加员工
     </el-button>
   </div>
   <ElDialog v-model="showEditEmployee">

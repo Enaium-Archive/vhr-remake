@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface PoliticRepository : KRepository<Politic, Long>
+interface PoliticRepository : KRepository<Politic, Int>

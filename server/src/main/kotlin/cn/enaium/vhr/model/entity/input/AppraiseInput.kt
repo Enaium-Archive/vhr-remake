@@ -15,43 +15,41 @@
  */
 
 package cn.enaium.vhr.model.entity.input;
-import java.util.Date;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.Appraise;
+import cn.enaium.vhr.model.entity.Appraise
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
+import java.util.*
 
 data class AppraiseInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     val eid: Int?,
-    
+
     /**
      * 考评日期
      */
     val appdate: Date?,
-    
+
     /**
      * 考评结果
      */
     val appresult: String?,
-    
+
     /**
      * 考评内容
      */
     val appcontent: String?,
-    
+
     /**
      * 备注
      */
     val remark: String?,
-    
-) : Input<Appraise> {
+
+    ) : Input<Appraise> {
 
     override fun toEntity(): Appraise {
         return CONVERTER.toAppraise(this);
@@ -62,7 +60,7 @@ data class AppraiseInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toAppraise(input: AppraiseInput): Appraise;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

@@ -15,27 +15,25 @@
  */
 
 package cn.enaium.vhr.model.entity.input;
-import java.util.Date;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.Msgcontent;
+import cn.enaium.vhr.model.entity.Msgcontent
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
+import java.util.*
 
 data class MsgcontentInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     val title: String?,
-    
+
     val message: String?,
-    
+
     val createDate: Date?,
-    
-) : Input<Msgcontent> {
+
+    ) : Input<Msgcontent> {
 
     override fun toEntity(): Msgcontent {
         return CONVERTER.toMsgcontent(this);
@@ -46,7 +44,7 @@ data class MsgcontentInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toMsgcontent(input: MsgcontentInput): Msgcontent;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

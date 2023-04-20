@@ -15,46 +15,44 @@
  */
 
 package cn.enaium.vhr.model.entity.input;
-import java.util.Date;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.MailSendLog;
+import cn.enaium.vhr.model.entity.MailSendLog
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
+import java.util.*
 
 data class MailSendLogInput(
-        val msgId: String?,
-    
+    val msgId: String?,
+
     val empId: Int?,
-    
+
     /**
      * 0发送中，1发送成功，2发送失败
      */
     val status: Int?,
-    
+
     val routeKey: String?,
-    
+
     val exchange: String?,
-    
+
     /**
      * 重试次数
      */
     val count: Int?,
-    
+
     /**
      * 第一次重试时间
      */
     val tryTime: Date?,
-    
+
     val createTime: Date?,
-    
+
     val updateTime: Date?,
-    
-) : Input<MailSendLog> {
+
+    ) : Input<MailSendLog> {
 
     override fun toEntity(): MailSendLog {
         return CONVERTER.toMailSendLog(this);
@@ -65,7 +63,7 @@ data class MailSendLogInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toMailSendLog(input: MailSendLogInput): MailSendLog;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

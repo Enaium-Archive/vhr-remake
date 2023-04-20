@@ -15,51 +15,49 @@
  */
 
 package cn.enaium.vhr.model.entity.input;
-import java.util.Date;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.Employeeec;
+import cn.enaium.vhr.model.entity.Employeeec
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
+import java.util.*
 
 data class EmployeeecInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     /**
      * 员工编号
      */
     val eid: Int?,
-    
+
     /**
      * 奖罚日期
      */
     val ecDate: Date?,
-    
+
     /**
      * 奖罚原因
      */
     val ecReason: String?,
-    
+
     /**
      * 奖罚分
      */
     val ecPoint: Int?,
-    
+
     /**
      * 奖罚类别，0：奖，1：罚
      */
     val ecType: Int?,
-    
+
     /**
      * 备注
      */
     val remark: String?,
-    
-) : Input<Employeeec> {
+
+    ) : Input<Employeeec> {
 
     override fun toEntity(): Employeeec {
         return CONVERTER.toEmployeeec(this);
@@ -70,7 +68,7 @@ data class EmployeeecInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toEmployeeec(input: EmployeeecInput): Employeeec;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

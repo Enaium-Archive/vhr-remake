@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface MailSendLogRepository : KRepository<MailSendLog, Long>
+interface MailSendLogRepository : KRepository<MailSendLog, Int>

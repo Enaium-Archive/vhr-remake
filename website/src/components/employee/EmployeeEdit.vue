@@ -120,8 +120,8 @@ const submit = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <ElForm :model="props.employee" :rules="employeeRule" ref="formRef">
-    <ElRow>
+  <ElForm :model="props.employee" :rules="employeeRule" ref="formRef" label-width="100">
+    <ElRow :gutter="20">
       <ElCol :span="6">
         <ElFormItem label="姓名:" prop="name">
           <ElInput

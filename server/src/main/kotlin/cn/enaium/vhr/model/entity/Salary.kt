@@ -70,4 +70,7 @@ interface Salary {
      *  name
      */
     val name: String?
+
+    @ManyToMany(mappedBy = "salaries")
+    val employees: List<Employee>
 }

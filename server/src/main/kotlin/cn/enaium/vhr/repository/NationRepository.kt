@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface NationRepository : KRepository<Nation, Long>
+interface NationRepository : KRepository<Nation, Int>

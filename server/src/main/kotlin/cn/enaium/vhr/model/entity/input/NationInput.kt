@@ -16,21 +16,19 @@
 
 package cn.enaium.vhr.model.entity.input;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.Nation;
+import cn.enaium.vhr.model.entity.Nation
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
 
 data class NationInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     val name: String?,
-    
-) : Input<Nation> {
+
+    ) : Input<Nation> {
 
     override fun toEntity(): Nation {
         return CONVERTER.toNation(this);
@@ -41,7 +39,7 @@ data class NationInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toNation(input: NationInput): Nation;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

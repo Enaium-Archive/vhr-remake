@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface SalaryRepository : KRepository<Salary, Long>
+interface SalaryRepository : KRepository<Salary, Int>

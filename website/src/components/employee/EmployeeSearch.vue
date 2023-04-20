@@ -6,7 +6,7 @@
   - You may obtain a copy of the License at
   -
   -     http://www.apache.org/licenses/LICENSE-2.0
-  -
+  -     
   - Unless required by applicable law or agreed to in writing, software
   - distributed under the License is distributed on an "AS IS" BASIS,
   - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import { IDepartment, IEmployee, IJobLevel, INation, IPolitic, IPosition } from "@/model";
+import { IDepartment, IEmployee, IJobLevel, INation, IPolitic, IPosition } from "@/model"
 import { get } from "@/util/reuqest"
 import { Search } from "@element-plus/icons-vue"
 
@@ -28,7 +28,6 @@ const emit = defineEmits(["done"])
 
 const done = () => {
   emit("done")
-  console.log(props.employee);
 }
 
 const positions = ref<IPosition[]>()
@@ -60,7 +59,7 @@ get<IDepartment[]>("/employee/department").then((r) => {
 
 <template>
   <div>
-    <ElRow>
+    <ElRow :gutter="20">
       <ElCol :span="5">
         政治面貌:
         <ElSelect v-model="props.employee.politicId" placeholder="政治面貌" size="small" style="width: 130px">

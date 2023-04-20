@@ -15,30 +15,28 @@
  */
 
 package cn.enaium.vhr.model.entity.input;
-import java.util.Date;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.Position;
+import cn.enaium.vhr.model.entity.Position
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
+import java.util.*
 
 data class PositionInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     /**
      * 职位
      */
     val name: String?,
-    
+
     val createDate: Date?,
-    
+
     val enabled: Boolean?,
-    
-) : Input<Position> {
+
+    ) : Input<Position> {
 
     override fun toEntity(): Position {
         return CONVERTER.toPosition(this);
@@ -49,7 +47,7 @@ data class PositionInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toPosition(input: PositionInput): Position;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

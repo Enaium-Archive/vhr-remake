@@ -16,26 +16,24 @@
 
 package cn.enaium.vhr.model.entity.input;
 
-import org.babyfish.jimmer.Input;
-
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-
-import cn.enaium.vhr.model.entity.Role;
+import cn.enaium.vhr.model.entity.Role
+import org.babyfish.jimmer.Input
+import org.mapstruct.BeanMapping
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
+import org.mapstruct.factory.Mappers
 
 data class RoleInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     val name: String?,
-    
+
     /**
      * 角色名称
      */
     val nameZh: String?,
-    
-) : Input<Role> {
+
+    ) : Input<Role> {
 
     override fun toEntity(): Role {
         return CONVERTER.toRole(this);
@@ -46,7 +44,7 @@ data class RoleInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toRole(input: RoleInput): Role;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

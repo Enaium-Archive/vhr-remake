@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface OplogRepository : KRepository<Oplog, Long>
+interface OplogRepository : KRepository<Oplog, Int>

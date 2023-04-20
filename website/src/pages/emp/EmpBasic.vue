@@ -19,11 +19,11 @@ import { ref } from "vue"
 import { IEmployee, IPage } from "@/model"
 import { del, get } from "@/util/reuqest"
 import { Employee } from "@/model/type/employee"
-import EmployeeEdit from "@/components/EmployeeEdit.vue"
+import EmployeeEdit from "@/components/employee/EmployeeEdit.vue"
 import { ElMessage, ElMessageBox } from "element-plus"
-import EmployeeIO from "@/components/EmployeeIO.vue"
+import EmployeeIO from "@/components/employee/EmployeeIO.vue"
 import { Search } from "@element-plus/icons-vue"
-import EmployeeSearch from "@/components/EmployeeSearch.vue"
+import EmployeeSearch from "@/components/employee/EmployeeSearch.vue"
 
 const wedlockParse = Employee.wedlockParse
 const degreeParse = Employee.degreeParse

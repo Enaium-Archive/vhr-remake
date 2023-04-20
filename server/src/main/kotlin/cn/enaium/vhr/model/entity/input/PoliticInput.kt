@@ -25,11 +25,11 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 data class PoliticInput(
-        val id: Int?,
-    
+    val id: Int?,
+
     val name: String?,
-    
-) : Input<Politic> {
+
+    ) : Input<Politic> {
 
     override fun toEntity(): Politic {
         return CONVERTER.toPolitic(this);
@@ -40,7 +40,7 @@ data class PoliticInput(
         @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
         fun toPolitic(input: PoliticInput): Politic;
     }
-    
+
     companion object {
         @JvmStatic
         private val CONVERTER = Mappers.getMapper(Converter::class.java)

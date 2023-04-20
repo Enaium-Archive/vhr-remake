@@ -142,4 +142,15 @@ interface Employee {
     /**
      *  工龄 */
     val workAge: Int?
+
+    /**
+     * Employee多对多Salary
+     */
+    @ManyToMany
+    @JoinTable(
+        name = "empsalary",//中间表名
+        joinColumnName = "eid",//Employee的ID
+        inverseJoinColumnName = "sid"//Salary的ID
+    )
+    val salaries: List<Salary>
 }

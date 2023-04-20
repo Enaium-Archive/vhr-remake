@@ -133,3 +133,20 @@ export interface IPosition {
   createData?: string
   enable?: boolean
 }
+
+export interface ISalary {
+  id?: number
+  basicSalary?: number
+  bonus?: number
+  lunchSalary?: number
+  trafficSalary?: number
+  allSalary?: number
+  pensionBase?: number
+  pensionPer?: number
+  createDate?: string
+  medicalBase?: number
+  medicalPer?: number
+  accumulationFundBase?: number
+  accumulationFundPer?: number
+  name?: string
+}

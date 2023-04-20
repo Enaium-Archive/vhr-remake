@@ -23,4 +23,4 @@ import org.babyfish.jimmer.spring.repository.KRepository
  *
  * @author Enaium
  */
-interface PositionRepository : KRepository<Position, Long>
+interface PositionRepository : KRepository<Position, Int>
