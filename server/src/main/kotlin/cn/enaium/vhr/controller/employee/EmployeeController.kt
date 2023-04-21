@@ -20,7 +20,7 @@ import cn.enaium.vhr.excel2Cell
 import cn.enaium.vhr.getEnumByOrigin
 import cn.enaium.vhr.model.entity.*
 import cn.enaium.vhr.model.entity.input.EmployeeInput
-import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.model.type.Degree
 import cn.enaium.vhr.model.type.State
 import cn.enaium.vhr.model.type.Wedlock
@@ -58,8 +58,8 @@ class EmployeeController(
         @RequestParam(defaultValue = "10") size: Int,
         employee: EmployeeInput?,
         beginDateScope: Array<String>?
-    ): Result<Page<Employee>?> {
-        return Result.Builder.success(
+    ): ResponseResult<Page<Employee>?> {
+        return ResponseResult.Builder.success(
             metadata = employeeRepository.findAllByEmployee(
                 PageRequest.of(page, size),
                 employee,
@@ -71,40 +71,40 @@ class EmployeeController(
     }
 
     @GetMapping("/nation")
-    fun nation(): Result<List<Nation>?> {
-        return Result.Builder.success(metadata = nationRepository.findAll())
+    fun nation(): ResponseResult<List<Nation>?> {
+        return ResponseResult.Builder.success(metadata = nationRepository.findAll())
     }
 
     @GetMapping("/politic")
-    fun politic(): Result<List<Politic>?> {
-        return Result.Builder.success(metadata = politicRepository.findAll())
+    fun politic(): ResponseResult<List<Politic>?> {
+        return ResponseResult.Builder.success(metadata = politicRepository.findAll())
     }
 
     @GetMapping("/jobLevel")
-    fun joblevel(): Result<List<JobLevel>?> {
-        return Result.Builder.success(metadata = jobLevelRepository.findAll())
+    fun joblevel(): ResponseResult<List<JobLevel>?> {
+        return ResponseResult.Builder.success(metadata = jobLevelRepository.findAll())
     }
 
     @GetMapping("/position")
-    fun positions(): Result<List<Position>?> {
-        return Result.Builder.success(metadata = positionRepository.findAll())
+    fun positions(): ResponseResult<List<Position>?> {
+        return ResponseResult.Builder.success(metadata = positionRepository.findAll())
     }
 
     @GetMapping("/department")
-    fun department(): Result<List<Department>?> {
-        return Result.Builder.success(metadata = departmentRepository.findAll())
+    fun department(): ResponseResult<List<Department>?> {
+        return ResponseResult.Builder.success(metadata = departmentRepository.findAll())
     }
 
     @PutMapping
-    fun put(@RequestBody employeeInput: EmployeeInput): Result<Nothing?> {
+    fun put(@RequestBody employeeInput: EmployeeInput): ResponseResult<Nothing?> {
         employeeRepository.save(employeeInput)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int): Result<Nothing?> {
+    fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
         employeeRepository.deleteById(id)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 
     @GetMapping("/export")
@@ -190,7 +190,7 @@ class EmployeeController(
 
     @Transactional
     @PutMapping("/import")
-    fun import(file: MultipartFile): Result<Nothing?> {
+    fun import(file: MultipartFile): ResponseResult<Nothing?> {
         val nations = nationRepository.findAll().associate { it.name to it.id }
         val politics = politicRepository.findAll().associate { it.name to it.id }
         val departments = departmentRepository.findAll().associate { it.name to it.id }
@@ -229,6 +229,6 @@ class EmployeeController(
 
             }
         }
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 }

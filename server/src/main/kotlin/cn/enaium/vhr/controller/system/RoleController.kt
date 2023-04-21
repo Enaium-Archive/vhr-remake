@@ -16,40 +16,34 @@
 
 package cn.enaium.vhr.controller.system
 
-import cn.enaium.vhr.model.entity.Department
-import cn.enaium.vhr.model.entity.input.DepartmentInput
+import cn.enaium.vhr.model.entity.Role
+import cn.enaium.vhr.model.entity.input.RoleInput
 import cn.enaium.vhr.model.result.ResponseResult
-import cn.enaium.vhr.repository.DepartmentRepository
-import org.babyfish.jimmer.sql.kt.KSqlClient
+import cn.enaium.vhr.repository.RoleRepository
 import org.springframework.web.bind.annotation.*
 
 /**
  * @author Enaium
  */
 @RestController
-@RequestMapping("/system/department")
-class DepartmentController(
-    val departmentRepository: DepartmentRepository,
-    val sqlClient: KSqlClient
+@RequestMapping("/system/role")
+class RoleController(
+    val roleRepository: RoleRepository
 ) {
     @GetMapping
-    fun get(): ResponseResult<List<Department>?> {
-        return ResponseResult.Builder.success(metadata = departmentRepository.findAll())
-    }
-
-    @GetMapping("/tree")
-    fun getTree(): ResponseResult<List<Department>?> {
-        return ResponseResult.Builder.success(metadata = departmentRepository.getTree())
+    fun get(): ResponseResult<List<Role>?> {
+        return ResponseResult.Builder.success(metadata = roleRepository.findAll())
     }
 
     @PutMapping
-    fun put(@RequestBody department: DepartmentInput): ResponseResult<Int?> {
-        return ResponseResult.Builder.success(metadata = departmentRepository.save(department).id)
+    fun put(@RequestBody roleInput: RoleInput): ResponseResult<Nothing?> {
+        roleRepository.save(roleInput)
+        return ResponseResult.Builder.success()
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
-        departmentRepository.deleteById(id)
+        roleRepository.deleteById(id)
         return ResponseResult.Builder.success()
     }
 }

@@ -18,7 +18,7 @@ package cn.enaium.vhr.controller.system
 
 import cn.enaium.vhr.model.entity.Position
 import cn.enaium.vhr.model.entity.input.PositionInput
-import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.PositionRepository
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
@@ -32,20 +32,20 @@ class PositionController(
     val positionRepository: PositionRepository
 ) {
     @GetMapping
-    fun get(): Result<List<Position>?> {
-        return Result.Builder.success(metadata = positionRepository.findAll())
+    fun get(): ResponseResult<List<Position>?> {
+        return ResponseResult.Builder.success(metadata = positionRepository.findAll())
     }
 
     @PutMapping
-    fun put(@RequestBody position: PositionInput): Result<Nothing?> {
+    fun put(@RequestBody position: PositionInput): ResponseResult<Nothing?> {
         position.createDate = LocalDateTime.now()
         positionRepository.save(position)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int): Result<Nothing?> {
+    fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
         positionRepository.deleteById(id)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 }

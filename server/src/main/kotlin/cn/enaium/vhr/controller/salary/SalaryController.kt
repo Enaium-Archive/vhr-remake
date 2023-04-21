@@ -18,7 +18,7 @@ package cn.enaium.vhr.controller.salary
 
 import cn.enaium.vhr.model.entity.Salary
 import cn.enaium.vhr.model.entity.input.SalaryInput
-import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.SalaryRepository
 import org.springframework.web.bind.annotation.*
 
@@ -31,19 +31,19 @@ class SalaryController(
     val salaryRepository: SalaryRepository
 ) {
     @GetMapping
-    fun get(): Result<List<Salary>?> {
-        return Result.Builder.success(metadata = salaryRepository.findAll())
+    fun get(): ResponseResult<List<Salary>?> {
+        return ResponseResult.Builder.success(metadata = salaryRepository.findAll())
     }
 
     @PutMapping
-    fun put(@RequestBody salary: SalaryInput): Result<Nothing?> {
+    fun put(@RequestBody salary: SalaryInput): ResponseResult<Nothing?> {
         salaryRepository.save(salary)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int): Result<Nothing?> {
+    fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
         salaryRepository.deleteById(id)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 }

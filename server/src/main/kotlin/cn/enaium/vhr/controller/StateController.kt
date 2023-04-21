@@ -20,7 +20,7 @@ import cn.dev33.satoken.secure.BCrypt
 import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.request.StateRequest
 import cn.enaium.vhr.model.response.StateResponse
-import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.HrRepository
 import cn.enaium.vhr.service.CaptchaService
 import org.springframework.web.bind.annotation.*
@@ -43,31 +43,31 @@ class StateController(
      * @see cn.enaium.vhr.model.request.StateRequest
      */
     @PutMapping
-    fun put(@RequestBody body: StateRequest): Result<Any?> {
+    fun put(@RequestBody body: StateRequest): ResponseResult<Any?> {
         if (body.code != captchaService.findCaptcha(body.captcha)) {
-            return Result.Builder.fail(status = Result.Status.CAPTCHA_INCORRECT)
+            return ResponseResult.Builder.fail(status = ResponseResult.Status.CAPTCHA_INCORRECT)
         }
 
         hrRepository.findByUsername(body.username)?.let { hr ->
             hr.password.takeIf {
                 BCrypt.checkpw(body.password, hr.password)//判断密码是否正确
             }?.let {//正确这个值不为null
-                return Result.Builder.success(
+                return ResponseResult.Builder.success(
                     metadata = StateResponse(hr.id, StpUtil.createLoginSession(hr.id))
                 )
             } ?: let {//不正确这个值为null
-                return Result.Builder.fail(status = Result.Status.PASSWORD_INCORRECT)
+                return ResponseResult.Builder.fail(status = ResponseResult.Status.PASSWORD_INCORRECT)
             }
         }
-        return Result.Builder.fail(status = Result.Status.USERNAME_DOESNT_EXIST)
+        return ResponseResult.Builder.fail(status = ResponseResult.Status.USERNAME_DOESNT_EXIST)
     }
 
     /**
      * 退出登录
      */
     @DeleteMapping
-    fun delete(): Result<Nothing?> {
+    fun delete(): ResponseResult<Nothing?> {
         StpUtil.logout()
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 }

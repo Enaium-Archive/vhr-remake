@@ -20,7 +20,7 @@ import cn.dev33.satoken.secure.BCrypt
 import cn.enaium.vhr.model.entity.Hr
 import cn.enaium.vhr.model.entity.by
 import cn.enaium.vhr.model.entity.input.HrInput
-import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.HrRepository
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.web.bind.annotation.*
@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/hr")
 class HrController(val hrRepository: HrRepository) {
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Int): Result<Hr?> {
-        return Result.Builder.success(metadata = hrRepository.findNullable(id, newFetcher(Hr::class).by {
+    fun get(@PathVariable id: Int): ResponseResult<Hr?> {
+        return ResponseResult.Builder.success(metadata = hrRepository.findNullable(id, newFetcher(Hr::class).by {
             allScalarFields()
             roles {
                 allScalarFields()
@@ -42,20 +42,20 @@ class HrController(val hrRepository: HrRepository) {
     }
 
     @PutMapping
-    fun save(@RequestBody hrInput: HrInput): Result<Nothing?> {
+    fun save(@RequestBody hrInput: HrInput): ResponseResult<Nothing?> {
         if (hrInput.oldPassword != null) {
-            hrInput.id ?: return Result.Builder.fail(message = "ID不存在")
+            hrInput.id ?: return ResponseResult.Builder.fail(message = "ID不存在")
             val hr = hrRepository.findNullable(hrInput.id)
-                ?: return Result.Builder.fail(status = Result.Status.HR_DOESNT_EXIST)
+                ?: return ResponseResult.Builder.fail(status = ResponseResult.Status.HR_DOESNT_EXIST)
 
             if (!BCrypt.checkpw(hrInput.oldPassword, hr.password)) {
-                return Result.Builder.fail(status = Result.Status.PASSWORD_INCORRECT)
+                return ResponseResult.Builder.fail(status = ResponseResult.Status.PASSWORD_INCORRECT)
             } else {
                 hrInput.password = BCrypt.hashpw(hrInput.password)
             }
         }
 
         hrRepository.save(hrInput)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 }

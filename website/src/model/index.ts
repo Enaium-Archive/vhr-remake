@@ -52,6 +52,7 @@ export interface IHr {
 export interface IRole {
   id?: number
   name?: string
+  nameZh?: string
 }
 
 export interface IMenu {

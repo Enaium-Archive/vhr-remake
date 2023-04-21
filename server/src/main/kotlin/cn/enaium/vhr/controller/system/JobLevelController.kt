@@ -18,7 +18,7 @@ package cn.enaium.vhr.controller.system
 
 import cn.enaium.vhr.model.entity.JobLevel
 import cn.enaium.vhr.model.entity.input.JobLevelInput
-import cn.enaium.vhr.model.result.Result
+import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.JobLevelRepository
 import org.springframework.web.bind.annotation.*
 
@@ -31,19 +31,19 @@ class JobLevelController(
     val jobLevelRepository: JobLevelRepository
 ) {
     @GetMapping
-    fun get(): Result<List<JobLevel>?> {
-        return Result.Builder.success(metadata = jobLevelRepository.findAll())
+    fun get(): ResponseResult<List<JobLevel>?> {
+        return ResponseResult.Builder.success(metadata = jobLevelRepository.findAll())
     }
 
     @PutMapping
-    fun save(@RequestBody jobLevelInput: JobLevelInput): Result<Nothing?> {
+    fun save(@RequestBody jobLevelInput: JobLevelInput): ResponseResult<Nothing?> {
         jobLevelRepository.save(jobLevelInput)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int): Result<Nothing?> {
+    fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
         jobLevelRepository.deleteById(id)
-        return Result.Builder.success()
+        return ResponseResult.Builder.success()
     }
 }

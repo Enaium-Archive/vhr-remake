@@ -24,7 +24,7 @@ package cn.enaium.vhr.model.result
  * @property message 请求信息
  * @property metadata 请求数据
  */
-data class Result<T>(val code: Int, val message: String, val metadata: T) {
+data class ResponseResult<T>(val code: Int, val message: String, val metadata: T) {
 
     enum class Status(val code: Int, val message: String) {
         SUCCESS(200, "成功"),
@@ -41,8 +41,8 @@ data class Result<T>(val code: Int, val message: String, val metadata: T) {
             code: Int = status.code,
             message: String = status.message,
             metadata: T? = null
-        ): Result<T?> {
-            return Result(code, message, metadata)
+        ): ResponseResult<T?> {
+            return ResponseResult(code, message, metadata)
         }
 
         fun <T> fail(
@@ -50,8 +50,8 @@ data class Result<T>(val code: Int, val message: String, val metadata: T) {
             code: Int = status.code,
             message: String = status.message,
             metadata: T? = null
-        ): Result<T?> {
-            return Result(code, message, metadata)
+        ): ResponseResult<T?> {
+            return ResponseResult(code, message, metadata)
         }
     }
 }
