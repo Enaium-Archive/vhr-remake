@@ -25,13 +25,9 @@ import Node from "element-plus/es/components/tree/src/model/node"
 const filterText = ref()
 const departments = ref<IDepartment[]>()
 
-const initDepartment = () => {
-  get<IDepartment[]>("/system/department/tree").then((r) => {
-    departments.value = r.metadata
-  })
-}
-
-initDepartment()
+get<IDepartment[]>("/system/department/tree").then((r) => {
+  departments.value = r.metadata
+})
 
 const treeRef = ref<InstanceType<typeof ElTree>>()
 
@@ -45,28 +41,24 @@ const add = (data: IDepartment, node: Node) => {
   node.expanded = true
 }
 const remove = (data: IDepartment) => {
-  if (data.parent) {
-    ElMessage({ type: "error", message: "父部门删除失败" })
-  } else {
-    ElMessageBox.confirm(`此操作将永久删除【${data.name}】, 是否继续?`, "提示", {
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-      type: "warning",
+  ElMessageBox.confirm(`此操作将永久删除【${data.name}】, 是否继续?`, "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      del(`/system/department/${data.id}`).then((r) => {
+        if (r.code == 200) {
+          ElMessage({ type: "success", message: "删除成功" })
+        }
+      })
     })
-      .then(() => {
-        del(`/system/department/${data.id}`).then((r) => {
-          if (r.code == 200) {
-            ElMessage({ type: "success", message: "删除成功" })
-          }
-        })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "取消删除",
       })
-      .catch(() => {
-        ElMessage({
-          type: "info",
-          message: "取消删除",
-        })
-      })
-  }
+    })
 }
 
 watch(filterText, (o) => {

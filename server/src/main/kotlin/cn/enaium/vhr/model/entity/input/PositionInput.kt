@@ -22,6 +22,7 @@ import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper
 import org.mapstruct.ReportingPolicy
 import org.mapstruct.factory.Mappers
+import java.time.LocalDateTime
 import java.util.*
 
 data class PositionInput(
@@ -32,7 +33,7 @@ data class PositionInput(
      */
     val name: String?,
 
-    val createDate: Date?,
+    var createDate: LocalDateTime?,
 
     val enabled: Boolean?,
 

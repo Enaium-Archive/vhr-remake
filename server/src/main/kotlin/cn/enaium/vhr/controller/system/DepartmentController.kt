@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.controller.system.department
+package cn.enaium.vhr.controller.system
 
 import cn.enaium.vhr.model.entity.Department
 import cn.enaium.vhr.model.entity.fetchBy

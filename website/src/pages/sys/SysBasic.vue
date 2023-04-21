@@ -15,8 +15,11 @@
   -->
 
 <script setup lang="ts">
-import DepartmentManager from "@/components/DepartmentManager.vue"
-import PositionManager from "@/components/PositionManager.vue"
+import DepartmentManager from "@/components/manager/DepartmentManager.vue"
+import PositionManager from "@/components/manager/PositionManager.vue"
+import JobLevelManager from "@/components/manager/JobLevelManager.vue"
+import EcManager from "@/components/manager/EcManager.vue"
+import PermissionManager from "@/components/manager/PermissionManager.vue"
 </script>
 
 <template>
@@ -24,8 +27,17 @@ import PositionManager from "@/components/PositionManager.vue"
     <ElTabPane label="部门管理">
       <DepartmentManager />
     </ElTabPane>
-    <ElTabPane label="职称管理">
+    <ElTabPane label="职位管理">
       <PositionManager />
+    </ElTabPane>
+    <ElTabPane label="职称管理">
+      <JobLevelManager />
+    </ElTabPane>
+    <ElTabPane label="奖惩规则">
+      <EcManager />
+    </ElTabPane>
+    <ElTabPane label="权限组">
+      <PermissionManager />
     </ElTabPane>
   </ElTabs>
 </template>

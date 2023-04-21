@@ -87,7 +87,7 @@ CREATE TABLE `department` (
   `parent_id` int(11) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +162,7 @@ CREATE TABLE `employee` (
   KEY `workID_key` (`work_id`),
   CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
   CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`job_level_id`) REFERENCES `joblevel` (`id`),
-  CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`pos_id`) REFERENCES `position` (`id`),
+  CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`pos_id`) REFERENCES `t_position` (`id`),
   CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`nation_id`) REFERENCES `nation` (`id`),
   CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`politic_id`) REFERENCES `politicsstatus` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1942 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
@@ -1023,7 +1023,7 @@ CREATE TABLE `joblevel` (
   `create_date` timestamp NULL DEFAULT current_timestamp(),
   `enabled` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1394,39 +1394,6 @@ INSERT INTO `politicsstatus` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `position`
---
-
-DROP TABLE IF EXISTS `position`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `position` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) DEFAULT NULL COMMENT '职位',
-  `create_date` timestamp NULL DEFAULT current_timestamp(),
-  `enabled` tinyint(1) DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `position`
---
-
-LOCK TABLES `position` WRITE;
-/*!40000 ALTER TABLE `position` DISABLE KEYS */;
-INSERT INTO `position` VALUES
-(29,'技术总监','2018-01-11 13:13:42',1),
-(30,'运营总监','2018-01-11 13:13:48',1),
-(31,'市场总监','2018-01-10 16:00:00',1),
-(33,'研发工程师','2018-01-13 16:00:00',0),
-(34,'运维工程师','2018-01-14 08:11:41',1),
-(36,'Java研发经理','2019-09-30 16:00:00',1);
-/*!40000 ALTER TABLE `position` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `role`
 --
 
@@ -1558,6 +1525,38 @@ INSERT INTO `sysmsg` VALUES
 (81,18,0,12,0);
 /*!40000 ALTER TABLE `sysmsg` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `t_position`
+--
+
+DROP TABLE IF EXISTS `t_position`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `t_position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL COMMENT '职位',
+  `create_date` timestamp NULL DEFAULT current_timestamp(),
+  `enabled` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `t_position`
+--
+
+LOCK TABLES `t_position` WRITE;
+/*!40000 ALTER TABLE `t_position` DISABLE KEYS */;
+INSERT INTO `t_position` VALUES
+(29,'技术总监','2018-01-11 13:13:42',1),
+(30,'运营总监','2018-01-11 13:13:48',1),
+(31,'市场总监','2018-01-10 16:00:00',1),
+(33,'研发工程师','2018-01-13 16:00:00',0),
+(34,'运维工程师','2018-01-14 08:11:41',1),
+(36,'Java研发经理','2019-09-30 16:00:00',1);
+/*!40000 ALTER TABLE `t_position` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1568,4 +1567,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-21  9:39:45
+-- Dump completed on 2023-04-21 14:13:05

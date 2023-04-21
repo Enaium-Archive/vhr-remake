@@ -8,7 +8,7 @@ import java.time.LocalDateTime
  * @author Enaium
  */
 @Entity
-@Table(name = "position")
+@Table(name = "t_position")
 interface Position {
 
     /**

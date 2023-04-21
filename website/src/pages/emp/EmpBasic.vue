@@ -18,7 +18,7 @@
 import { ref } from "vue"
 import { IEmployee, IPage } from "@/model"
 import { del, get } from "@/util/reuqest"
-import { Employee } from "@/model/type/employee"
+import { Employee } from "@/model/type/Employee"
 import EmployeeEdit from "@/components/employee/EmployeeEdit.vue"
 import { ElMessage, ElMessageBox } from "element-plus"
 import EmployeeIO from "@/components/employee/EmployeeIO.vue"

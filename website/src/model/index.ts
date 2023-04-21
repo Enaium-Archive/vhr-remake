@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import { Employee } from "@/model/type/employee"
+import { Employee } from "@/model/type/Employee"
 import Wedlock = Employee.Wedlock
 import Degree = Employee.Degree
+import { JobLevel } from "@/model/type/JobLevel";
+import Level = JobLevel.Level;
 
 export interface IResult<T> {
   code: number
@@ -112,7 +114,7 @@ export interface IDepartment {
 export interface IJobLevel {
   id?: number
   name?: string
-  titleLevel?: string
+  titleLevel?: Level
   createDate?: string
   enabled?: boolean
 }

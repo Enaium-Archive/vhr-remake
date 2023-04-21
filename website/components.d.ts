@@ -9,7 +9,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    DepartmentManager: typeof import('./src/components/DepartmentManager.vue')['default']
+    DepartmentManager: typeof import('./src/components/manager/DepartmentManager.vue')['default']
+    EcManager: typeof import('./src/components/manager/EcManager.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -45,6 +46,7 @@ declare module '@vue/runtime-core' {
     ElSteps: typeof import('element-plus/es')['ElSteps']
     ElSubmenu: typeof import('element-plus/es')['ElSubmenu']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
@@ -57,8 +59,12 @@ declare module '@vue/runtime-core' {
     EmployeeIO: typeof import('./src/components/employee/EmployeeIO.vue')['default']
     EmployeeSearch: typeof import('./src/components/employee/EmployeeSearch.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    JobLevelForm: typeof import('./src/components/JobLevelForm.vue')['default']
+    JobLevelManager: typeof import('./src/components/manager/JobLevelManager.vue')['default']
+    PermissionManager: typeof import('./src/components/manager/PermissionManager.vue')['default']
     Position: typeof import('./src/components/Position.vue')['default']
-    PositionManager: typeof import('./src/components/PositionManager.vue')['default']
+    PositionForm: typeof import('./src/components/PositionForm.vue')['default']
+    PositionManager: typeof import('./src/components/manager/PositionManager.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SalaryForm: typeof import('./src/components/salary/SalaryForm.vue')['default']

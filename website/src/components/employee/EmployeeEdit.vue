@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { IDepartment, IEmployee, IJobLevel, INation, IPolitic, IPosition } from "@/model"
-import { Employee } from "@/model/type/employee"
+import { Employee } from "@/model/type/Employee"
 import { reactive, ref } from "vue"
 import { get, put } from "@/util/reuqest"
 import { ElMessage, FormInstance, FormRules } from "element-plus"

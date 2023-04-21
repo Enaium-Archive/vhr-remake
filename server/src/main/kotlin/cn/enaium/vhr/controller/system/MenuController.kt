@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.enaium.vhr.controller.system.menu
+package cn.enaium.vhr.controller.system
 
 import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.entity.Menu
