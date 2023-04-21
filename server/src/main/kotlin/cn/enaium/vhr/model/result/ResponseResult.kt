@@ -32,7 +32,8 @@ data class ResponseResult<T>(val code: Int, val message: String, val metadata: T
         USERNAME_DOESNT_EXIST(2001, "用户名不存"),
         PASSWORD_INCORRECT(2002, "密码不正确"),
         CAPTCHA_INCORRECT(2003, "验证码过期或不正确"),
-        HR_DOESNT_EXIST(2004, "人事不存在")
+        HR_DOESNT_EXIST(2004, "人事不存在"),
+        ROLE_DOESNT_EXIST(2005, "角色不存在")
     }
 
     object Builder {

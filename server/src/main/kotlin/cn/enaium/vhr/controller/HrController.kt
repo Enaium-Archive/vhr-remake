@@ -17,11 +17,14 @@
 package cn.enaium.vhr.controller
 
 import cn.dev33.satoken.secure.BCrypt
+import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.entity.Hr
+import cn.enaium.vhr.model.entity.Menu
 import cn.enaium.vhr.model.entity.by
 import cn.enaium.vhr.model.entity.input.HrInput
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.HrRepository
+import cn.enaium.vhr.repository.MenuRepository
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.web.bind.annotation.*
 
@@ -30,7 +33,10 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping("/hr")
-class HrController(val hrRepository: HrRepository) {
+class HrController(
+    val hrRepository: HrRepository,
+    val menuRepository: MenuRepository
+) {
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int): ResponseResult<Hr?> {
         return ResponseResult.Builder.success(metadata = hrRepository.findNullable(id, newFetcher(Hr::class).by {
@@ -57,5 +63,10 @@ class HrController(val hrRepository: HrRepository) {
 
         hrRepository.save(hrInput)
         return ResponseResult.Builder.success()
+    }
+
+    @GetMapping("/menu")
+    fun getMenu(): ResponseResult<List<Menu>?> {
+        return ResponseResult.Builder.success(metadata = menuRepository.findAllByHrId(StpUtil.getLoginIdAsInt()))
     }
 }

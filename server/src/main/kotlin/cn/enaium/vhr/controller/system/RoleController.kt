@@ -17,9 +17,12 @@
 package cn.enaium.vhr.controller.system
 
 import cn.enaium.vhr.model.entity.Role
+import cn.enaium.vhr.model.entity.by
 import cn.enaium.vhr.model.entity.input.RoleInput
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.RoleRepository
+import org.babyfish.jimmer.sql.kt.KSqlClient
+import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -28,7 +31,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/system/role")
 class RoleController(
-    val roleRepository: RoleRepository
+    val roleRepository: RoleRepository,
+    val sql: KSqlClient
 ) {
     @GetMapping
     fun get(): ResponseResult<List<Role>?> {
@@ -44,6 +48,24 @@ class RoleController(
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
         roleRepository.deleteById(id)
+        return ResponseResult.Builder.success()
+    }
+
+    @GetMapping("/{id}/menuIds")
+    fun getMenuIds(@PathVariable id: Int): ResponseResult<List<Int>?> {
+        val findNullable = roleRepository.findNullable(id, newFetcher(Role::class).by {
+            menus()
+        }) ?: return ResponseResult.Builder.fail(status = ResponseResult.Status.ROLE_DOESNT_EXIST)
+        return ResponseResult.Builder.success(metadata = findNullable.menus.map { it.id })
+    }
+
+    @PutMapping("/{id}/menuIds")
+    fun putMenuIds(@PathVariable id: Int, menuIds: Array<Int>): ResponseResult<Nothing?> {
+        val findNullable = roleRepository.findNullable(id, newFetcher(Role::class).by {
+            menus()
+        }) ?: return ResponseResult.Builder.fail(status = ResponseResult.Status.ROLE_DOESNT_EXIST)
+        sql.getAssociations(Role::menus).batchDelete(listOf(id), findNullable.menus.map { it.id })
+        sql.getAssociations(Role::menus).batchSave(listOf(id), menuIds.toList())
         return ResponseResult.Builder.success()
     }
 }

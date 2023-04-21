@@ -16,10 +16,10 @@
 
 package cn.enaium.vhr.controller.system
 
-import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.entity.Menu
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.MenuRepository
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -31,7 +31,8 @@ import org.springframework.web.bind.annotation.RestController
 class MenuController(
     val menuRepository: MenuRepository
 ) {
+    @GetMapping
     fun get(): ResponseResult<List<Menu>?> {
-        return ResponseResult.Builder.success(metadata = menuRepository.findAllByHrId(StpUtil.getLoginIdAsInt()))
+        return ResponseResult.Builder.success(metadata = menuRepository.findTree())
     }
 }

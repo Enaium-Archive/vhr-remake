@@ -15,59 +15,62 @@
   -->
 
 <script setup lang="ts">
-import { Plus } from "@element-plus/icons-vue"
 import { ref } from "vue"
-import { IMenu, IRole } from "@/model"
-import { get } from "@/util/reuqest"
-import { Delete } from "@element-plus/icons-vue";
+import { IRole } from "@/model"
+import { del, get } from "@/util/reuqest"
+import { ElMessage, ElMessageBox } from "element-plus"
+import PermissionEdit from "@/components/PermissionEdit.vue"
 
-const loading = ref(false)
 const roles = ref<IRole[]>()
-const menus = ref<IMenu[]>()
+const currentRole = ref<IRole>({})
+const roleDialog = ref(false)
 
-const initRoles = () => {
-  loading.value = true
-  get<IRole[]>("/system/role").then((r) => {
-    roles.value = r.metadata
+get<IRole[]>("/system/role").then((r) => {
+  roles.value = r.metadata
+})
+
+const remove = (role: IRole) => {
+  ElMessageBox.confirm(`此操作将永久删除【${role.nameZh}】, 是否继续?`, "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
   })
+    .then(() => {
+      del(`/system/role/${role.id}`).then((r) => {
+        if (r.code == 200) {
+          ElMessage({ type: "success", message: "删除成功" })
+        }
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "取消删除",
+      })
+    })
 }
 
-const initMenus = () => {
-  get<IMenu[]>("/system/menu").then((r) => {
-    menus.value = r.metadata
-  })
+const edit = (role: IRole) => {
+  currentRole.value = role
+  roleDialog.value = true
 }
-
-initRoles()
 </script>
 
 <template>
-  <div class="d-flex justify-content-start">
-    <ElInput placeholder="请输入角色英文名" size="small">
-      <template #prepend>ROLE_</template>
-    </ElInput>
-    <ElInput placeholder="请输入角色中文名" size="small" />
-    <ElButton type="primary" size="small">
-      <template #icon>
-        <Plus />
+  <ElTable :data="roles">
+    <ElTableColumn prop="id" label="编号" />
+    <ElTableColumn prop="name" label="名称" />
+    <ElTableColumn prop="nameZh" label="中文名称" />
+    <ElTableColumn>
+      <template #default="scope">
+        <el-button size="small" @click="edit(scope.row)">编辑</el-button>
+        <el-button size="small" type="danger" @click="remove(scope.row)">删除</el-button>
       </template>
-      添加角色
-    </ElButton>
-  </div>
-  <ElCollapse>
-    <ElCollapseItem :title="role.nameZh" v-for="role in roles" :key="role.id">
-      <ElCard>
-        <template #header>
-          可访问的资源
-          <ElButton text>
-            <template #icon>
-              <Delete />
-            </template>
-          </ElButton>
-        </template>
-      </ElCard>
-    </ElCollapseItem>
-  </ElCollapse>
+    </ElTableColumn>
+  </ElTable>
+  <ElDialog v-model="roleDialog">
+    <PermissionEdit :role="currentRole" @done="roleDialog = false" />
+  </ElDialog>
 </template>
 
 <style scoped></style>

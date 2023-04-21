@@ -25,7 +25,7 @@ import Node from "element-plus/es/components/tree/src/model/node"
 const filterText = ref()
 const departments = ref<IDepartment[]>()
 
-get<IDepartment[]>("/system/department/tree").then((r) => {
+get<IDepartment[]>("/system/department").then((r) => {
   departments.value = r.metadata
 })
 
@@ -78,7 +78,6 @@ const enter = (data: IDepartment) => {
     <ElTree
       ref="treeRef"
       :data="departments"
-      node-key="id"
       :expand-on-click-node="false"
       :filter-node-method="filterNode"
       v-if="departments"

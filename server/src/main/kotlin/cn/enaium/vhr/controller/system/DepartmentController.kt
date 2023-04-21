@@ -20,7 +20,6 @@ import cn.enaium.vhr.model.entity.Department
 import cn.enaium.vhr.model.entity.input.DepartmentInput
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.DepartmentRepository
-import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -29,17 +28,11 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/system/department")
 class DepartmentController(
-    val departmentRepository: DepartmentRepository,
-    val sqlClient: KSqlClient
+    val departmentRepository: DepartmentRepository
 ) {
     @GetMapping
-    fun get(): ResponseResult<List<Department>?> {
-        return ResponseResult.Builder.success(metadata = departmentRepository.findAll())
-    }
-
-    @GetMapping("/tree")
     fun getTree(): ResponseResult<List<Department>?> {
-        return ResponseResult.Builder.success(metadata = departmentRepository.getTree())
+        return ResponseResult.Builder.success(metadata = departmentRepository.findTree())
     }
 
     @PutMapping

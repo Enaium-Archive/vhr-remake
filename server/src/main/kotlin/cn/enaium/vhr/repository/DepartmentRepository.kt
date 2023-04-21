@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface DepartmentRepository : KRepository<Department, Int> {
-    fun getTree(): List<Department> = sql.createQuery(Department::class) {
+    fun findTree(): List<Department> = sql.createQuery(Department::class) {
         where(table.parent.isNull())
         select(table.fetchBy {
             allScalarFields()

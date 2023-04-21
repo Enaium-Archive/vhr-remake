@@ -54,4 +54,17 @@ interface MenuRepository : KRepository<Menu, Int> {
             })
         }.execute()
     }
+
+    fun findTree(): List<Menu> = sql.createQuery(Menu::class) {
+        where(table.parent.isNull())
+        select(table.fetchBy {
+            allScalarFields()
+            children({ recursive() }) {
+                allScalarFields()
+            }
+            parent {
+                allScalarFields()
+            }
+        })
+    }.execute()
 }
