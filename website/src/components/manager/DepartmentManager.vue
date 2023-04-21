@@ -93,7 +93,7 @@ const enter = (data: IDepartment) => {
           </div>
         </div>
         <div class="d-flex w-100" v-else>
-          <ElInput v-model="data.name" size="small" @keydown.enter="enter(data)" />
+          <ElInput placeholder="按下回车完成输入" v-model="data.name" size="small" @keydown.enter="enter(data)" />
           <ElButton @click="enter(data)" size="small" type="primary">完成</ElButton>
         </div>
       </template>
