@@ -60,9 +60,8 @@ class DepartmentController(
     }
 
     @PutMapping
-    fun put(@RequestBody department: DepartmentInput): Result<Nothing?> {
-        departmentRepository.save(department)
-        return Result.Builder.success()
+    fun put(@RequestBody department: DepartmentInput): Result<Int?> {
+        return Result.Builder.success(metadata = departmentRepository.save(department).id)
     }
 
     @DeleteMapping("/{id}")

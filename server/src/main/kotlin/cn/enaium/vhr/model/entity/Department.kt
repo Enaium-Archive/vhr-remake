@@ -21,6 +21,8 @@ interface Department {
      *  部门名称 */
     val name: String
 
+    val parentId: Int?
+
     @ManyToOne
     val parent: Department?
 
@@ -29,16 +31,6 @@ interface Department {
      */
     @OneToMany(mappedBy = "parent", orderedProps = [OrderedProp("name")])
     val children: List<Department>
-
-    /**
-     *  hasParent
-     */
-    val hasParent: Boolean?
-
-    /**
-     *  depPath
-     */
-    val depPath: String?
 
     /**
      *  enabled

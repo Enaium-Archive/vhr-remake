@@ -16,15 +16,13 @@
 
 <script setup lang="ts">
 import { Search } from "@element-plus/icons-vue"
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { IDepartment } from "@/model"
-import { del, get } from "@/util/reuqest";
-import { ElMessage, ElMessageBox, ElTree } from "element-plus";
+import { del, get, put } from "@/util/reuqest"
+import { ElMessage, ElMessageBox, ElTree } from "element-plus"
+import Node from "element-plus/es/components/tree/src/model/node"
 
 const filterText = ref()
-const departmentDialog = ref(false)
-const superior = ref("")
-const department = ref<IDepartment>({})
 const departments = ref<IDepartment[]>()
 
 const initDepartment = () => {
@@ -42,7 +40,10 @@ const filterNode = (value: string, data: IDepartment) => {
   return data.name?.indexOf(value) !== -1
 }
 
-const add = (data: IDepartment) => {}
+const add = (data: IDepartment, node: Node) => {
+  data.children?.push({ parentId: data.id })
+  node.expanded = true
+}
 const remove = (data: IDepartment) => {
   if (data.parent) {
     ElMessage({ type: "error", message: "父部门删除失败" })
@@ -67,6 +68,16 @@ const remove = (data: IDepartment) => {
       })
   }
 }
+
+watch(filterText, (o) => {
+  treeRef.value?.filter(o)
+})
+
+const enter = (data: IDepartment) => {
+  put<number>("/system/department", data).then((r) => {
+    data.id = r.metadata
+  })
+}
 </script>
 
 <template>
@@ -75,39 +86,28 @@ const remove = (data: IDepartment) => {
     <ElTree
       ref="treeRef"
       :data="departments"
+      node-key="id"
       :expand-on-click-node="false"
       :filter-node-method="filterNode"
       v-if="departments"
     >
-      <template #default="{ node, data }" class="d-flex justify-content-between w-100">
-        <div>{{ data.name }}</div>
-        <div>
-          <ElButton type="primary" size="small" @click="add(data)">添加部门</ElButton>
-          <ElButton type="danger" size="small" @click="remove(data)">删除部门</ElButton>
+      <template #default="{ node, data }">
+        <div class="d-flex justify-content-between w-100" v-if="data.id">
+          <div>
+            {{ data.name }}
+          </div>
+          <div>
+            <ElButton type="primary" size="small" @click="add(data, node)">添加部门</ElButton>
+            <ElButton type="danger" size="small" @click="remove(data)">删除部门</ElButton>
+          </div>
+        </div>
+        <div class="d-flex w-100" v-else>
+          <ElInput v-model="data.name" size="small" @keydown.enter="enter(data)" />
+          <ElButton @click="enter(data)" size="small" type="primary">完成</ElButton>
         </div>
       </template>
     </ElTree>
   </div>
-  <ElDialog v-model="departmentDialog">
-    <div>
-      <table>
-        <tr>
-          <td>
-            <el-tag>上级部门</el-tag>
-          </td>
-          <td>{{ superior }}</td>
-        </tr>
-        <tr>
-          <td>
-            <el-tag>部门名称</el-tag>
-          </td>
-          <td>
-            <el-input v-model="department.name" placeholder="请输入部门名称..."></el-input>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </ElDialog>
 </template>
 
 <style scoped></style>

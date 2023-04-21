@@ -33,13 +33,8 @@ data class DepartmentInput(
 
     val parentId: Int?,
 
-    val depPath: String?,
-
     val enabled: Boolean?,
-
-    val isParent: Int?,
-
-    ) : Input<Department> {
+) : Input<Department> {
 
     override fun toEntity(): Department {
         return CONVERTER.toDepartment(this);
