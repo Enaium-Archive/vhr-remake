@@ -1023,7 +1023,7 @@ CREATE TABLE `joblevel` (
   `create_date` timestamp NULL DEFAULT current_timestamp(),
   `enabled` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1190,31 +1190,37 @@ INSERT INTO `menu_role` VALUES
 (10,2),
 (12,2),
 (13,2),
-(7,1),
-(8,1),
-(9,1),
-(10,1),
-(11,1),
-(12,1),
-(13,1),
-(14,1),
-(15,1),
-(16,1),
-(17,1),
-(18,1),
-(19,1),
-(20,1),
-(21,1),
-(22,1),
-(23,1),
-(24,1),
-(25,1),
-(26,1),
-(27,1),
-(28,1),
 (7,14),
 (8,14),
-(9,14);
+(9,14),
+(1,1),
+(3,1),
+(11,1),
+(10,1),
+(13,1),
+(12,1),
+(9,1),
+(2,1),
+(7,1),
+(8,1),
+(6,1),
+(28,1),
+(23,1),
+(27,1),
+(26,1),
+(25,1),
+(24,1),
+(5,1),
+(21,1),
+(22,1),
+(20,1),
+(19,1),
+(4,1),
+(15,1),
+(18,1),
+(16,1),
+(14,1),
+(17,1);
 /*!40000 ALTER TABLE `menu_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1567,4 +1573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-21 14:13:05
+-- Dump completed on 2023-04-21 20:47:06
