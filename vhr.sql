@@ -87,7 +87,7 @@ CREATE TABLE `department` (
   `parent_id` int(11) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -951,7 +951,7 @@ CREATE TABLE `hr` (
   `userface` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -993,7 +993,6 @@ CREATE TABLE `hr_role` (
 LOCK TABLES `hr_role` WRITE;
 /*!40000 ALTER TABLE `hr_role` DISABLE KEYS */;
 INSERT INTO `hr_role` VALUES
-(3,6),
 (12,4),
 (12,3),
 (12,2),
@@ -1005,7 +1004,8 @@ INSERT INTO `hr_role` VALUES
 (10,4),
 (5,1),
 (5,2),
-(5,3);
+(5,3),
+(3,6);
 /*!40000 ALTER TABLE `hr_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1220,7 +1220,13 @@ INSERT INTO `menu_role` VALUES
 (18,1),
 (16,1),
 (14,1),
-(17,1);
+(17,1),
+(1,6),
+(2,6),
+(3,6),
+(4,6),
+(5,6),
+(6,6);
 /*!40000 ALTER TABLE `menu_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1408,10 +1414,10 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) DEFAULT NULL,
-  `name_zh` varchar(64) DEFAULT NULL COMMENT '角色名称',
+  `name` varchar(64) NOT NULL,
+  `name_zh` varchar(64) NOT NULL COMMENT '角色名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1573,4 +1579,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-21 20:47:06
+-- Dump completed on 2023-04-22 22:38:32
