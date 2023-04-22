@@ -17,6 +17,10 @@
 package cn.enaium.vhr.configuration
 
 import cn.dev33.satoken.interceptor.SaInterceptor
+import cn.dev33.satoken.router.SaRouter
+import cn.dev33.satoken.stp.StpInterface
+import cn.dev33.satoken.stp.StpUtil
+import cn.enaium.vhr.repository.HrRepository
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
@@ -26,10 +30,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @author Enaium
  */
 @Configuration
-class SaTokenConfiguration : WebMvcConfigurer {
+class SaTokenConfiguration(
+    val hrRepository: HrRepository
+) : WebMvcConfigurer, StpInterface {
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(SaInterceptor {
-            
-        }).addPathPatterns("/**").excludePathPatterns("/state/**")
+            SaRouter.match("/**").notMatchMethod("OPTIONS").check { r ->
+                StpUtil.checkLogin()
+            }
+        }).addPathPatterns("/**")
+    }
+
+    override fun getPermissionList(loginId: Any, loginType: String): List<String> {
+        return emptyList()
+    }
+
+    override fun getRoleList(loginId: Any, loginType: String): List<String> {
+        hrRepository.findNullable(loginId as Int)?.let { hr ->
+            return hr.roles.map { it.name }
+        } ?: let { return emptyList() }
     }
 }

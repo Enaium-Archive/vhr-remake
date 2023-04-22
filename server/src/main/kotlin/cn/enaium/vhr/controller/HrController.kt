@@ -16,6 +16,7 @@
 
 package cn.enaium.vhr.controller
 
+import cn.dev33.satoken.annotation.SaIgnore
 import cn.dev33.satoken.secure.BCrypt
 import cn.enaium.vhr.model.entity.Hr
 import cn.enaium.vhr.model.entity.Menu
@@ -78,6 +79,7 @@ class HrController(
         return ResponseResult.Builder.success()
     }
 
+    @SaIgnore
     @GetMapping("/{id}/menu")
     fun getMenu(@PathVariable id: Int): ResponseResult<List<Menu>?> {
         return ResponseResult.Builder.success(metadata = menuRepository.findAllByHrId(id))

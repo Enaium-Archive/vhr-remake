@@ -16,6 +16,7 @@
 
 package cn.enaium.vhr.controller
 
+import cn.dev33.satoken.annotation.SaIgnore
 import cn.enaium.vhr.model.response.CaptchaResponse
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.service.CaptchaService
@@ -28,12 +29,13 @@ import java.util.*
 /**
  * @author Enaium
  */
+@SaIgnore
 @RestController
 @RequestMapping("/captcha")
 class CaptchaController(val captchaService: CaptchaService) {
     @GetMapping
     fun get(): ResponseResult<Any?> {
-        val captcha = CaptchaUtil.createShearCaptcha(120, 50, 4, 4)
+        val captcha = CaptchaUtil.createShearCaptcha(150, 50, 4, 4)
         val uuid = UUID.randomUUID()
         captchaService.saveCaptcha(uuid, captcha.code)
         return ResponseResult.Builder.success(metadata = CaptchaResponse(uuid, captcha.imageBase64Data))

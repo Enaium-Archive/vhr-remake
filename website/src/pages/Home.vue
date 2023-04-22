@@ -20,10 +20,9 @@ import { useUserStore } from "@/store"
 import { useRoute } from "vue-router"
 import { ref } from "vue"
 import { IHr } from "@/model"
-import { get } from "@/util/reuqest"
+import { del, get } from "@/util/reuqest"
 
 const route = useRoute()
-
 const userStore = useUserStore()
 
 const handleCommand = (command: string | number | object) => {
@@ -34,9 +33,15 @@ const handleCommand = (command: string | number | object) => {
       type: "warning",
     })
       .then(() => {
-        userStore.token = null
-        userStore.id = null
-        userStore.menus = []
+        del("/state").then((r) => {
+          if (r.code == 200) {
+            userStore.token = null
+            userStore.id = null
+            userStore.menus = []
+            ElMessage({ type: "success", message: "注销成功" })
+            window.$router.push({ path: "/" })
+          }
+        })
       })
       .catch(() => {
         ElMessage({
@@ -55,17 +60,26 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 const hr = ref<IHr>({})
 
-get<IHr>(`/hr/${userStore.id}`).then((r) => {
-  hr.value = r.metadata
-})
+const initInfo = () => {
+  if (userStore.id) {
+    get<IHr>(`/hr/${userStore.id}`).then((r) => {
+      hr.value = r.metadata
+    })
+  }
+}
+
+initInfo()
 </script>
 
 <template>
   <ElContainer class="">
     <ElHeader class="d-flex justify-content-between align-items-center" style="background-color: #409eff">
       <div style="font-size: 30px; color: white">微人事重制版</div>
-      <ElDropdown style="cursor: pointer" @command="handleCommand" >
-        <span class="d-flex align-items-center">{{ hr.name }} <img style="width: 48px" :src="hr.userface" alt="avatar" /></span>
+      <ElDropdown style="cursor: pointer" @command="handleCommand">
+        <span class="d-flex align-items-center">
+          {{ hr.name }}
+          <img style="width: 48px" :src="hr.userface" alt="avatar"
+        /></span>
         <template #dropdown>
           <ElDropdownMenu>
             <ElDropdownItem command="hrinfo">个人中心</ElDropdownItem>
@@ -78,7 +92,12 @@ get<IHr>(`/hr/${userStore.id}`).then((r) => {
     <ElContainer>
       <ElAside width="200px">
         <ElMenu @select="handleSelect" unique-opened>
-          <ElSubMenu :index="menuIndex" v-for="(menu, menuIndex) in userStore.menus[0].children" :key="menuIndex">
+          <ElSubMenu
+            :index="menuIndex"
+            v-for="(menu, menuIndex) in userStore.menus[0].children"
+            :key="menuIndex"
+            v-if="userStore.menus.length"
+          >
             <template #title>
               {{ menu.name }}
             </template>

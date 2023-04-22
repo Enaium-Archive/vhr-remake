@@ -14,10 +14,22 @@
  * limitations under the License.
  */
 
-import { Router, RouteRecordRaw } from "vue-router";
-import { IMenu } from "@/model";
+import { Router, RouteRecordRaw } from "vue-router"
+import { IMenu } from "@/model"
+import { useUserStore } from "@/store"
+import { get } from "@/util/reuqest"
 
 const modules = import.meta.glob("../pages/**/**.vue")
+
+export const initMenu = (router: Router) => {
+  const userStore = useUserStore()
+  if (userStore.menus.length == 0 && userStore.id) {
+    get<IMenu[]>(`/hr/${userStore.id}/menu`).then((r) => {
+      userStore.menus = r.metadata
+    })
+  }
+  formatMenus(router, userStore.menus)
+}
 
 export const formatMenus = (router: Router, menus: IMenu[]) => {
   let fmMenus: RouteRecordRaw[] = []
@@ -51,7 +63,6 @@ export const formatMenus = (router: Router, menus: IMenu[]) => {
     if (menu.path) {
       router.addRoute(route)
     }
-
 
     fmMenus.push(route)
   })

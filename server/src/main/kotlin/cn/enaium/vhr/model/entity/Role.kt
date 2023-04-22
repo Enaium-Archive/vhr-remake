@@ -20,7 +20,7 @@ interface Role {
     /**
      *  name
      */
-    val name: String?
+    val name: String
 
     /**
      *  角色名称 */

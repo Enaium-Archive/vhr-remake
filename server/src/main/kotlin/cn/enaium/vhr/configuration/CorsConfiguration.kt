@@ -18,6 +18,7 @@ package cn.enaium.vhr.configuration
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
 import org.springframework.http.HttpHeaders
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
@@ -27,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @author Enaium
  */
 @Configuration
-class CrosConfiguration : WebMvcConfigurer {
+class CorsConfiguration : WebMvcConfigurer {
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(object : HandlerInterceptor {
             override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {

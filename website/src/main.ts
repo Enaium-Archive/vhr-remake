@@ -23,15 +23,12 @@ import router from "@/router"
 import { createPinia } from "pinia"
 
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate"
-import { useUserStore } from "@/store"
-import { formatMenus } from "@/util/menu";
+import { initMenu } from "@/util/menu"
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 app.use(pinia)
-
-formatMenus(router, useUserStore().menus)
-
+initMenu(router)
 app.use(ElementPlus).use(router).mount("#app")

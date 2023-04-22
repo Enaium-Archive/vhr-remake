@@ -40,8 +40,8 @@ interface MenuRepository : KRepository<Menu, Int> {
                         where(
                             table.enabled eq true,
                             or(
-                                table.asTableEx().`roles?`.isNull(),
-                                table.asTableEx().`roles?`.`hrs?`.id eq hrId
+                                table.asTableEx().roles.isNull(),
+                                table.asTableEx().roles.hrs.id eq hrId
                             )
                         )
                     }

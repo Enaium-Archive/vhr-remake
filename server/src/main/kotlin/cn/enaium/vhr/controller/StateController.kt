@@ -16,6 +16,7 @@
 
 package cn.enaium.vhr.controller
 
+import cn.dev33.satoken.annotation.SaIgnore
 import cn.dev33.satoken.secure.BCrypt
 import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.request.StateRequest
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.*
  * @author Enaium
  * @property hrRepository HR的数据访问
  */
+@SaIgnore
 @RestController
 @RequestMapping("/state")
 class StateController(
