@@ -17,7 +17,6 @@
 package cn.enaium.vhr.controller
 
 import cn.dev33.satoken.secure.BCrypt
-import cn.dev33.satoken.stp.StpUtil
 import cn.enaium.vhr.model.entity.Hr
 import cn.enaium.vhr.model.entity.Menu
 import cn.enaium.vhr.model.entity.by
@@ -25,6 +24,7 @@ import cn.enaium.vhr.model.entity.input.HrInput
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.HrRepository
 import cn.enaium.vhr.repository.MenuRepository
+import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.web.bind.annotation.*
 
@@ -35,7 +35,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/hr")
 class HrController(
     val hrRepository: HrRepository,
-    val menuRepository: MenuRepository
+    val menuRepository: MenuRepository,
+    val sql: KSqlClient
 ) {
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int): ResponseResult<Hr?> {
@@ -45,6 +46,11 @@ class HrController(
                 allScalarFields()
             }
         }))
+    }
+
+    @GetMapping
+    fun get(hrInput: HrInput): ResponseResult<List<Hr>?> {
+        return ResponseResult.Builder.success(metadata = hrRepository.findByHr(hrInput))
     }
 
     @PutMapping
@@ -65,8 +71,24 @@ class HrController(
         return ResponseResult.Builder.success()
     }
 
-    @GetMapping("/menu")
-    fun getMenu(): ResponseResult<List<Menu>?> {
-        return ResponseResult.Builder.success(metadata = menuRepository.findAllByHrId(StpUtil.getLoginIdAsInt()))
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
+        hrRepository.deleteById(id)
+        return ResponseResult.Builder.success()
+    }
+
+    @GetMapping("/{id}/menu")
+    fun getMenu(@PathVariable id: Int): ResponseResult<List<Menu>?> {
+        return ResponseResult.Builder.success(metadata = menuRepository.findAllByHrId(id))
+    }
+
+    @PutMapping("/{id}/roleIds")
+    fun putRoleIds(@PathVariable id: Int, roleIds: Array<Int>): ResponseResult<Nothing?> {
+        val findNullable = hrRepository.findNullable(id, newFetcher(Hr::class).by {
+            roles()
+        }) ?: return ResponseResult.Builder.fail(status = ResponseResult.Status.HR_DOESNT_EXIST)
+        sql.getAssociations(Hr::roles).batchDelete(listOf(id), findNullable.roles.map { it.id })
+        sql.getAssociations(Hr::roles).batchSave(listOf(id), roleIds.toList())
+        return ResponseResult.Builder.success()
     }
 }
