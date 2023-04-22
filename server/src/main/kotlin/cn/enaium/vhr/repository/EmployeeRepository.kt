@@ -55,6 +55,9 @@ interface EmployeeRepository : KRepository<Employee, Int> {
                 pos {
                     allScalarFields()
                 }
+                salary {
+                    allScalarFields()
+                }
             })
         })
     }

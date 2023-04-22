@@ -80,12 +80,12 @@ const remove = (position: IPosition) => {
         <ElTag size="small" type="danger" v-else>未启用</ElTag>
       </template>
     </ElTableColumn>
-    <el-table-column label="操作">
+    <ElTableColumn label="操作">
       <template #default="scope">
-        <el-button size="small" @click="edit(scope.row)">编辑</el-button>
-        <el-button size="small" type="danger" @click="remove(scope.row)">删除</el-button>
+        <ElButton size="small" @click="edit(scope.row)">编辑</ElButton>
+        <ElButton size="small" type="danger" @click="remove(scope.row)">删除</ElButton>
       </template>
-    </el-table-column>
+    </ElTableColumn>
   </ElTable>
   <ElDialog v-model="positionDialog">
     <PositionForm :position="currentPosition" @done="positionDialog = false" />

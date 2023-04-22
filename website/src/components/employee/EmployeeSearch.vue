@@ -114,12 +114,12 @@ get<IDepartment[]>("/employee/department").then((r) => {
         </ElDatePicker>
       </ElCol>
       <ElCol :span="5" :offset="4">
-        <el-button size="small" type="primary" @click="done">
+        <ElButton size="small" type="primary" @click="done">
           <template #icon>
             <Search />
           </template>
           搜索
-        </el-button>
+        </ElButton>
       </ElCol>
     </ElRow>
   </div>

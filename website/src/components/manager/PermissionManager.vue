@@ -20,6 +20,7 @@ import { IRole } from "@/model"
 import { del, get } from "@/util/reuqest"
 import { ElMessage, ElMessageBox } from "element-plus"
 import PermissionEdit from "@/components/PermissionEdit.vue"
+import NewRole from "@/components/role/NewRole.vue"
 
 const roles = ref<IRole[]>()
 const currentRole = ref<IRole>({})
@@ -57,14 +58,15 @@ const edit = (role: IRole) => {
 </script>
 
 <template>
+  <NewRole />
   <ElTable :data="roles">
     <ElTableColumn prop="id" label="编号" />
     <ElTableColumn prop="name" label="名称" />
     <ElTableColumn prop="nameZh" label="中文名称" />
     <ElTableColumn>
       <template #default="scope">
-        <el-button size="small" @click="edit(scope.row)">编辑</el-button>
-        <el-button size="small" type="danger" @click="remove(scope.row)">删除</el-button>
+        <ElButton size="small" @click="edit(scope.row)">编辑</ElButton>
+        <ElButton size="small" type="danger" @click="remove(scope.row)">删除</ElButton>
       </template>
     </ElTableColumn>
   </ElTable>

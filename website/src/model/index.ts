@@ -15,10 +15,10 @@
  */
 
 import { Employee } from "@/model/type/Employee"
+import { JobLevel } from "@/model/type/JobLevel"
 import Wedlock = Employee.Wedlock
 import Degree = Employee.Degree
-import { JobLevel } from "@/model/type/JobLevel";
-import Level = JobLevel.Level;
+import Level = JobLevel.Level
 
 export interface IResult<T> {
   code: number
@@ -27,11 +27,11 @@ export interface IResult<T> {
 }
 
 export interface IPage<T> {
-  content: T[]
-  totalPages: number
-  totalElements: number
-  size: number
-  number: number
+  content?: T[]
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  number?: number
 }
 
 export interface IHr {
@@ -46,6 +46,7 @@ export interface IHr {
   oldPassword?: string
   userface?: string
   remark?: string
+  enabled?: boolean
   roles?: IRole[]
 }
 

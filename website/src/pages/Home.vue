@@ -18,6 +18,9 @@
 import { ElMessage, ElMessageBox } from "element-plus"
 import { useUserStore } from "@/store"
 import { useRoute } from "vue-router"
+import { ref } from "vue"
+import { IHr } from "@/model"
+import { get } from "@/util/reuqest"
 
 const route = useRoute()
 
@@ -49,14 +52,20 @@ const handleCommand = (command: string | number | object) => {
 const handleSelect = (key: string, keyPath: string[]) => {
   window.$router.push({ path: key })
 }
+
+const hr = ref<IHr>({})
+
+get<IHr>(`/hr/${userStore.id}`).then((r) => {
+  hr.value = r.metadata
+})
 </script>
 
 <template>
   <ElContainer class="">
     <ElHeader class="d-flex justify-content-between align-items-center" style="background-color: #409eff">
       <div style="font-size: 30px; color: white">微人事重制版</div>
-      <ElDropdown style="cursor: pointer" @command="handleCommand">
-        <span class="d-flex align-items-center">123</span>
+      <ElDropdown style="cursor: pointer" @command="handleCommand" >
+        <span class="d-flex align-items-center">{{ hr.name }} <img style="width: 48px" :src="hr.userface" alt="avatar" /></span>
         <template #dropdown>
           <ElDropdownMenu>
             <ElDropdownItem command="hrinfo">个人中心</ElDropdownItem>
@@ -69,11 +78,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
     <ElContainer>
       <ElAside width="200px">
         <ElMenu @select="handleSelect" unique-opened>
-          <ElSubMenu
-            :index="menuIndex"
-            v-for="(menu, menuIndex) in userStore.menus[0].children"
-            :key="menuIndex"
-          >
+          <ElSubMenu :index="menuIndex" v-for="(menu, menuIndex) in userStore.menus[0].children" :key="menuIndex">
             <template #title>
               {{ menu.name }}
             </template>

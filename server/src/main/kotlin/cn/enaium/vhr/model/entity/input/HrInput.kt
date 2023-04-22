@@ -50,12 +50,10 @@ data class HrInput(
     val address: String?,
 
     val enabled: Boolean?,
-
     /**
      * 用户名
      */
     val username: String?,
-
     /**
      * 密码
      */

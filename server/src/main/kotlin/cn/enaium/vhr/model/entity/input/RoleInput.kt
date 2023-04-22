@@ -24,16 +24,15 @@ import org.mapstruct.ReportingPolicy
 import org.mapstruct.factory.Mappers
 
 data class RoleInput(
-    val id: Int?,
+    val id: Int,
 
-    val name: String?,
+    var name: String,
 
     /**
      * 角色名称
      */
-    val nameZh: String?,
-
-    ) : Input<Role> {
+    val nameZh: String,
+) : Input<Role> {
 
     override fun toEntity(): Role {
         return CONVERTER.toRole(this);

@@ -29,6 +29,7 @@ import cn.enaium.vhr.string2Excel
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.babyfish.jimmer.kt.new
+import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -50,7 +51,8 @@ class EmployeeController(
     val politicRepository: PoliticRepository,
     val jobLevelRepository: JobLevelRepository,
     val positionRepository: PositionRepository,
-    val departmentRepository: DepartmentRepository
+    val departmentRepository: DepartmentRepository,
+    val sql: KSqlClient
 ) {
     @GetMapping
     fun get(
@@ -104,6 +106,21 @@ class EmployeeController(
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ResponseResult<Nothing?> {
         employeeRepository.deleteById(id)
+        return ResponseResult.Builder.success()
+    }
+
+    @PutMapping("/{id}/salary")
+    fun putSalary(@PathVariable id: Int, @RequestParam salary: Int?): ResponseResult<Nothing?> {
+        val findNullable = employeeRepository.findNullable(id, newFetcher(Employee::class).by {
+            salary()
+        }) ?: return ResponseResult.Builder.fail(status = ResponseResult.Status.EMPLOYEE_DOESNT_EXIST)
+        val associations = sql.getAssociations(Employee::salary)
+        findNullable.salary?.let {
+            associations.delete(id, it.id)
+        }
+        salary?.let {
+            associations.save(id, it)
+        }
         return ResponseResult.Builder.success()
     }
 

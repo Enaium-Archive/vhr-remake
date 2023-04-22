@@ -94,22 +94,22 @@ const addEmployee = () => {
       style="display: inline-flex; margin-right: 8px"
       :http-request="upload"
     >
-      <el-button :disabled="importDataDisabled" type="success" :icon="importDataBtnIcon">
+      <ElButton :disabled="importDataDisabled" type="success" :icon="importDataBtnIcon">
         {{ importDataBtnText }}
-      </el-button>
+      </ElButton>
     </ElUpload>
-    <el-button type="success" @click="exportData">
+    <ElButton type="success" @click="exportData">
       <template #icon>
         <Download />
       </template>
       导出数据
-    </el-button>
-    <el-button type="primary" @click="addEmployee">
+    </ElButton>
+    <ElButton type="primary" @click="addEmployee">
       <template #icon>
         <Plus />
       </template>
       添加员工
-    </el-button>
+    </ElButton>
   </div>
   <ElDialog v-model="showEditEmployee">
     <EmployeeEdit :employee="employee" />

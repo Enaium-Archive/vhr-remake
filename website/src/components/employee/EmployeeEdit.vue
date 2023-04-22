@@ -364,9 +364,9 @@ const submit = (formEl: FormInstance | undefined) => {
         </ElFormItem>
       </ElCol>
     </ElRow>
-    <el-form-item>
-      <el-button type="primary" @click="submit(formRef)">提交</el-button>
-    </el-form-item>
+    <ElFormItem>
+      <ElButton type="primary" @click="submit(formRef)">提交</ElButton>
+    </ElFormItem>
   </ElForm>
 </template>
 

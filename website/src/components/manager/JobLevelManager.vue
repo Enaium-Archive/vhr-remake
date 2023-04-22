@@ -83,16 +83,16 @@ const remove = (jobLevel: IJobLevel) => {
     <ElTableColumn prop="createDate" label="创建时间" />
     <ElTableColumn label="是否启用">
       <template #default="scope">
-        <el-tag type="success" v-if="scope.row.enabled">已启用</el-tag>
-        <el-tag type="danger" v-else>未启用</el-tag>
+        <ElTag type="success" v-if="scope.row.enabled">已启用</ElTag>
+        <ElTag type="danger" v-else>未启用</ElTag>
       </template>
     </ElTableColumn>
-    <el-table-column label="操作">
+    <ElTableColumn label="操作">
       <template #default="scope">
-        <el-button size="small" @click="edit(scope.row)">编辑</el-button>
-        <el-button size="small" type="danger" @click="remove(scope.row)">删除</el-button>
+        <ElButton size="small" @click="edit(scope.row)">编辑</ElButton>
+        <ElButton size="small" type="danger" @click="remove(scope.row)">删除</ElButton>
       </template>
-    </el-table-column>
+    </ElTableColumn>
   </ElTable>
   <ElDialog v-model="jobLevelDialog">
     <JobLevelForm :job-level="currentJobLevel" @done="jobLevelDialog = false" />

@@ -42,6 +42,7 @@ class HrController(
     fun get(@PathVariable id: Int): ResponseResult<Hr?> {
         return ResponseResult.Builder.success(metadata = hrRepository.findNullable(id, newFetcher(Hr::class).by {
             allScalarFields()
+            password(false)
             roles {
                 allScalarFields()
             }

@@ -71,6 +71,9 @@ interface Salary {
      */
     val name: String?
 
-    @ManyToMany(mappedBy = "salaries")
+    /**
+     * 一对多
+     */
+    @OneToMany(mappedBy = "salary")
     val employees: List<Employee>
 }

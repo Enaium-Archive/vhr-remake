@@ -22,6 +22,7 @@ val mapstruct: String by project
 val hutool: String by project
 val satoken: String by project
 val poi: String by project
+val springdoc: String by project
 
 dependencies {
     implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:$jimmer")
@@ -37,6 +38,8 @@ dependencies {
     implementation("org.apache.poi:poi:$poi")
 
     implementation("cn.hutool:hutool-captcha:$hutool")
+
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdoc")
 
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-cache")

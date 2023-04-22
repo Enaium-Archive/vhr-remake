@@ -17,10 +17,10 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { IHr } from "@/model"
-import { del, get } from "@/util/reuqest"
+import { del, get, put } from "@/util/reuqest"
 import { Delete, Edit } from "@element-plus/icons-vue"
 import { ElMessage, ElMessageBox } from "element-plus"
-import RoleEdit from "@/components/RoleEdit.vue"
+import RoleEdit from "@/components/role/RoleEdit.vue"
 
 const hrs = ref<IHr[]>()
 const currentHr = ref<IHr>({})
@@ -58,6 +58,14 @@ const editRole = (hr: IHr) => {
   currentHr.value = hr
   roleDialog.value = true
 }
+
+const enabledChange = (hr: IHr) => {
+  put("/hr", hr).then((r) => {
+    if (r.code == 200) {
+      ElMessage({ type: "success", message: "更新成功" })
+    }
+  })
+}
 </script>
 
 <template>
@@ -86,8 +94,9 @@ const editRole = (hr: IHr) => {
         <div>地址：{{ hr.address }}</div>
         <div>
           用户状态：
-          <el-switch
+          <ElSwitch
             v-model="hr.enabled"
+            @change="enabledChange(hr)"
             active-text="启用"
             active-color="#13ce66"
             inactive-color="#ff4949"

@@ -22,7 +22,7 @@ import { Employee } from "@/model/type/Employee"
 import EmployeeEdit from "@/components/employee/EmployeeEdit.vue"
 import { ElMessage, ElMessageBox } from "element-plus"
 import EmployeeIO from "@/components/employee/EmployeeIO.vue"
-import { Search } from "@element-plus/icons-vue"
+import { Loading, Search } from "@element-plus/icons-vue";
 import EmployeeSearch from "@/components/employee/EmployeeSearch.vue"
 
 const wedlockParse = Employee.wedlockParse
@@ -30,7 +30,7 @@ const degreeParse = Employee.degreeParse
 
 const loading = ref(false)
 
-const employees = ref<IPage<IEmployee>>()
+const employees = ref<IPage<IEmployee>>({})
 const keyword = ref<string>()
 const currentEditEmployee = ref<IEmployee>({})
 const currentSearchEmployee = ref<IEmployee>({})
@@ -38,7 +38,6 @@ const showEditEmployee = ref(false)
 const showAdvanceSearchView = ref(false)
 const page = ref(1)
 const size = ref(10)
-
 const initEmployee = () => {
   loading.value = true
   let url = `/employee?page=${page.value - 1}&size=${size.value}`
@@ -159,11 +158,11 @@ const handleCurrentChange = (val: number) => {
       :data="employees.content"
       stripe
       border
+      v-loading="loading"
       element-loading-text="正在加载..."
-      element-loading-spinner="el-icon-loading"
+      :element-loading-spinner="Loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
       style="width: 100%"
-      v-if="employees"
     >
       <ElTableColumn type="selection" width="55" />
       <ElTableColumn prop="name" fixed align="left" label="姓名" width="90" />
@@ -199,15 +198,15 @@ const handleCurrentChange = (val: number) => {
       <ElTableColumn prop="endContract" width="95" align="left" label="合同截止日期" />
       <ElTableColumn width="100" align="left" label="合同期限">
         <template #default="scope">
-          <el-tag>{{ scope.row.contractTerm }}</el-tag>
+          <ElTag>{{ scope.row.contractTerm }}</ElTag>
           年
         </template>
       </ElTableColumn>
       <ElTableColumn fixed="right" width="200" label="操作">
         <template #default="scope">
-          <el-button style="padding: 3px" size="small" @click="editEmployee(scope.row)">编辑</el-button>
-          <el-button style="padding: 3px" size="small" type="primary">查看高级资料</el-button>
-          <el-button style="padding: 3px" size="small" type="danger" @click="deleteEmployee(scope.row)">删除</el-button>
+          <ElButton style="padding: 3px" size="small" @click="editEmployee(scope.row)">编辑</ElButton>
+          <ElButton style="padding: 3px" size="small" type="primary">查看高级资料</ElButton>
+          <ElButton style="padding: 3px" size="small" type="danger" @click="deleteEmployee(scope.row)">删除</ElButton>
         </template>
       </ElTableColumn>
     </ElTable>
@@ -215,7 +214,7 @@ const handleCurrentChange = (val: number) => {
       <ElPagination
         background
         layout="sizes, prev, pager, next, jumper, ->, total, slot"
-        :total="employees?.totalElements"
+        :total="employees.totalElements"
         @currentChange="handleCurrentChange"
         @sizeChange="handleSizeChange"
       />

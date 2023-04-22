@@ -21,6 +21,7 @@ import cn.enaium.vhr.model.entity.by
 import cn.enaium.vhr.model.entity.input.RoleInput
 import cn.enaium.vhr.model.result.ResponseResult
 import cn.enaium.vhr.repository.RoleRepository
+import org.babyfish.jimmer.sql.ast.mutation.SaveMode
 import org.babyfish.jimmer.sql.kt.KSqlClient
 import org.babyfish.jimmer.sql.kt.fetcher.newFetcher
 import org.springframework.web.bind.annotation.*
@@ -41,7 +42,12 @@ class RoleController(
 
     @PutMapping
     fun put(@RequestBody roleInput: RoleInput): ResponseResult<Nothing?> {
-        roleRepository.save(roleInput)
+        if (!roleInput.name.startsWith("ROLE_")) {
+            roleInput.name = "ROLE_${roleInput.name}"
+        }
+        roleRepository.save(roleInput) {
+            setMode(SaveMode.INSERT_ONLY)
+        }
         return ResponseResult.Builder.success()
     }
 

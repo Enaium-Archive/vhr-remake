@@ -54,6 +54,7 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     EmployeeEdit: typeof import('./src/components/employee/EmployeeEdit.vue')['default']
@@ -63,6 +64,7 @@ declare module '@vue/runtime-core' {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     JobLevelForm: typeof import('./src/components/JobLevelForm.vue')['default']
     JobLevelManager: typeof import('./src/components/manager/JobLevelManager.vue')['default']
+    NewRole: typeof import('./src/components/role/NewRole.vue')['default']
     Permission: typeof import('./src/components/Permission.vue')['default']
     PermissionEdit: typeof import('./src/components/PermissionEdit.vue')['default']
     PermissionItem: typeof import('./src/components/PermissionItem.vue')['default']
@@ -71,10 +73,11 @@ declare module '@vue/runtime-core' {
     Position: typeof import('./src/components/Position.vue')['default']
     PositionForm: typeof import('./src/components/PositionForm.vue')['default']
     PositionManager: typeof import('./src/components/manager/PositionManager.vue')['default']
-    RoleEdit: typeof import('./src/components/RoleEdit.vue')['default']
+    RoleEdit: typeof import('./src/components/role/RoleEdit.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SalaryForm: typeof import('./src/components/salary/SalaryForm.vue')['default']
+    SalSobEdit: typeof import('./src/components/salary/SalSobEdit.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

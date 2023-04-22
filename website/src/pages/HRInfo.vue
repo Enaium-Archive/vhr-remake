@@ -161,8 +161,8 @@ const updatePassword = (formEl: FormInstance | undefined) => {
       </ElForm>
 
       <template #footer>
-        <el-button @click="visibleEditInfo = false">取消</el-button>
-        <el-button type="primary" @click="update">确定</el-button>
+        <ElButton @click="visibleEditInfo = false">取消</ElButton>
+        <ElButton type="primary" @click="update">确定</ElButton>
       </template>
     </ElDialog>
 
@@ -180,8 +180,8 @@ const updatePassword = (formEl: FormInstance | undefined) => {
       </ElForm>
 
       <template #footer>
-        <el-button @click="visibleEditPassword = false">取消</el-button>
-        <el-button type="primary" @click="updatePassword(infoRef)">确定</el-button>
+        <ElButton @click="visibleEditPassword = false">取消</ElButton>
+        <ElButton type="primary" @click="updatePassword(infoRef)">确定</ElButton>
       </template>
     </ElDialog>
   </div>
