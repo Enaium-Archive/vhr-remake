@@ -81,7 +81,7 @@ class EmployeeController(
     }
 
     @GetMapping("/jobLevel")
-    fun joblevel(): ResponseResult<List<JobLevel>?> {
+    fun jobLevel(): ResponseResult<List<JobLevel>?> {
         return ResponseResult.Builder.success(metadata = jobLevelRepository.findAll())
     }
 

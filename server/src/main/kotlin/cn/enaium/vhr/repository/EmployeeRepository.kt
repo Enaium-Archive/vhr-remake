@@ -5,7 +5,7 @@ import cn.enaium.vhr.model.entity.input.EmployeeInput
 import org.babyfish.jimmer.spring.repository.KRepository
 import org.babyfish.jimmer.sql.kt.ast.expression.between
 import org.babyfish.jimmer.sql.kt.ast.expression.eq
-import org.babyfish.jimmer.sql.kt.ast.expression.like
+import org.babyfish.jimmer.sql.kt.ast.expression.ilike
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
@@ -23,13 +23,13 @@ interface EmployeeRepository : KRepository<Employee, Int> {
     ): Page<Employee> {
         return pager(pageable).execute(sql.createQuery(Employee::class) {
             employee?.let { employee ->
-                employee.politicId.takeIf { it != null }?.let { where(table.politicId eq it) }
-                employee.nationId.takeIf { it != null }?.let { where(table.nationId eq it) }
-                employee.jobLevelId.takeIf { it != null }?.let { where(table.jobLevelId eq it) }
-                employee.posId.takeIf { it != null }?.let { where(table.posId eq it) }
-                employee.engageFrom.takeIf { it != null }?.let { where(table.engageFrom eq it) }
-                employee.departmentId.takeIf { it != null }?.let { where(table.departmentId eq it) }
-                employee.name.takeIf { it != null }?.let { where(table.name like it) }
+                employee.politicId?.let { where(table.politicId eq it) }
+                employee.nationId?.let { where(table.nationId eq it) }
+                employee.jobLevelId?.let { where(table.jobLevelId eq it) }
+                employee.posId?.let { where(table.posId eq it) }
+                employee.engageFrom?.let { where(table.engageFrom eq it) }
+                employee.departmentId?.let { where(table.departmentId eq it) }
+                employee.name?.takeIf { it.isNotEmpty() }?.let { where(table.name ilike it) }
             }
             beginDateScope?.let { beginDateScope ->
                 beginDateScope.takeIf { it.size == 2 }?.let {

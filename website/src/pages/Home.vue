@@ -33,6 +33,7 @@ const handleCommand = (command: string | number | object) => {
       .then(() => {
         userStore.token = null
         userStore.id = null
+        userStore.menus = []
       })
       .catch(() => {
         ElMessage({
