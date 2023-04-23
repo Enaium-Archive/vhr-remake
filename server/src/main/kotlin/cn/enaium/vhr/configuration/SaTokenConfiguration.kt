@@ -35,9 +35,11 @@ class SaTokenConfiguration(
 ) : WebMvcConfigurer, StpInterface {
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(SaInterceptor {
-            SaRouter.match("/**").notMatchMethod("OPTIONS").check { r ->
-                StpUtil.checkLogin()
-            }
+            SaRouter.match("/**")
+                .notMatch("/swagger-ui/**", "/v3/api-docs/**")
+                .notMatchMethod("OPTIONS").check { r ->
+                    StpUtil.checkLogin()
+                }
         }).addPathPatterns("/**")
     }
 
