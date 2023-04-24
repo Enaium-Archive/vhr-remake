@@ -23,6 +23,7 @@ val hutool: String by project
 val satoken: String by project
 val poi: String by project
 val springdoc: String by project
+val therapi: String by project
 
 dependencies {
     implementation("org.babyfish.jimmer:jimmer-spring-boot-starter:$jimmer")
@@ -40,6 +41,8 @@ dependencies {
     implementation("cn.hutool:hutool-captcha:$hutool")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdoc")
+    implementation("com.github.therapi:therapi-runtime-javadoc:$therapi")
+    implementation("com.github.therapi:therapi-runtime-javadoc-scribe:$therapi")
 
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("org.springframework.boot:spring-boot-starter-cache")
